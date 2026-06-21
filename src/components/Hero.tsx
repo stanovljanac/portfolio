@@ -48,26 +48,27 @@ export function Hero() {
       <div className="hero__inner">
         <Reveal style={{ display: "inline-flex" }}>
           <Badge variant="gold" dot>
-            Solo AI developer
+            Independent developer
           </Badge>
         </Reveal>
 
         <Reveal as="h1" delay={60} className="hero__title">
-          Building software that solves
+          Websites, Web Apps &amp; SaaS Products,
           <br />
-          <span className="accent">real</span> problems.
+          built <span className="accent">end to end</span>.
         </Reveal>
 
         <Reveal as="p" delay={120} className="hero__lede">
-          Building professional web apps and SaaS products — crafted to be fast, reliable and genuinely useful.
+          I'm Mihailo, a solo developer building modern websites, custom web applications and SaaS products. From
+          business websites to AI-powered tools, I turn ideas into software people actually use.
         </Reveal>
 
         <Reveal delay={180} className="hero__cta">
           <Button variant="primary" size="lg" trailingIcon={<ArrowIcon />} onClick={() => scrollToId("projects")}>
-            View products
+            View my work
           </Button>
           <Button variant="secondary" size="lg" onClick={() => scrollToId("contact")}>
-            Contact
+            Start a project
           </Button>
         </Reveal>
 

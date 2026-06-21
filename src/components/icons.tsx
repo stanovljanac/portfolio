@@ -79,6 +79,22 @@ export const PlusIcon = (p: P) => (
   </svg>
 );
 
+export const GlobeIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18" />
+    <ellipse cx="12" cy="12" rx="4" ry="9" />
+  </svg>
+);
+
+export const CodeIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <path d="m9 8-4 4 4 4" />
+    <path d="m15 8 4 4-4 4" />
+    <path d="m13.5 6-3 12" />
+  </svg>
+);
+
 /* Social marks — filled. */
 export const XIcon = (p: P) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...p}>

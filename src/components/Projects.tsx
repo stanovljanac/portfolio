@@ -69,10 +69,10 @@ export function Projects() {
       <div className="container">
         <div className="proj__head">
           <Reveal className="proj__intro">
-            <span className="eyebrow">Products</span>
-            <h2 className="section__title">Things I've built.</h2>
+            <span className="eyebrow">Work</span>
+            <h2 className="section__title">Selected work.</h2>
             <p className="section__lede">
-              A growing collection of products. Each one stands on its own — and shares the MihailoBuilds standard.
+              A selection of websites, web applications and SaaS products I've designed, built and launched.
             </p>
           </Reveal>
           <Reveal className="proj__filters">

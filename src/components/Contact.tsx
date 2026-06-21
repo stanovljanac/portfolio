@@ -73,8 +73,8 @@ export function Contact() {
       <div className="container">
         <Reveal className="contact__intro">
           <span className="eyebrow">Contact</span>
-          <h2 className="section__title">Have something worth building?</h2>
-          <p className="section__lede">Tell me about the problem. If it's a fit, I'll help you ship.</p>
+          <h2 className="section__title">Need a website, web app or SaaS product?</h2>
+          <p className="section__lede">Tell me what you're building and I'll let you know how I can help.</p>
         </Reveal>
 
         <div className="contact__grid">
@@ -132,7 +132,7 @@ export function Contact() {
             <div className="contact__aside-glow" />
             <div className="contact__aside-head">
               <span className="eyebrow">Why reach out</span>
-              <h3>A developer who ships, and stays.</h3>
+              <h3>Work directly with the developer who builds it.</h3>
             </div>
             <div className="contact__points">
               <div className="contact__point">
@@ -145,7 +145,7 @@ export function Contact() {
               </div>
               <div className="contact__point">
                 <CheckIcon />
-                <span>Straight answers, direct from the developer who builds it.</span>
+                <span>No agencies, no middlemen — straight from the developer.</span>
               </div>
             </div>
           </Reveal>

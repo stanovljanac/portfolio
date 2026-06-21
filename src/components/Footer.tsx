@@ -12,7 +12,7 @@ export function Footer() {
         <div className="footer__top">
           <div className="footer__brand">
             <img src="/logo-lockup.svg" alt="MihailoBuilds" />
-            <p>Software products by a solo developer — built to last.</p>
+            <p>Websites, web apps and SaaS products, built end to end by Mihailo Sebek.</p>
           </div>
           <nav className="footer__links" aria-label="Footer">
             {PRODUCT_LINKS.map((l) => (

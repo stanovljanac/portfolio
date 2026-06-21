@@ -13,7 +13,7 @@ export function Nav() {
         </button>
         <div className="nav__links">
           <button className="nav__link" onClick={() => scrollToId("about")}>About</button>
-          <button className="nav__link" onClick={() => scrollToId("projects")}>Products</button>
+          <button className="nav__link" onClick={() => scrollToId("projects")}>Work</button>
           <button className="nav__link" onClick={() => scrollToId("contact")}>Contact</button>
         </div>
         <div className="nav__cta">
