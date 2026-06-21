@@ -1,4 +1,3 @@
-import { ApertureFacets } from "./Aperture";
 import { scrollToId } from "../lib/scroll";
 
 const PRODUCT_LINKS: { label: string; href: string }[] = [
@@ -15,8 +14,7 @@ export function Footer() {
             <img src="/logo-lockup.svg" alt="MihailoBuilds" />
             <p>Software products by a solo developer — built to last.</p>
           </div>
-          <div className="footer__col">
-            <h5>Products</h5>
+          <nav className="footer__links" aria-label="Footer">
             {PRODUCT_LINKS.map((l) => (
               <a key={l.label} className="footer__link" href={l.href} target="_blank" rel="noopener noreferrer">
                 {l.label}
@@ -25,12 +23,11 @@ export function Footer() {
             <button className="footer__link" onClick={() => scrollToId("contact")}>
               Contact
             </button>
-          </div>
+          </nav>
         </div>
 
         <div className="footer__bottom">
           <div className="footer__copy">
-            <ApertureFacets fill="var(--accent)" />
             <span>© 2026 MihailoBuilds. All rights reserved.</span>
           </div>
         </div>

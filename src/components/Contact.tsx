@@ -6,14 +6,11 @@ import { Reveal } from "./Reveal";
 
 /* ------------------------------------------------------------------
    Web3Forms — free, no-backend email delivery for static sites.
-   ONE-TIME SETUP:
-     1. Go to https://web3forms.com and enter mihailo1503001@gmail.com
-     2. Open that inbox and copy the Access Key you're emailed.
-     3. Paste it below, replacing YOUR_WEB3FORMS_ACCESS_KEY.
-   The access key is safe to keep in client-side code — it only ever
-   delivers submissions to the email you registered, nothing else.
+   The access key lives in .env as VITE_WEB3FORMS_ACCESS_KEY. It is
+   safe to expose in client-side code: it only ever delivers
+   submissions to the inbox registered with Web3Forms, nothing else.
 ------------------------------------------------------------------ */
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? "";
 
 type Errors = { name?: string; email?: string; message?: string };
 type Status = "idle" | "submitting" | "success" | "error";
@@ -44,7 +41,7 @@ export function Contact() {
     setErrors({});
     setFormError("");
 
-    if (WEB3FORMS_ACCESS_KEY.startsWith("YOUR_")) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setStatus("error");
       setFormError("The contact form isn't connected yet — add your Web3Forms access key to enable it.");
       return;

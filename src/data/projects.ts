@@ -22,13 +22,12 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     name: "Keeper",
-    category: "Digital product · Photography",
+    category: "Digital Guide · Photo ",
     statusVariant: "success",
     statusLabel: "Live",
-    desc:
-      "A 23-module guide to photographing your partner — the angles, light and timing that turn an ordinary phone photo into one she'll actually want to post.",
+    desc: "A 23-module guide to photographing your partner — the angles, light and timing that turn an ordinary phone photo into one she'll actually want to post.",
     tags: ["Course", "Photography", "Web"],
-    kinds: [],
+    kinds: ["Web"],
     cover: "linear-gradient(135deg,#FDDAA8 0%,#FDC67E 45%,#EB8A57 100%)",
     markGold: false,
     wmColor: "#000000",
@@ -43,7 +42,7 @@ export const PROJECTS: Project[] = [
     statusLabel: "Live",
     desc: "Professional invoices in seconds — tax handling and instant PDF export.",
     tags: ["SaaS", "Stripe", "Automation"],
-    kinds: ["Automation"],
+    kinds: ["SaaS", "Web", "Automation"],
     cover: "linear-gradient(150deg,#16161A 0%,#232328 60%,#2D2D33 100%)",
     markGold: true,
     wmColor: "#FDC67E",
@@ -58,7 +57,7 @@ export const PROJECTS: Project[] = [
     statusLabel: "In build",
     desc: "Plain-language analytics — ask questions about your product and get answers, not dashboards.",
     tags: ["AI", "Charts", "TypeScript"],
-    kinds: ["AI"],
+    kinds: ["SaaS", "Web"],
     cover: "linear-gradient(150deg,#1B1714 0%,#2A2018 55%,#3A2A18 100%)",
     markGold: true,
     wmColor: "#FDC67E",
@@ -66,5 +65,5 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const FILTERS = ["All", "SaaS", "AI", "Automation"] as const;
+export const FILTERS = ["All", "SaaS", "Web", "Automation"] as const;
 export type Filter = (typeof FILTERS)[number];
