@@ -1,0 +1,137 @@
+/* ============================================================
+   MihailoBuilds — Color System
+   Canvas: near-black. Signal: warm gold. Warm-neutral ramp.
+   All semantic aliases reference the base ramp below.
+   ============================================================ */
+
+:root {
+  /* --- Brand primaries --------------------------------------- */
+  --mb-black: #000000;            /* absolute black — logo, pure contrast */
+  --mb-gold: #FDC67E;             /* primary signal — CTAs, marks, accents */
+
+  /* --- Gold ramp (tints/shades of the signal) ---------------- */
+  --gold-50:  #FFF6E9;
+  --gold-100: #FDE9CC;
+  --gold-200: #FDDAA8;
+  --gold-300: #FDC67E;            /* = --mb-gold */
+  --gold-400: #F4B062;
+  --gold-500: #E8974A;            /* hover/active for gold surfaces */
+  --gold-600: #CC7C36;
+  --gold-700: #9E5E27;
+
+  /* --- Supporting 1: Ember (warm secondary) ------------------ */
+  --ember-300: #F3A57A;
+  --ember-400: #EB8A57;
+  --ember-500: #DD6E3C;           /* gradient ends, warm depth */
+  --ember-600: #B85529;
+
+  /* --- Supporting 2: Azure (cool, technical — used sparingly) - */
+  --azure-300: #9DB8F2;
+  --azure-400: #6E94EC;
+  --azure-500: #4F77DE;           /* links/info/data only */
+  --azure-600: #3A5BB8;
+
+  /* --- Warm-neutral ramp (the workhorse) --------------------- */
+  --bone:      #F5EFE3;           /* neutral 1 — warm ivory (light surfaces) */
+  --graphite:  #18181B;           /* neutral 2 — warm graphite */
+
+  --warm-0:   #050506;            /* deepest canvas */
+  --warm-25:  #0A0A0C;
+  --warm-50:  #0F0F12;
+  --warm-100: #161619;
+  --warm-150: #1C1C20;
+  --warm-200: #232328;
+  --warm-300: #2D2D33;
+  --warm-400: #3A3A42;
+  --warm-500: #55555F;
+  --warm-600: #7A7A84;
+  --warm-700: #9C9CA4;
+  --warm-800: #C2C2C7;
+  --warm-900: #E6E5E2;
+  --warm-950: #F7F5F1;            /* warm white */
+
+  /* --- Semantic status --------------------------------------- */
+  --success: #5FBF8E;
+  --success-bg: rgba(95, 191, 142, 0.12);
+  --warning: #F0A45A;
+  --warning-bg: rgba(240, 164, 90, 0.12);
+  --danger: #E5645B;
+  --danger-bg: rgba(229, 100, 91, 0.12);
+  --info: #6E94EC;
+  --info-bg: rgba(110, 148, 236, 0.12);
+
+  /* ===========================================================
+     SEMANTIC ALIASES — author against these, not the ramp.
+     Default theme = dark (the cinematic canvas).
+     =========================================================== */
+
+  /* Backgrounds */
+  --bg-base: var(--warm-0);       /* page canvas */
+  --bg-sunken: #020203;           /* wells, code blocks */
+  --bg-raised: var(--warm-50);    /* sections lifted off canvas */
+
+  /* Surfaces (cards, sheets, popovers) */
+  --surface-1: var(--warm-100);
+  --surface-2: var(--warm-150);
+  --surface-3: var(--warm-200);
+  --surface-hover: var(--warm-200);
+  --surface-active: var(--warm-300);
+  --surface-glass: rgba(20, 20, 24, 0.62);   /* + backdrop-blur */
+
+  /* Text */
+  --text-primary: var(--warm-950);
+  --text-secondary: var(--warm-700);
+  --text-muted: var(--warm-600);
+  --text-faint: var(--warm-500);
+  --text-on-gold: #1A1206;        /* near-black on gold fills */
+  --text-link: var(--gold-300);
+
+  /* Borders / hairlines */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-gold: rgba(253, 198, 126, 0.40);
+
+  /* Accents */
+  --accent: var(--mb-gold);
+  --accent-hover: var(--gold-400);
+  --accent-active: var(--gold-500);
+  --accent-soft: rgba(253, 198, 126, 0.12);
+  --accent-ring: rgba(253, 198, 126, 0.35);
+
+  /* Focus ring */
+  --focus-ring: rgba(253, 198, 126, 0.55);
+}
+
+/* ===========================================================
+   LIGHT THEME — warm bone canvas. Opt-in via .theme-light.
+   Used on login/marketing light sections, docs.
+   =========================================================== */
+.theme-light {
+  --bg-base: var(--bone);
+  --bg-sunken: #EDE6D7;
+  --bg-raised: #FBF7EE;
+
+  --surface-1: #FFFFFF;
+  --surface-2: #FBF7EE;
+  --surface-3: #F4EEE0;
+  --surface-hover: #F4EEE0;
+  --surface-active: #ECE4D2;
+  --surface-glass: rgba(255, 255, 255, 0.66);
+
+  --text-primary: #1A1813;
+  --text-secondary: #57534A;
+  --text-muted: #837D70;
+  --text-faint: #A8A192;
+  --text-link: var(--gold-700);
+
+  --border-subtle: rgba(26, 24, 19, 0.07);
+  --border-default: rgba(26, 24, 19, 0.12);
+  --border-strong: rgba(26, 24, 19, 0.18);
+  --border-gold: rgba(204, 124, 54, 0.45);
+
+  --accent: var(--gold-600);
+  --accent-hover: var(--gold-500);
+  --accent-active: var(--gold-700);
+  --accent-soft: rgba(232, 151, 74, 0.14);
+}
