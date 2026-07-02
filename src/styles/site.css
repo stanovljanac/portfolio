@@ -126,6 +126,7 @@ body { overflow-x: hidden; }
 .hero__floaters { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .hero__floater { position: absolute; }
 .hero__floater--l1 { left: 2%; top: 28%; }
+.hero__floater--l2 { left: 6%; top: 62%; }
 .hero__floater--r1 { right: 2%; top: 21%; }
 .hero__floater--r2 { right: 6%; top: 62%; }
 @media (max-width: 1400px) {

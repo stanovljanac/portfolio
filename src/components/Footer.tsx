@@ -3,6 +3,7 @@ import { scrollToId } from "../lib/scroll";
 const PRODUCT_LINKS: { label: string; href: string }[] = [
   { label: "Keeper", href: "https://keeper.mihailobuilds.com/" },
   { label: "Invoice Generator", href: "https://invoice.mihailobuilds.com/" },
+  { label: "The Automation Desk", href: "https://automationdesk.mihailobuilds.com/" },
 ];
 
 export function Footer() {

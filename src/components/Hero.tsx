@@ -7,6 +7,7 @@ import { scrollToId } from "../lib/scroll";
 const TILES: { name: string; cat: string; gold: boolean }[] = [
   { name: "Keeper", cat: "Photography", gold: false },
   { name: "Invoice Generator", cat: "Automation", gold: true },
+  { name: "The Automation Desk", cat: "Automation", gold: true },
 ];
 
 function Tile({ name, cat, gold, delay }: { name: string; cat: string; gold: boolean; delay: number }) {
@@ -73,7 +74,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={260} className="hero__stat-single">
-          <b>2</b>
+          <b>3</b>
           <span>products shipped</span>
         </Reveal>
       </div>
@@ -82,11 +83,14 @@ export function Hero() {
         <div className="hero__floater hero__floater--l1">
           <Tile {...TILES[0]} delay={0} />
         </div>
+        <div className="hero__floater hero__floater--l2">
+          <Tile {...TILES[2]} delay={-0.8} />
+        </div>
         <div className="hero__floater hero__floater--r1">
           <Tile {...TILES[1]} delay={-1.7} />
         </div>
         <div className="hero__floater hero__floater--r2">
-          <GhostTile delay={-0.8} />
+          <GhostTile delay={-1.2} />
         </div>
       </div>
     </header>
