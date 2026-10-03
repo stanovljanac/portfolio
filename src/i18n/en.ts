@@ -207,7 +207,7 @@ export const en: Dict = {
     errEmail: "Please enter your email address.",
     errEmailInvalid: "Please enter a valid email address.",
     errMessage: "Tell me a little about your project.",
-    errNotConnected: "The form isn't connected yet — please email me directly at {email}.",
+    errNotConnected: "The form isn't connected yet — please contact me directly {email}.",
     errNetwork: "Network error — please try again or contact me directly.",
     errGeneric: "Something went wrong. Please try again.",
     successTitle: "Message sent.",
@@ -218,6 +218,10 @@ export const en: Dict = {
     email: "Email",
     viber: "Viber",
     whatsapp: "WhatsApp",
+    opensEmail: "Opens your email app",
+    opensViber: "Opens Viber",
+    opensWhatsapp: "Opens WhatsApp",
+    emailLink: "by email",
     reply: "I reply within one business day.",
     privacyLead: "I only use the details from this form to reply to you.",
     privacyLink: "Privacy policy",
@@ -238,7 +242,7 @@ export const en: Dict = {
       {
         h: "Who processes your data",
         p: [
-          `The data controller is Mihailo Sebek, Serbia. Contact for any data-related questions: {email}.`,
+          "The data controller is Mihailo Sebek, Serbia. For any data-related questions, contact me {email}.",
           "Processing is governed by the Personal Data Protection Law of the Republic of Serbia.",
         ],
       },
@@ -288,7 +292,7 @@ export const en: Dict = {
         h: "Your rights",
         p: [
           "You have the right to request access to your data, its correction or deletion, restriction of processing, data portability, and to object to processing.",
-          `You can send a request to {email}. You also have the right to lodge a complaint with the Commissioner for Information of Public Importance and Personal Data Protection.`,
+          `You can send a request {email} or through the contact form. You also have the right to lodge a complaint with the Commissioner for Information of Public Importance and Personal Data Protection.`,
         ],
       },
     ],

@@ -1,31 +1,46 @@
 import { Fragment } from "react";
-import { CONTACT, useMounted } from "../data/contact";
+import type { MouseEvent, ReactNode } from "react";
+import { contactHref, type ContactKind } from "../data/contact";
+import { sectionHref, useLocale } from "../i18n";
 
-/* Text written backwards in the HTML and displayed the right way round
-   with CSS (.obf-rev), swapped for the real text after load. Same glyphs,
-   same width — so nothing shifts. */
-export function Obfuscated({ text }: { text: string }) {
-  const mounted = useMounted();
-  if (mounted) return <>{text}</>;
-  return <span className="obf-rev">{[...text].reverse().join("")}</span>;
+/* A link to email / Viber / WhatsApp that shows no address or number.
+   Its href points to the contact form; the real address is set only when
+   the visitor clicks, and the browser then opens the matching app. */
+export function ContactLink({
+  kind,
+  className,
+  children,
+}: {
+  kind: ContactKind;
+  className?: string;
+  children: ReactNode;
+}) {
+  const { locale, page } = useLocale();
+  const reveal = (e: MouseEvent<HTMLAnchorElement>) => {
+    const a = e.currentTarget;
+    a.href = contactHref(kind);
+    if (kind === "whatsapp") {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+  };
+  return (
+    <a href={sectionHref(locale, page, "contact")} className={className} onClick={reveal} onAuxClick={reveal}>
+      {children}
+    </a>
+  );
 }
 
-/* The email address; it becomes a mailto link after load. */
-export function Email() {
-  const mounted = useMounted();
-  if (!mounted) return <Obfuscated text={CONTACT.email} />;
-  return <a href={CONTACT.links.email}>{CONTACT.email}</a>;
-}
-
-/* Renders a dictionary string, replacing every "{email}" with <Email />. */
+/* Renders a dictionary string, replacing every "{email}" with an email link. */
 export function WithEmail({ text }: { text: string }) {
+  const { t } = useLocale();
   const parts = text.split("{email}");
   return (
     <>
       {parts.map((part, i) => (
         <Fragment key={i}>
           {part}
-          {i < parts.length - 1 ? <Email /> : null}
+          {i < parts.length - 1 ? <ContactLink kind="email">{t.contact.emailLink}</ContactLink> : null}
         </Fragment>
       ))}
     </>

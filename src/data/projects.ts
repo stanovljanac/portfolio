@@ -21,10 +21,11 @@ export const PROJECTS: Project[] = [
     name: "MB Hair Salon",
     label: { sr: "Lični projekat · Sajt za frizerski salon", en: "Personal project · Hair salon website" },
     desc: {
-      sr: "Sajt za frizerski salon: usluge i cene, galerija, lokacija i [[način zakazivanja: forma za zahtev termina ili spoljni servis]].",
-      en: "Website for a hair salon: services and prices, gallery, location and [[booking: appointment request form or external service]].",
+      sr: "Sajt za frizerski salon: usluge i cene, galerija, lokacija i tok rezervacije termina (dizajn; u produkciji se povezuje sa servisom za zakazivanje).",
+      en: "Website for a hair salon: services and prices, gallery, location and an appointment booking flow (design concept; in production it connects to a booking service).",
     },
     url: "https://mbhairsalon.mihailobuilds.com/",
+    image: "/projects/mb-hair-salon.png",
     featured: true,
   },
   {

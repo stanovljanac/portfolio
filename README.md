@@ -1,14 +1,17 @@
 # MihailoBuilds — Website
 
-The website for **MihailoBuilds**: websites and landing pages for small businesses. Bilingual (English at `/`, Serbian at `/sr/`), light editorial design, prerendered to static HTML.
+The website for **MihailoBuilds**: websites and landing pages for small businesses. Bilingual (English at `/`, Serbian at `/sr/`), prerendered to static HTML.
+
+> **Temporary:** two visual themes ship side by side for comparison — `/` is **Kobalt**, `/?theme=industrial` is **Industrial** (`src/styles/themes.css`, switch script in each HTML `<head>`). Once one is chosen, delete the other theme, the switch script and the unused fonts.
 
 ## Stack
 
 - **Vite + React + TypeScript**, multi-page build: one real HTML file per page and language
 - **Prerendered**: each page ships its full content in the HTML and React hydrates it (`src/entry-server.tsx` + `scripts/prerender.mjs`)
-- Plain CSS design system: tokens in `src/styles/tokens/` (the site uses `.theme-light`), components in `src/styles/ds.css`, page styles in `src/styles/site.css`
+- Plain CSS design system: base tokens in `src/styles/tokens/`, themes in `src/styles/themes.css` (`.theme-kobalt`, `.theme-industrial`), components in `src/styles/ds.css`, page styles in `src/styles/site.css`
 - Contact form via Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY` in `.env` / Vercel env)
-- Fonts: Geist, Geist Mono, Instrument Serif (Google Fonts)
+- Fonts (Google Fonts): Manrope + JetBrains Mono (Kobalt), Archivo + IBM Plex Mono (Industrial)
+- Logo: MB monogram drawn as SVG shapes in `src/components/Logo.tsx` (colored by the theme); `public/favicon.svg`
 
 ## Develop
 
@@ -34,7 +37,7 @@ Each HTML file holds that page's `<title>`, description, canonical, hreflang and
 
 - **All copy** (both languages): `src/i18n/en.ts`, `src/i18n/sr.ts`
 - **Prices and the special offer** (`open: false` hides it once the three spots are taken): `src/data/pricing.ts`
-- **Email / phone** (Viber, WhatsApp): `src/data/contact.ts` — stored as character codes and shown via `<Email />` / `<Obfuscated />`, so they never appear as readable text in `dist/` (deters simple scrapers; not a security measure). Use `{email}` in dictionary strings to insert the address.
+- **Email / phone** (Viber, WhatsApp): `src/data/contact.ts` — stored as character codes and never shown on the page. `<ContactLink>` (`src/components/Email.tsx`) points to the contact form and gets its real `mailto:` / `viber:` / `wa.me` address only when clicked. This deters scrapers; it is not a security measure. Use `{email}` in dictionary strings for an inline "by email" link.
 - **Projects**: `src/data/projects.ts` — screenshots go in `public/projects/`
 - **Hero phone screenshot**: `SALON_MOBILE_SHOT` in `src/components/Hero.tsx`
 - **Portrait**: `PHOTO` in `src/components/About.tsx`

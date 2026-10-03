@@ -3,8 +3,7 @@ import type { FormEvent } from "react";
 import { Button, Input, Textarea } from "../ds";
 import { ArrowIcon, CheckIcon, MailIcon, MessageIcon } from "./icons";
 import { Reveal } from "./Reveal";
-import { Obfuscated, WithEmail } from "./Email";
-import { CONTACT, useMounted } from "../data/contact";
+import { ContactLink, WithEmail } from "./Email";
 import { PATHS, useLocale } from "../i18n";
 
 /* ------------------------------------------------------------------
@@ -21,7 +20,6 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function Contact() {
   const { locale, t } = useLocale();
   const c = t.contact;
-  const mounted = useMounted();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState("");
@@ -159,37 +157,31 @@ export function Contact() {
             <h3 className="contact__aside-title">{c.directTitle}</h3>
             <ul className="contact__channels">
               <li>
-                <a href={mounted ? CONTACT.links.email : undefined}>
+                <ContactLink kind="email">
                   <MailIcon aria-hidden="true" />
                   <span>
                     <b>{c.email}</b>
-                    <small>
-                      <Obfuscated text={CONTACT.email} />
-                    </small>
+                    <small>{c.opensEmail}</small>
                   </span>
-                </a>
+                </ContactLink>
               </li>
               <li>
-                <a href={mounted ? CONTACT.links.viber : undefined}>
+                <ContactLink kind="viber">
                   <MessageIcon aria-hidden="true" />
                   <span>
                     <b>{c.viber}</b>
-                    <small>
-                      <Obfuscated text={CONTACT.phoneDisplay} />
-                    </small>
+                    <small>{c.opensViber}</small>
                   </span>
-                </a>
+                </ContactLink>
               </li>
               <li>
-                <a href={mounted ? CONTACT.links.whatsapp : undefined} target="_blank" rel="noopener noreferrer">
+                <ContactLink kind="whatsapp">
                   <MessageIcon aria-hidden="true" />
                   <span>
                     <b>{c.whatsapp}</b>
-                    <small>
-                      <Obfuscated text={CONTACT.phoneDisplay} />
-                    </small>
+                    <small>{c.opensWhatsapp}</small>
                   </span>
-                </a>
+                </ContactLink>
               </li>
             </ul>
             <p className="contact__reply">{c.reply}</p>

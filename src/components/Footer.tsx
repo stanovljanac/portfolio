@@ -1,5 +1,6 @@
-import { Email } from "./Email";
+import { ContactLink } from "./Email";
 import { LangSwitch } from "./LangSwitch";
+import { Logo } from "./Logo";
 import { PATHS, sectionHref, useLocale } from "../i18n";
 
 export function Footer() {
@@ -9,7 +10,7 @@ export function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <img src="/logo-lockup-dark.svg" alt="MihailoBuilds" width={198} height={44} />
+          <Logo size={36} />
           <p>{t.footer.tagline}</p>
         </div>
         <nav className="footer__links" aria-label={t.footer.navLabel}>
@@ -21,7 +22,7 @@ export function Footer() {
           <a href={PATHS[locale].privacy}>{t.footer.privacy}</a>
         </nav>
         <div className="footer__meta">
-          <Email />
+          <ContactLink kind="email">{t.contact.email}</ContactLink>
           <LangSwitch />
           <span>{t.footer.copy}</span>
         </div>

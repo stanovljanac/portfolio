@@ -7,5 +7,6 @@
 @import "./tokens/spacing.css";
 @import "./tokens/radius.css";
 @import "./tokens/base.css";
+@import "./themes.css";
 @import "./ds.css";
 @import "./site.css";

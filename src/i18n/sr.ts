@@ -206,7 +206,7 @@ export const sr = {
     errEmail: "Unesite email adresu.",
     errEmailInvalid: "Unesite ispravnu email adresu.",
     errMessage: "Napišite nekoliko reči o projektu.",
-    errNotConnected: "Forma još nije povezana — pišite mi direktno na {email}.",
+    errNotConnected: "Forma još nije povezana — pišite mi direktno {email}.",
     errNetwork: "Greška na mreži — pokušajte ponovo ili mi pišite direktno.",
     errGeneric: "Nešto nije u redu. Pokušajte ponovo.",
     successTitle: "Poruka je poslata.",
@@ -217,6 +217,10 @@ export const sr = {
     email: "Email",
     viber: "Viber",
     whatsapp: "WhatsApp",
+    opensEmail: "Otvara email aplikaciju",
+    opensViber: "Otvara Viber",
+    opensWhatsapp: "Otvara WhatsApp",
+    emailLink: "emailom",
     reply: "Odgovaram u roku od jednog radnog dana.",
     privacyLead: "Podatke iz forme koristim samo da vam odgovorim.",
     privacyLink: "Politika privatnosti",
@@ -237,7 +241,7 @@ export const sr = {
       {
         h: "Ko obrađuje podatke",
         p: [
-          `Rukovalac podacima je Mihailo Sebek, Srbija. Kontakt za sva pitanja o podacima: {email}.`,
+          "Rukovalac podacima je Mihailo Sebek, Srbija. Za sva pitanja o podacima pišite mi {email}.",
           "Na obradu se primenjuje Zakon o zaštiti podataka o ličnosti Republike Srbije.",
         ],
       },
@@ -289,7 +293,7 @@ export const sr = {
         h: "Vaša prava",
         p: [
           "Imate pravo da zatražite pristup svojim podacima, njihovu ispravku ili brisanje, ograničenje obrade, prenosivost podataka i da uložite prigovor na obradu.",
-          `Zahtev možete poslati na {email}. Takođe imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.`,
+          `Zahtev možete poslati {email} ili preko kontakt forme. Takođe imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.`,
         ],
       },
     ],
