@@ -1,58 +1,37 @@
-import type { ReactNode } from "react";
-import { CodeIcon, GlobeIcon, LayersIcon, SparkIcon } from "./icons";
 import { Reveal } from "./Reveal";
+import { useT } from "../i18n";
 
-const CARDS: { icon: ReactNode; title: string; desc: string }[] = [
-  {
-    icon: <GlobeIcon />,
-    title: "Websites",
-    desc: "Fast, modern websites designed to convert visitors into customers.",
-  },
-  {
-    icon: <CodeIcon />,
-    title: "Web Applications",
-    desc: "Custom applications that streamline workflows and solve business problems.",
-  },
-  {
-    icon: <LayersIcon />,
-    title: "SaaS Products",
-    desc: "Subscription-based software built for long-term growth and scalability.",
-  },
-  {
-    icon: <SparkIcon />,
-    title: "AI & Automation",
-    desc: "Practical AI and automation that removes repetitive work and saves time.",
-  },
-];
+/* Path of the portrait photo. Until the file exists, a visible
+   placeholder is rendered instead. */
+const PHOTO: string | undefined = undefined; // e.g. "/mihailo.jpg"
 
 export function About() {
+  const a = useT().about;
   return (
-    <section id="about" className="section">
-      <div className="about__grid">
-        <Reveal className="about__intro">
-          <span className="eyebrow">About</span>
-          <h2 className="section__title">I build my own products — and software for others.</h2>
-          <p className="section__lede">
-            I'm Mihailo, an independent developer focused on websites, web applications and SaaS products.
-          </p>
-          <p className="about__para">
-            Some are products I build and grow myself. Others are built for businesses and founders who need software
-            that works, scales and delivers real value.
-          </p>
-          <p className="about__para">From idea to launch, I handle design, development and deployment myself.</p>
+    <section id="about" className="section section--rule" aria-labelledby="about-title">
+      <div className="container about">
+        <Reveal className="about__photo">
+          {PHOTO ? (
+            <img src={PHOTO} alt={a.photoAlt} width={480} height={600} loading="lazy" />
+          ) : (
+            <div className="shot-placeholder">{a.photoPlaceholder}</div>
+          )}
         </Reveal>
-
-        <div className="about__cards">
-          {CARDS.map((c, i) => (
-            <Reveal key={c.title} delay={i * 70} className="about-card">
-              <div className="about-card__icon">{c.icon}</div>
-              <div>
-                <h4>{c.title}</h4>
-                <p>{c.desc}</p>
-              </div>
-            </Reveal>
+        <Reveal delay={80} className="about__copy">
+          <p className="eyebrow">{a.eyebrow}</p>
+          <h2 id="about-title" className="section__title">
+            {a.title}
+          </h2>
+          {a.paras.map((x) => (
+            <p key={x} className="about__para">
+              {x}
+            </p>
           ))}
-        </div>
+          <div className="qa-card">
+            <h3 className="qa-card__title">{a.qaTitle}</h3>
+            <p className="qa-card__text">{a.qaText}</p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

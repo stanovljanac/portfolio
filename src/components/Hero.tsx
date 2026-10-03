@@ -1,98 +1,46 @@
-import { Badge, Button } from "../ds";
-import { ApertureColor, ApertureSolid } from "./Aperture";
-import { ArrowIcon, PlusIcon } from "./icons";
-import { Reveal } from "./Reveal";
-import { scrollToId } from "../lib/scroll";
+import { Button } from "../ds";
+import { ArrowIcon } from "./icons";
+import { useT } from "../i18n";
 
-const TILES: { name: string; cat: string; gold: boolean }[] = [
-  { name: "Keeper", cat: "Photography", gold: false },
-  { name: "Invoice Generator", cat: "Automation", gold: true },
-  { name: "The Automation Desk", cat: "Automation", gold: true },
-];
+/* Path of the salon's mobile screenshot shown in the phone frame.
+   Until the file exists, a visible placeholder is rendered instead. */
+const SALON_MOBILE_SHOT: string | undefined = undefined; // e.g. "/projects/mb-hair-salon-mobile.png"
 
-function Tile({ name, cat, gold, delay }: { name: string; cat: string; gold: boolean; delay: number }) {
-  return (
-    <div className="hero-tile" style={{ animationDelay: `${delay}s` }}>
-      <span className="hero-tile__mark">{gold ? <ApertureColor /> : <ApertureSolid fill="var(--accent)" />}</span>
-      <span className="hero-tile__text">
-        <b>{name}</b>
-        <small>{cat}</small>
-      </span>
-    </div>
-  );
-}
-
-function GhostTile({ delay }: { delay: number }) {
-  return (
-    <div className="hero-tile hero-tile--ghost" style={{ animationDelay: `${delay}s` }}>
-      <span className="hero-tile__plus">
-        <PlusIcon />
-      </span>
-      <span className="hero-tile__text">
-        <b>More coming</b>
-        <small>The portfolio keeps growing</small>
-      </span>
-    </div>
-  );
-}
-
+/* The hero deliberately does not use <Reveal>: it must be visible in the
+   prerendered HTML immediately, before any JavaScript runs. */
 export function Hero() {
+  const t = useT();
   return (
-    <header id="top" className="hero">
-      <div className="hero__glows" aria-hidden="true">
-        <span className="hero__glow glow-a" />
-        <span className="hero__glow glow-b" />
-        <span className="hero__glow glow-c" />
-      </div>
-      <div className="hero__grid" aria-hidden="true" />
-
-      <div className="hero__inner">
-        <Reveal style={{ display: "inline-flex" }}>
-          <Badge variant="gold" dot>
-            Independent developer
-          </Badge>
-        </Reveal>
-
-        <Reveal as="h1" delay={60} className="hero__title">
-          Websites, Web Apps &amp; SaaS Products,
-          <br />
-          built <span className="accent">end to end</span>.
-        </Reveal>
-
-        <Reveal as="p" delay={120} className="hero__lede">
-          I'm Mihailo, a solo developer building modern websites, custom web applications and SaaS products. From
-          business websites to AI-powered tools, I turn ideas into software people actually use.
-        </Reveal>
-
-        <Reveal delay={180} className="hero__cta">
-          <Button variant="primary" size="lg" trailingIcon={<ArrowIcon />} onClick={() => scrollToId("projects")}>
-            View my work
-          </Button>
-          <Button variant="secondary" size="lg" onClick={() => scrollToId("contact")}>
-            Start a project
-          </Button>
-        </Reveal>
-
-        <Reveal delay={260} className="hero__stat-single">
-          <b>3</b>
-          <span>products shipped</span>
-        </Reveal>
-      </div>
-
-      <div className="hero__floaters" aria-hidden="true">
-        <div className="hero__floater hero__floater--l1">
-          <Tile {...TILES[0]} delay={0} />
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="container hero__grid">
+        <div className="hero__copy">
+          <p className="eyebrow">{t.hero.eyebrow}</p>
+          <h1 id="hero-title" className="hero__title">
+            {t.hero.titleLead} <span className="accent">{t.hero.titleAccent}</span>
+          </h1>
+          <p className="hero__lede">{t.hero.lede}</p>
+          <div className="hero__cta">
+            <Button as="a" href="#work" variant="primary" size="lg" trailingIcon={<ArrowIcon />}>
+              {t.hero.ctaWork}
+            </Button>
+            <Button as="a" href="#contact" variant="secondary" size="lg">
+              {t.hero.ctaStart}
+            </Button>
+          </div>
         </div>
-        <div className="hero__floater hero__floater--l2">
-          <Tile {...TILES[2]} delay={-0.8} />
-        </div>
-        <div className="hero__floater hero__floater--r1">
-          <Tile {...TILES[1]} delay={-1.7} />
-        </div>
-        <div className="hero__floater hero__floater--r2">
-          <GhostTile delay={-1.2} />
+
+        <div className="hero__visual">
+          <div className="phone">
+            <div className="phone__screen">
+              {SALON_MOBILE_SHOT ? (
+                <img src={SALON_MOBILE_SHOT} alt={t.hero.shotAlt} width={390} height={844} />
+              ) : (
+                <div className="shot-placeholder">{t.hero.shotPlaceholder}</div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </section>
   );
 }

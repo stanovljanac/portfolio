@@ -1,97 +1,57 @@
-import { useState } from "react";
-import { Badge, Card, Tag } from "../ds";
-import { ApertureColor, ApertureFacets, ApertureSolid } from "./Aperture";
-import { ArrowIcon } from "./icons";
+import { ExternalIcon } from "./icons";
 import { Reveal } from "./Reveal";
-import { FILTERS, PROJECTS, type Filter, type Project } from "../data/projects";
+import { PROJECTS, type Project } from "../data/projects";
+import { useLocale } from "../i18n";
 
 function ProjectCard({ p }: { p: Project }) {
-  const clickable = p.live && !!p.url;
+  const { locale, t } = useLocale();
   return (
-    <Card
-      interactive
-      padded={false}
-      as={clickable ? "a" : "article"}
-      className={"proj-card" + (clickable ? "" : " proj-card--static")}
-      {...(clickable ? { href: p.url, target: "_blank", rel: "noopener noreferrer" } : {})}
-    >
-      <div className="proj-card__cover" style={{ background: p.cover }}>
-        {p.markGold ? (
-          <ApertureColor className="proj-card__mark" />
-        ) : (
-          <ApertureSolid fill="#1a1206" className="proj-card__mark proj-card__mark--dark" />
-        )}
-        <ApertureFacets fill={p.wmColor} className="proj-card__wm" />
+    <article className={"work-card" + (p.featured ? " work-card--featured" : "")}>
+      <div className="work-card__shot">
         {p.image ? (
-          <img
-            className="proj-card__img"
-            src={p.image}
-            alt={p.name}
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
-        ) : null}
+          <img src={p.image} alt="" loading="lazy" width={1280} height={800} />
+        ) : (
+          <div className="shot-placeholder">{t.work.shotPlaceholder}</div>
+        )}
       </div>
-      <div className="proj-card__body">
-        <div className="proj-card__top">
-          <span className="proj-card__cat">{p.category}</span>
-          <Badge variant={p.statusVariant} dot>
-            {p.statusLabel}
-          </Badge>
-        </div>
-        <div className="proj-card__name">{p.name}</div>
-        <div className="proj-card__desc">{p.desc}</div>
-        <div className="proj-card__foot">
-          <div className="proj-card__tags">
-            {p.tags.map((t) => (
-              <Tag key={t}>{t}</Tag>
-            ))}
-          </div>
-          {clickable ? (
-            <span className="proj-card__visit">
-              Visit <ArrowIcon />
-            </span>
-          ) : null}
-        </div>
+      <div className="work-card__body">
+        <p className="work-card__label">{p.label[locale]}</p>
+        <h3 className="work-card__name">{p.name}</h3>
+        <p className="work-card__desc">{p.desc[locale]}</p>
+        <a className="work-card__link" href={p.url} target="_blank" rel="noopener noreferrer">
+          {t.work.visit}
+          <span className="sr-only">
+            {" "}
+            — {p.name} {t.work.newTab}
+          </span>
+          <ExternalIcon aria-hidden="true" />
+        </a>
       </div>
-    </Card>
+    </article>
   );
 }
 
 export function Projects() {
-  const [filter, setFilter] = useState<Filter>("All");
-  const list = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.kinds.includes(filter));
-
+  const t = useLocale().t;
+  const [featured, ...rest] = PROJECTS;
   return (
-    <section id="projects" className="section">
+    <section id="work" className="section section--rule" aria-labelledby="work-title">
       <div className="container">
-        <div className="proj__head">
-          <Reveal className="proj__intro">
-            <span className="eyebrow">Work</span>
-            <h2 className="section__title">Selected work.</h2>
-            <p className="section__lede">
-              A selection of websites, web applications and SaaS products I've designed, built and launched.
-            </p>
-          </Reveal>
-          <Reveal className="proj__filters">
-            {FILTERS.map((f) => (
-              <button
-                key={f}
-                className={"mb-tag" + (f === filter ? " mb-tag--accent" : "")}
-                onClick={() => setFilter(f)}
-                aria-pressed={f === filter}
-              >
-                {f}
-              </button>
-            ))}
-          </Reveal>
-        </div>
-
-        <div className="proj__grid">
-          {list.map((p) => (
-            <ProjectCard key={p.name} p={p} />
+        <Reveal className="section__head">
+          <p className="eyebrow">{t.work.eyebrow}</p>
+          <h2 id="work-title" className="section__title">
+            {t.work.title}
+          </h2>
+          <p className="section__lede">{t.work.lede}</p>
+        </Reveal>
+        <Reveal>
+          <ProjectCard p={featured} />
+        </Reveal>
+        <div className="work-grid">
+          {rest.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 70}>
+              <ProjectCard p={p} />
+            </Reveal>
           ))}
         </div>
       </div>

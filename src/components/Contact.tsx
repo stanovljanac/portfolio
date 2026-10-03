@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Button, Input, Textarea } from "../ds";
-import { ArrowIcon, CheckIcon, ClockIcon, MailIcon, ShieldIcon, UserIcon } from "./icons";
+import { ArrowIcon, CheckIcon, MailIcon, MessageIcon } from "./icons";
 import { Reveal } from "./Reveal";
+import { EMAIL, LINKS } from "../data/contact";
+import { PATHS, useLocale } from "../i18n";
 
 /* ------------------------------------------------------------------
    Web3Forms — free, no-backend email delivery for static sites.
@@ -16,23 +18,28 @@ type Errors = { name?: string; email?: string; message?: string };
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function Contact() {
+  const { locale, t } = useLocale();
+  const c = t.contact;
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState("");
+  // Guards against double submits before the "submitting" state re-renders.
+  const busy = useRef(false);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (busy.current) return;
     const form = e.currentTarget;
-    const fields = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea");
-    const name = (fields[0]?.value || "").trim();
-    const email = (fields[1]?.value || "").trim();
-    const message = (fields[2]?.value || "").trim();
+    const data = new FormData(form);
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
 
     const next: Errors = {};
-    if (!name) next.name = "Please enter your name.";
-    if (!email) next.email = "Email is required.";
-    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) next.email = "Enter a valid email address.";
-    if (!message) next.message = "Tell me a little about your project.";
+    if (!name) next.name = c.errName;
+    if (!email) next.email = c.errEmail;
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) next.email = c.errEmailInvalid;
+    if (!message) next.message = c.errMessage;
 
     if (Object.keys(next).length) {
       setErrors(next);
@@ -43,112 +50,137 @@ export function Contact() {
 
     if (!WEB3FORMS_ACCESS_KEY) {
       setStatus("error");
-      setFormError("The contact form isn't connected yet — add your Web3Forms access key to enable it.");
+      setFormError(c.errNotConnected);
       return;
     }
 
+    busy.current = true;
     setStatus("submitting");
     try {
-      const formData = new FormData(form);
-      formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-      formData.append("subject", "New message from mihailobuilds.com");
-      formData.append("from_name", "MihailoBuilds website");
+      data.append("access_key", WEB3FORMS_ACCESS_KEY);
+      data.append("subject", c.subject);
+      data.append("from_name", "MihailoBuilds website");
 
-      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
-      const data = await res.json();
-      if (data.success) {
+      const res = await fetch("https://api.web3forms.com/submit", { method: "POST", body: data });
+      const json = await res.json();
+      if (json.success) {
         setStatus("success");
       } else {
         setStatus("error");
-        setFormError(data.message || "Something went wrong. Please try again.");
+        setFormError(c.errGeneric);
       }
     } catch {
       setStatus("error");
-      setFormError("Network error — please try again, or email me directly.");
+      setFormError(c.errNetwork);
+    } finally {
+      busy.current = false;
     }
   }
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section section--rule" aria-labelledby="contact-title">
       <div className="container">
-        <Reveal className="contact__intro">
-          <span className="eyebrow">Contact</span>
-          <h2 className="section__title">Need a website, web app or SaaS product?</h2>
-          <p className="section__lede">Tell me what you're building and I'll let you know how I can help.</p>
+        <Reveal className="section__head">
+          <p className="eyebrow">{c.eyebrow}</p>
+          <h2 id="contact-title" className="section__title">
+            {c.title}
+          </h2>
+          <p className="section__lede">{c.lede}</p>
         </Reveal>
 
-        <div className="contact__grid">
-          {status !== "success" ? (
-            <Reveal as="form" className="contact__form" onSubmit={onSubmit} noValidate>
-              <div className="contact__row">
-                <Input label="Full name" name="name" placeholder="Ada Lovelace" leadingIcon={<UserIcon />} error={errors.name} />
-                <Input
-                  label="Email"
-                  name="email"
-                  type="email"
-                  placeholder="you@company.com"
-                  leadingIcon={<MailIcon />}
-                  error={errors.email}
+        <div className="contact">
+          <div className="contact__main" aria-live="polite">
+            {status !== "success" ? (
+              <form className="contact__form" onSubmit={onSubmit} noValidate>
+                <div className="contact__row">
+                  <Input
+                    label={c.nameLabel}
+                    name="name"
+                    autoComplete="name"
+                    placeholder={c.namePlaceholder}
+                    error={errors.name}
+                  />
+                  <Input
+                    label={c.emailLabel}
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder={c.emailPlaceholder}
+                    error={errors.email}
+                  />
+                </div>
+                <Textarea
+                  label={c.messageLabel}
+                  name="message"
+                  placeholder={c.messagePlaceholder}
+                  rows={5}
+                  error={errors.message}
                 />
-              </div>
-              <Textarea
-                label="Message"
-                name="message"
-                placeholder="What are you trying to build?"
-                rows={5}
-                error={errors.message}
-              />
-              {status === "error" && formError ? (
-                <p className="contact__note contact__note--error">{formError}</p>
-              ) : null}
-              <div>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  type="submit"
-                  trailingIcon={<ArrowIcon />}
-                  disabled={status === "submitting"}
-                >
-                  {status === "submitting" ? "Sending…" : "Send message"}
-                </Button>
-              </div>
-            </Reveal>
-          ) : (
-            <Reveal className="contact__success">
-              <div className="contact__success-icon">
-                <CheckIcon />
-              </div>
-              <h3>Message received.</h3>
-              <p>Thanks — I'll be in touch within one business day.</p>
-              <div style={{ marginTop: 20 }}>
+                {status === "error" && formError ? (
+                  <p className="contact__error" role="alert">
+                    {formError}
+                  </p>
+                ) : null}
+                <div>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    type="submit"
+                    trailingIcon={<ArrowIcon />}
+                    disabled={status === "submitting"}
+                  >
+                    {status === "submitting" ? c.sending : c.submit}
+                  </Button>
+                </div>
+              </form>
+            ) : (
+              <div className="contact__success">
+                <div className="contact__success-icon">
+                  <CheckIcon aria-hidden="true" />
+                </div>
+                <h3>{c.successTitle}</h3>
+                <p>{c.successText}</p>
                 <Button variant="secondary" onClick={() => setStatus("idle")}>
-                  Send another
+                  {c.sendAnother}
                 </Button>
               </div>
-            </Reveal>
-          )}
+            )}
+          </div>
 
-          <Reveal as="aside" delay={100} className="contact__aside">
-            <div className="contact__aside-glow" />
-            <div className="contact__aside-head">
-              <span className="eyebrow">Why reach out</span>
-              <h3>Work directly with the developer who builds it.</h3>
-            </div>
-            <div className="contact__points">
-              <div className="contact__point">
-                <ClockIcon />
-                <span>I reply within one business day.</span>
-              </div>
-              <div className="contact__point">
-                <ShieldIcon />
-                <span>Your details stay private — no lists, no spam.</span>
-              </div>
-              <div className="contact__point">
-                <CheckIcon />
-                <span>No agencies, no middlemen — straight from the developer.</span>
-              </div>
-            </div>
-          </Reveal>
+          <aside className="contact__aside">
+            <h3 className="contact__aside-title">{c.directTitle}</h3>
+            <ul className="contact__channels">
+              <li>
+                <a href={LINKS.email}>
+                  <MailIcon aria-hidden="true" />
+                  <span>
+                    <b>{c.email}</b>
+                    <small>{EMAIL}</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href={LINKS.viber}>
+                  <MessageIcon aria-hidden="true" />
+                  <span>
+                    <b>{c.viber}</b>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer">
+                  <MessageIcon aria-hidden="true" />
+                  <span>
+                    <b>{c.whatsapp}</b>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p className="contact__reply">{c.reply}</p>
+            <p className="contact__privacy">
+              {c.privacyLead} <a href={PATHS[locale].privacy}>{c.privacyLink}</a>
+            </p>
+          </aside>
         </div>
       </div>
     </section>
