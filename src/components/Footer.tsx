@@ -1,9 +1,9 @@
-import { EMAIL, LINKS } from "../data/contact";
-import { PATHS, otherLocale, sectionHref, useLocale } from "../i18n";
+import { Email } from "./Email";
+import { LangSwitch } from "./LangSwitch";
+import { PATHS, sectionHref, useLocale } from "../i18n";
 
 export function Footer() {
   const { locale, page, t } = useLocale();
-  const other = otherLocale(locale);
   const href = (id: string) => sectionHref(locale, page, id);
   return (
     <footer className="footer">
@@ -21,10 +21,8 @@ export function Footer() {
           <a href={PATHS[locale].privacy}>{t.footer.privacy}</a>
         </nav>
         <div className="footer__meta">
-          <a href={LINKS.email}>{EMAIL}</a>
-          <a href={PATHS[other][page]} hrefLang={other} lang={other}>
-            {t.nav.langName}
-          </a>
+          <Email />
+          <LangSwitch />
           <span>{t.footer.copy}</span>
         </div>
       </div>

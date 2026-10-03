@@ -1,3 +1,4 @@
+import { WithEmail } from "./Email";
 import { PATHS, useLocale } from "../i18n";
 
 export function Privacy() {
@@ -16,7 +17,9 @@ export function Privacy() {
         <section key={s.h} className="legal__section">
           <h2>{s.h}</h2>
           {s.p.map((x) => (
-            <p key={x}>{x}</p>
+            <p key={x}>
+              <WithEmail text={x} />
+            </p>
           ))}
         </section>
       ))}

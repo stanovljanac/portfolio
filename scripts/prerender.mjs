@@ -16,10 +16,10 @@ const ssrDir = path.join(root, "dist-ssr");
 const { render } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
 
 const PAGES = [
-  { file: "index.html", locale: "sr", page: "home" },
-  { file: "en/index.html", locale: "en", page: "home" },
-  { file: "privatnost/index.html", locale: "sr", page: "privacy" },
-  { file: "en/privacy/index.html", locale: "en", page: "privacy" },
+  { file: "index.html", locale: "en", page: "home" },
+  { file: "sr/index.html", locale: "sr", page: "home" },
+  { file: "privacy/index.html", locale: "en", page: "privacy" },
+  { file: "sr/privatnost/index.html", locale: "sr", page: "privacy" },
 ];
 
 for (const p of PAGES) {

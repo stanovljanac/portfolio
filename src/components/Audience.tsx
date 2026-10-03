@@ -15,11 +15,12 @@ export function Audience() {
         </Reveal>
         <ol className="audience">
           {t.audience.items.map((item, i) => (
-            <Reveal as="li" key={item} delay={i * 60} className="audience__item">
+            <Reveal as="li" key={item.title} delay={i * 60} className="audience__item">
               <span className="audience__num" aria-hidden="true">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p>{item}</p>
+              <h3 className="audience__title">{item.title}</h3>
+              <p className="audience__text">{item.text}</p>
             </Reveal>
           ))}
         </ol>

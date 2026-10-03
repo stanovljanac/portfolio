@@ -1,5 +1,4 @@
 import { OFFER, PRICING } from "../data/pricing";
-import { EMAIL } from "../data/contact";
 import type { Dict } from "./sr";
 
 export const en: Dict = {
@@ -13,8 +12,7 @@ export const en: Dict = {
     process: "Process",
     faq: "FAQ",
     cta: "Start a project",
-    lang: "SR",
-    langName: "Srpski",
+    langLabel: "Language",
   },
 
   hero: {
@@ -33,10 +31,22 @@ export const en: Dict = {
     title: "Is this for you?",
     lede: "You probably need a website if one of these sounds familiar.",
     items: [
-      "You're starting a new business and need your first website.",
-      "Your current website looks outdated.",
-      "You only have Instagram and want a professional online presence.",
-      "You want customers to contact you or book an appointment more easily.",
+      {
+        title: "You're starting a new business and need your first website.",
+        text: "I'll build it from scratch — from structure to launch.",
+      },
+      {
+        title: "Your current website looks outdated.",
+        text: "I'll redesign it into a fresh, modern site built for phones.",
+      },
+      {
+        title: "You only have Instagram and want a professional online presence.",
+        text: "A website with your services, prices and contact details in one place.",
+      },
+      {
+        title: "You're launching a new service or offer.",
+        text: "A landing page that presents it clearly and leads visitors to call or get in touch.",
+      },
     ],
   },
 
@@ -91,7 +101,7 @@ export const en: Dict = {
       {
         title: "Integrations & functionality",
         items: [
-          "Appointment requests",
+          "Appointment request form (arrives in your email)",
           "Online booking through a service (e.g. Cal.com)",
           "Reservation systems",
           "External platforms",
@@ -172,7 +182,7 @@ export const en: Dict = {
       },
       {
         q: "Can the website have online booking?",
-        a: "Yes — by connecting a proven booking service (e.g. Cal.com) or with a simple appointment request form. My focus is websites, not complex web applications, so instead of building a system from scratch I choose a reliable ready-made solution.",
+        a: "Yes. The simplest options are connecting a booking service you already use or a ready-made one (e.g. Cal.com), or adding an appointment request form that arrives in your email. If you need something more tailored, it's done as additional functionality: before we start, I'll tell you how much time and money it takes and whether it makes sense for your budget.",
       },
       {
         q: "What if something doesn't work after launch?",
@@ -197,7 +207,7 @@ export const en: Dict = {
     errEmail: "Please enter your email address.",
     errEmailInvalid: "Please enter a valid email address.",
     errMessage: "Tell me a little about your project.",
-    errNotConnected: `The form isn't connected yet — please email me directly at ${EMAIL}.`,
+    errNotConnected: "The form isn't connected yet — please email me directly at {email}.",
     errNetwork: "Network error — please try again or contact me directly.",
     errGeneric: "Something went wrong. Please try again.",
     successTitle: "Message sent.",
@@ -228,7 +238,7 @@ export const en: Dict = {
       {
         h: "Who processes your data",
         p: [
-          `The data controller is Mihailo Sebek, Serbia. Contact for any data-related questions: ${EMAIL}.`,
+          `The data controller is Mihailo Sebek, Serbia. Contact for any data-related questions: {email}.`,
           "Processing is governed by the Personal Data Protection Law of the Republic of Serbia.",
         ],
       },
@@ -278,7 +288,7 @@ export const en: Dict = {
         h: "Your rights",
         p: [
           "You have the right to request access to your data, its correction or deletion, restriction of processing, data portability, and to object to processing.",
-          `You can send a request to ${EMAIL}. You also have the right to lodge a complaint with the Commissioner for Information of Public Importance and Personal Data Protection.`,
+          `You can send a request to {email}. You also have the right to lodge a complaint with the Commissioner for Information of Public Importance and Personal Data Protection.`,
         ],
       },
     ],

@@ -1,5 +1,4 @@
 import { OFFER, PRICING } from "../data/pricing";
-import { EMAIL } from "../data/contact";
 
 export const sr = {
   skip: "Preskoči na sadržaj",
@@ -12,8 +11,7 @@ export const sr = {
     process: "Kako radim",
     faq: "FAQ",
     cta: "Započni projekat",
-    lang: "EN",
-    langName: "English",
+    langLabel: "Jezik",
   },
 
   hero: {
@@ -32,10 +30,22 @@ export const sr = {
     title: "Da li je ovo za vas?",
     lede: "Sajt vam verovatno treba ako se prepoznajete u nekoj od ovih situacija.",
     items: [
-      "Pokrećete novi biznis i treba vam prvi sajt.",
-      "Vaš trenutni sajt izgleda zastarelo.",
-      "Imate samo Instagram, a želite profesionalnu online prezentaciju.",
-      "Želite da vas klijenti lakše kontaktiraju ili zakažu termin.",
+      {
+        title: "Pokrećete novi biznis i treba vam prvi sajt.",
+        text: "Napraviću vam sajt od nule — od strukture do objave.",
+      },
+      {
+        title: "Vaš trenutni sajt izgleda zastarelo.",
+        text: "Redizajniraću ga u svež, moderan sajt prilagođen telefonima.",
+      },
+      {
+        title: "Imate samo Instagram, a želite profesionalnu online prezentaciju.",
+        text: "Sajt na kome su vaše usluge, cene i kontakt na jednom mestu.",
+      },
+      {
+        title: "Pokrećete novu uslugu ili ponudu.",
+        text: "Landing stranica koja je jasno predstavlja i vodi posetioca do poziva ili upita.",
+      },
     ],
   },
 
@@ -90,7 +100,7 @@ export const sr = {
       {
         title: "Integracije i funkcionalnosti",
         items: [
-          "Zahtev za termin",
+          "Forma za zahtev termina (stiže na email)",
           "Online zakazivanje preko servisa (npr. Cal.com)",
           "Rezervacioni sistemi",
           "Spoljne platforme",
@@ -171,7 +181,7 @@ export const sr = {
       },
       {
         q: "Može li sajt da ima online zakazivanje?",
-        a: "Da — povezivanjem proverenog servisa za zakazivanje (npr. Cal.com) ili jednostavnom formom za zahtev termina. Fokus su mi sajtovi, ne složene web aplikacije, pa umesto sistema od nule biram pouzdano gotovo rešenje.",
+        a: "Da. Najjednostavnije je povezati servis koji već koristite ili gotov servis za zakazivanje (npr. Cal.com), ili dodati formu za zahtev termina koja stiže na vaš email. Ako vam treba nešto prilagođenije, to se radi kao dodatna funkcija: pre početka vam kažem koliko vremena i novca zahteva i da li ima smisla za vaš budžet.",
       },
       {
         q: "Šta ako nešto ne radi posle objave?",
@@ -196,7 +206,7 @@ export const sr = {
     errEmail: "Unesite email adresu.",
     errEmailInvalid: "Unesite ispravnu email adresu.",
     errMessage: "Napišite nekoliko reči o projektu.",
-    errNotConnected: `Forma još nije povezana — pišite mi direktno na ${EMAIL}.`,
+    errNotConnected: "Forma još nije povezana — pišite mi direktno na {email}.",
     errNetwork: "Greška na mreži — pokušajte ponovo ili mi pišite direktno.",
     errGeneric: "Nešto nije u redu. Pokušajte ponovo.",
     successTitle: "Poruka je poslata.",
@@ -227,7 +237,7 @@ export const sr = {
       {
         h: "Ko obrađuje podatke",
         p: [
-          `Rukovalac podacima je Mihailo Sebek, Srbija. Kontakt za sva pitanja o podacima: ${EMAIL}.`,
+          `Rukovalac podacima je Mihailo Sebek, Srbija. Kontakt za sva pitanja o podacima: {email}.`,
           "Na obradu se primenjuje Zakon o zaštiti podataka o ličnosti Republike Srbije.",
         ],
       },
@@ -279,7 +289,7 @@ export const sr = {
         h: "Vaša prava",
         p: [
           "Imate pravo da zatražite pristup svojim podacima, njihovu ispravku ili brisanje, ograničenje obrade, prenosivost podataka i da uložite prigovor na obradu.",
-          `Zahtev možete poslati na ${EMAIL}. Takođe imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.`,
+          `Zahtev možete poslati na {email}. Takođe imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti.`,
         ],
       },
     ],

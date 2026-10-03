@@ -3,7 +3,8 @@ import type { FormEvent } from "react";
 import { Button, Input, Textarea } from "../ds";
 import { ArrowIcon, CheckIcon, MailIcon, MessageIcon } from "./icons";
 import { Reveal } from "./Reveal";
-import { EMAIL, LINKS } from "../data/contact";
+import { Obfuscated, WithEmail } from "./Email";
+import { CONTACT, useMounted } from "../data/contact";
 import { PATHS, useLocale } from "../i18n";
 
 /* ------------------------------------------------------------------
@@ -20,6 +21,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 export function Contact() {
   const { locale, t } = useLocale();
   const c = t.contact;
+  const mounted = useMounted();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [formError, setFormError] = useState("");
@@ -31,6 +33,11 @@ export function Contact() {
     if (busy.current) return;
     const form = e.currentTarget;
     const data = new FormData(form);
+    // Honeypot: real visitors never see or tick this box.
+    if (data.get("botcheck")) {
+      setStatus("success");
+      return;
+    }
     const name = String(data.get("name") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
@@ -92,6 +99,7 @@ export function Contact() {
           <div className="contact__main" aria-live="polite">
             {status !== "success" ? (
               <form className="contact__form" onSubmit={onSubmit} noValidate>
+                <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: "none" }} />
                 <div className="contact__row">
                   <Input
                     label={c.nameLabel}
@@ -118,7 +126,7 @@ export function Contact() {
                 />
                 {status === "error" && formError ? (
                   <p className="contact__error" role="alert">
-                    {formError}
+                    <WithEmail text={formError} />
                   </p>
                 ) : null}
                 <div>
@@ -151,27 +159,35 @@ export function Contact() {
             <h3 className="contact__aside-title">{c.directTitle}</h3>
             <ul className="contact__channels">
               <li>
-                <a href={LINKS.email}>
+                <a href={mounted ? CONTACT.links.email : undefined}>
                   <MailIcon aria-hidden="true" />
                   <span>
                     <b>{c.email}</b>
-                    <small>{EMAIL}</small>
+                    <small>
+                      <Obfuscated text={CONTACT.email} />
+                    </small>
                   </span>
                 </a>
               </li>
               <li>
-                <a href={LINKS.viber}>
+                <a href={mounted ? CONTACT.links.viber : undefined}>
                   <MessageIcon aria-hidden="true" />
                   <span>
                     <b>{c.viber}</b>
+                    <small>
+                      <Obfuscated text={CONTACT.phoneDisplay} />
+                    </small>
                   </span>
                 </a>
               </li>
               <li>
-                <a href={LINKS.whatsapp} target="_blank" rel="noopener noreferrer">
+                <a href={mounted ? CONTACT.links.whatsapp : undefined} target="_blank" rel="noopener noreferrer">
                   <MessageIcon aria-hidden="true" />
                   <span>
                     <b>{c.whatsapp}</b>
+                    <small>
+                      <Obfuscated text={CONTACT.phoneDisplay} />
+                    </small>
                   </span>
                 </a>
               </li>

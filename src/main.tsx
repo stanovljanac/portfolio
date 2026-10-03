@@ -8,7 +8,7 @@ import type { Locale, Page } from "./i18n";
    (<div id="root" data-page>). Production HTML is prerendered, so we
    hydrate it; in dev the root is empty and we render from scratch. */
 const root = document.getElementById("root")!;
-const locale: Locale = document.documentElement.lang === "en" ? "en" : "sr";
+const locale: Locale = document.documentElement.lang === "sr" ? "sr" : "en";
 const page: Page = root.dataset.page === "privacy" ? "privacy" : "home";
 
 const app = (

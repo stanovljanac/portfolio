@@ -1,12 +1,12 @@
 import { Button } from "../ds";
 import { ArrowIcon } from "./icons";
 import { useScrolled } from "../hooks/useScrolled";
-import { PATHS, otherLocale, sectionHref, useLocale } from "../i18n";
+import { LangSwitch } from "./LangSwitch";
+import { PATHS, sectionHref, useLocale } from "../i18n";
 
 export function Nav() {
   const { locale, page, t } = useLocale();
   const scrolled = useScrolled();
-  const other = otherLocale(locale);
   const href = (id: string) => sectionHref(locale, page, id);
 
   return (
@@ -31,9 +31,8 @@ export function Nav() {
           </a>
         </nav>
         <div className="nav__actions">
-          <a className="nav__lang" href={PATHS[other][page]} hrefLang={other} lang={other} aria-label={t.nav.langName}>
-            {t.nav.lang}
-          </a>
+          <span className="nav__sep" aria-hidden="true" />
+          <LangSwitch />
           <Button as="a" href={href("contact")} variant="primary" size="sm" trailingIcon={<ArrowIcon />}>
             {t.nav.cta}
           </Button>

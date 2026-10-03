@@ -14,10 +14,10 @@ export default defineConfig(({ isSsrBuild }) => ({
     : {
         rollupOptions: {
           input: {
-            sr: resolve(__dirname, "index.html"),
-            en: resolve(__dirname, "en/index.html"),
-            privatnost: resolve(__dirname, "privatnost/index.html"),
-            enPrivacy: resolve(__dirname, "en/privacy/index.html"),
+            en: resolve(__dirname, "index.html"),
+            sr: resolve(__dirname, "sr/index.html"),
+            privacy: resolve(__dirname, "privacy/index.html"),
+            srPrivatnost: resolve(__dirname, "sr/privatnost/index.html"),
           },
         },
       },
