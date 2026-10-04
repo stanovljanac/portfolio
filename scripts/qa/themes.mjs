@@ -49,6 +49,33 @@ for (const path of ["/", "/sr/"]) for (const w of [320, 375, 1440]) {
   log(path, w, "same order:", order, "| same columns:", cols, cols ? "" : JSON.stringify([k.cols, i.cols]), "| same DOM:", k.dom === i.dom, "| height diffs >15%:", diffs.length ? diffs.join("; ") : "none");
 }
 
+/* .page clips horizontal overflow, so a nav item pushed off screen does not
+   show up as a scrollbar above: check that every nav element is inside the viewport. */
+log("\n--- nav fits the viewport (320–1280 px): nothing outside, no link on two lines, offer bar text not cut off");
+for (const path of ["/", "/sr/"]) for (const [theme, q] of Object.entries(THEMES)) {
+  const bad = [];
+  for (const w of [320, 360, 390, 430, 480, 540, 600, 640, 768, 900, 901, 1024, 1180, 1181, 1280]) {
+    const ctx = await newContext(b, { viewport: { width: w, height: 800 } });
+    const p = await ctx.newPage();
+    await p.goto(BASE + path + q, { waitUntil: "networkidle" });
+    await p.evaluate(() => document.fonts.ready);
+    const [out, cut, wrapped] = await p.evaluate(() => {
+      const els = [...document.querySelectorAll(".nav *")].filter((e) => e.getClientRects().length);
+      const bar = document.querySelector(".offer-bar__text");
+      const wrapped = [...document.querySelectorAll(".nav__links > a")].filter((a) => a.getClientRects().length).filter((a) => {
+        const r = document.createRange(); r.selectNodeContents(a); return new Set([...r.getClientRects()].map((x) => Math.round(x.top))).size > 1;
+      }).map((a) => a.textContent.trim());
+      return [Math.max(0, ...els.map((e) => { const r = e.getBoundingClientRect(); return Math.max(r.right - innerWidth, -r.left); })),
+        bar && bar.getClientRects().length ? bar.scrollWidth - bar.clientWidth : 0, wrapped];
+    });
+    if (out > 0.5) bad.push(`${w}px: ${Math.round(out)}px outside`);
+    if (wrapped.length) bad.push(`${w}px: wraps ${wrapped.join(", ")}`);
+    if (cut > 1) bad.push(`${w}px: offer bar text cut by ${cut}px`);
+    await ctx.close();
+  }
+  log(path.padEnd(4), theme.padEnd(10), bad.length ? "CLIPPED " + bad.join("; ") : "ok");
+}
+
 log("\n--- theme determinism + link propagation");
 {
   const ctx = await newContext(b);
@@ -58,7 +85,7 @@ log("\n--- theme determinism + link propagation");
   log("tab1 industrial:", await cls(t1), "| tab2 '/':", await cls(t2));
   await t1.click(".nav .lang-switch__opt:not(.is-active)"); await t1.waitForLoadState();
   log("industrial → SR:", t1.url(), await cls(t1));
-  await t1.click(".footer__links a[href*='privat']"); await t1.waitForLoadState();
+  await t1.click(".footer__bottom a[href*='privat']"); await t1.waitForLoadState();
   log("industrial → privacy:", t1.url(), await cls(t1));
   await t1.click(".nav__logo"); await t1.waitForLoadState();
   log("industrial → logo:", t1.url(), await cls(t1));
@@ -119,9 +146,10 @@ for (const [theme, q] of Object.entries(THEMES)) {
   const res = await p.evaluate(() => {
     const lum = (c) => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map(Number).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
     const bgOf = (el) => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const a = c.match(/[\d.]+/g); if (a && (a.length < 4 || +a[3] > 0.5)) return c; } return "rgb(255,255,255)"; };
-    const sels = [".eyebrow", ".section__lede", ".work-card__label", ".work-card__desc", ".svc-note", ".steps__note", ".split__note", ".contact__privacy", ".contact__channels small", ".audience__text", ".audience__num", ".footer__links a", ".footer__meta span", ".nav__link", ".lang-switch__opt:not(.is-active)", ".offer__note", ".offer__text", ".offer .eyebrow", ".svc-card__price", ".step__num", ".hero__lede"];
+    const sels = [".eyebrow", ".section__lede", ".work-card__label", ".work-card__desc", ".svc-note", ".steps__note", ".split__note", ".contact__privacy", ".contact__channels small", ".audience__text", ".audience__num", ".footer__links a", ".footer__meta span", ".footer__heading", ".footer__offer", ".footer__bottom span", ".offer-bar__text", ".nav__offer", ".hero__offer", ".nav__link", ".lang-switch__opt:not(.is-active)", ".offer__note", ".offer__text", ".offer .eyebrow", ".svc-card__price", ".step__num", ".hero__lede"];
     const worst = {};
     for (const s of sels) for (const el of document.querySelectorAll(s)) {
+      if (!el.getClientRects().length) continue; // hidden in this theme (display: none)
       const L1 = lum(getComputedStyle(el).color), L2 = lum(bgOf(el));
       worst[s] = Math.min(worst[s] ?? 99, (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05));
     }

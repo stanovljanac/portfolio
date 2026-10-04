@@ -3,6 +3,7 @@ import { ArrowIcon } from "./icons";
 import { useScrolled } from "../hooks/useScrolled";
 import { LangSwitch } from "./LangSwitch";
 import { Logo } from "./Logo";
+import { OFFER } from "../data/pricing";
 import { PATHS, sectionHref, useLocale } from "../i18n";
 
 export function Nav() {
@@ -12,6 +13,19 @@ export function Nav() {
 
   return (
     <header className={"nav" + (scrolled ? " is-scrolled" : "")}>
+      {OFFER.open ? (
+        <a className="offer-bar" href={href("offer")}>
+          <span className="offer-bar__text">
+            <b>{t.services.offer.eyebrow}</b>
+            <span className="offer-bar__long">: {t.offerCta.bar}</span>
+            <span className="offer-bar__short"> {t.offerCta.barShort}</span>
+          </span>
+          <span className="offer-bar__cta">
+            <span className="offer-bar__see">{t.offerCta.see}</span>
+            <ArrowIcon aria-hidden="true" />
+          </span>
+        </a>
+      ) : null}
       <div className="nav__inner">
         <a className="nav__logo" href={PATHS[locale].home} aria-label={t.nav.home}>
           <Logo />
@@ -29,6 +43,11 @@ export function Nav() {
           <a className="nav__link" href={href("faq")}>
             {t.nav.faq}
           </a>
+          {OFFER.open ? (
+            <a className="nav__link nav__offer" href={href("offer")}>
+              {t.services.offer.eyebrow}
+            </a>
+          ) : null}
         </nav>
         <div className="nav__actions">
           <span className="nav__sep" aria-hidden="true" />

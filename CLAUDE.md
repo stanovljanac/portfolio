@@ -80,6 +80,9 @@ Read this first in every session. The plan of work, one session per item, is in 
   - scope the CSS with `.theme-kobalt …` / `.theme-industrial …`
   - the DOM must still be identical, because the HTML is prerendered once
   - extra elements exist in both themes and are hidden with CSS in the other one
+- **Kobalt-only so far** (session 1): uppercase Manrope hero title with a marker accent, a lighter hard phone shadow (8px; Industrial 14px), quieter contact hints. The dark footer (call to action, column headings, Viber/WhatsApp, bottom bar) is shared by both themes.
+- **Special offer highlight, one variant per theme** (until Mihailo picks one; roadmap session 2): Kobalt has the bar above the nav (`.offer-bar`; its height is `--bar-h`, which the hero, privacy page and anchor offsets add), Industrial has the nav pill (`.nav__offer`, from 1181px) and the hero pill (`.hero__offer`, below that). All link to `#offer` and exist only while `OFFER.open`.
+- **Industrial-only tablet hero** (641–900px, until Mihailo picks): the title spans the width, the lede and buttons sit left of the phone (`.hero__copy` becomes `display: contents` inside a grid with named areas). Kobalt keeps the stacked hero.
 - **Geometry check:** `qa:themes` compares the themes inside `<main>`: same DOM, section order and grid columns; section heights within 15%. A deliberate difference must be stated in the PR.
 
 ## Branches, previews, PRs
@@ -106,7 +109,7 @@ npm install
 npm run build                    # tsc + build + prerender; lists placeholders left
 npm run qa:leak                  # contact data in dist/? (no browser needed)
 npm run preview                  # serves dist/ on :4173 — run it in the background for the checks below
-npm run qa:themes                # both themes: CLS, overflow, console, geometry, theme propagation, contacts, contrast, focus (~1 min)
+npm run qa:themes                # both themes: CLS, overflow, console, geometry, nav fits 320–1280 px, theme propagation, contacts, contrast, focus (~2 min)
 npm run qa:site                  # no-JS, reduced motion, keyboard, FAQ, anchors, language switch, links
 npm run qa:shots -- pages=/,/sr/ widths=375,1440 viewport=1   # screenshots → .qa/ (git-ignored); see the header of scripts/qa/shots.mjs
 node scripts/qa/form.mjs nokey   # form states, build without a Web3Forms key
@@ -114,10 +117,10 @@ VITE_WEB3FORMS_ACCESS_KEY=test npm run build && node scripts/qa/form.mjs key   #
 ```
 - **Look at the screenshots** (open the PNGs) before calling a visual change done. Check 320, 375 and 1440 px, both themes, `/` and `/sr/`; Serbian text is longer.
 - **Baseline** (start of the roadmap):
-  - no horizontal overflow, clean console
+  - no horizontal overflow, clean console; nothing in the nav outside the viewport (`.page` clips overflow, so it would not show as a scrollbar)
   - geometry identical
   - contacts clean
-  - lowest contrast 5.67 (Kobalt) / 4.80 (Industrial); keep small text at **≥ 4.5**
+  - lowest contrast 4.68 (Kobalt: the contact hints, deliberately quieter since session 1) / 4.80 (Industrial); keep small text at **≥ 4.5**. Elements hidden in a theme are skipped.
   - focus visible
 - **Known issue:** CLS up to ~0.2 on mobile from web-font swapping. It is fixed in session 7 by self-hosting, preload and metric-matched fallbacks. Do not make it worse.
 
@@ -127,7 +130,7 @@ VITE_WEB3FORMS_ACCESS_KEY=test npm run build && node scripts/qa/form.mjs key   #
 - **Network:** the environment uses a custom allowlist.
   - Allowed (since 4 Oct 2026): `*.mihailobuilds.com` (the live projects, for screenshots), the GitHub API, Google Fonts, npm.
   - Blocked: `vercel.com` and `*.vercel.app`. Run QA locally against `npm run preview` and get the preview URL from the GitHub deployments API. Mihailo can add `*.vercel.app` if a session ever needs to open the preview itself.
-  - `invoice.mihailobuilds.com` redirects to `/login`. Never log in with a real account or create one; ask Mihailo what to show.
+  - `invoice.mihailobuilds.com` redirects to `/login`. Never log in with a real account or create one. Its card uses Mihailo's own dashboard screenshot (`public/projects/invoice.png`).
 
 ## Conventions
 - **CSS:** use theme variables and tokens; no raw colours in `site.css`. Theme-specific rules go in `themes.css`.

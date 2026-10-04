@@ -41,6 +41,7 @@
   --on-ink: #FFFFFF;
   --on-ink-muted: #C9D3EA;
   --on-ink-faint: #A3AECB;
+  --on-ink-line: rgba(255, 255, 255, 0.14);
 
   --accent: #2F5BFF;
   --accent-hover: #1F45E0;
@@ -107,6 +108,7 @@
   --on-ink: #F2F2EF;
   --on-ink-muted: #D4D4CE;
   --on-ink-faint: #B5B5AE;
+  --on-ink-line: rgba(242, 242, 239, 0.18);
 
   --accent: #FF4F00;
   --accent-hover: #E64700;
@@ -152,19 +154,38 @@
 /* The nav CTA is the one orange button. */
 .theme-industrial .nav__actions .mb-btn--primary { background: var(--accent); color: var(--ink); }
 .theme-industrial .nav__actions .mb-btn--primary:hover { background: var(--accent-hover); }
+/* Button arrows: centred on the lowercase letters, not on the line box
+   (Manrope's x-height sits ~0.08em below the box centre, Archivo's ~0.04em). */
+.theme-kobalt .mb-btn__icon { transform: translateY(0.08em); }
+.theme-industrial .mb-btn__icon { transform: translateY(0.04em); }
 
 /* --- Typography ------------------------------------------- */
-.theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price) {
+.theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price, .footer__cta-title) {
   font-weight: 800; letter-spacing: -0.035em;
 }
-.theme-industrial :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name) {
+.theme-industrial :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name, .footer__cta-title) {
   font-weight: 900; font-stretch: 74%; text-transform: uppercase; letter-spacing: -0.005em;
 }
 .theme-industrial .hero__title { line-height: 0.94; }
 .theme-industrial .svc-card__price { font-weight: 900; font-stretch: 72%; color: var(--text-primary); }
 
-/* Hero accent words */
-.theme-kobalt .hero__title .accent { color: var(--accent); }
+/* Hero title on Kobalt: Industrial's treatment set in Manrope.
+   Sized so that at 1440 px it breaks like Industrial: three lines, with
+   the accent on the last line ("…MORE THAN AN / INSTAGRAM PROFILE."). */
+.theme-kobalt .hero__title {
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.875rem);
+  line-height: 0.96; letter-spacing: -0.04em; text-transform: uppercase;
+}
+
+/* Hero accent words: a marker in the accent colour.
+   Manrope's inline box is much taller than its capitals, so on Kobalt the
+   marker is painted as a band around the caps (Industrial's proportions)
+   rather than over the whole box, which would also cover the line above. */
+.theme-kobalt .hero__title .accent {
+  color: #FFFFFF; padding: 0 0.12em;
+  background: linear-gradient(var(--accent), var(--accent)) left 0 bottom 0.09em / 100% 1.13em no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
 .theme-industrial .hero__title .accent {
   color: var(--ink); background: var(--accent); padding: 0 0.12em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
@@ -183,7 +204,8 @@
 /* --- Sections --------------------------------------------- */
 .theme-kobalt .hero, .theme-kobalt #work { background: var(--section-alt); }
 
-/* Phone frame */
+/* Phone frame: hard offset shadow (Kobalt lighter than Industrial's) */
+.theme-kobalt .phone { box-shadow: 8px 8px 0 var(--accent); }
 .theme-industrial .phone { box-shadow: 14px 14px 0 var(--accent); }
 
 /* Cards */
@@ -206,3 +228,81 @@
 /* Form fields */
 .theme-industrial :is(.mb-input, .mb-textarea) { border: 1.5px solid var(--ink); }
 .theme-industrial :is(.mb-input, .mb-textarea):focus { border-color: var(--accent-text); box-shadow: 0 0 0 3px var(--accent-ring); }
+
+/* Contact block: the "Opens your email app" hints stay, a little quieter (contrast 4.68) */
+.theme-kobalt .contact__channels small { font-size: 0.75rem; color: var(--text-faint); }
+
+/* --- Footer ----------------------------------------------- */
+/* Layout and colours are shared (site.css); the CTA is the accent button on both themes. */
+.theme-industrial .footer .mb-btn--primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+.theme-industrial .footer .mb-btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* --- Special offer highlight ------------------------------ */
+/* TEMP: one variant per theme, so Mihailo can compare them.
+   Kobalt: a bar above the nav. Industrial: a pill in the nav links from
+   1181px (the Serbian links need ~1150px with it) and above the hero title
+   below that.
+   Both exist in the DOM; each theme hides the other's. Shown while OFFER.open. */
+.theme-industrial .offer-bar, .theme-kobalt :is(.nav__offer, .hero__offer) { display: none; }
+
+.theme-kobalt .has-offer { --bar-h: 40px; }
+.theme-kobalt .offer-bar {
+  height: var(--bar-h); padding: 0 var(--space-4);
+  display: flex; align-items: center; justify-content: center; gap: var(--space-3);
+  background: var(--accent); color: #FFFFFF; font: var(--fw-medium) var(--text-sm)/1.2 var(--font-sans); white-space: nowrap;
+  transition: background var(--dur-fast);
+}
+.theme-kobalt .offer-bar:hover { background: var(--accent-hover); }
+.theme-kobalt .offer-bar:focus-visible { outline: 2px solid #FFFFFF; outline-offset: -5px; }
+.theme-kobalt .offer-bar b { font-weight: var(--fw-bold); }
+.theme-kobalt .offer-bar__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.theme-kobalt .offer-bar__short { display: none; }
+.theme-kobalt .offer-bar__cta { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: var(--fw-bold); }
+.theme-kobalt .offer-bar__see { text-decoration: underline; text-underline-offset: 3px; }
+.theme-kobalt .offer-bar__cta svg { width: 15px; height: 15px; }
+
+.theme-industrial .nav__offer {
+  display: inline-flex; align-items: center; gap: 8px; margin: -7px 0; padding: 6px 12px;
+  background: var(--accent-soft); border: 1.5px solid var(--ink); color: var(--ink); font-weight: 700;
+  transition: background var(--dur-fast);
+}
+.theme-industrial .nav__offer::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.theme-industrial .nav__offer:hover { background: var(--accent); color: var(--ink); }
+.theme-industrial .hero__offer { display: none; }
+
+@media (max-width: 1180px) {
+  .theme-industrial .nav__offer { display: none; }
+  .theme-industrial .hero__offer {
+    display: inline-block; padding: 9px 14px; border: 1.5px solid var(--ink);
+    background: var(--accent); color: var(--ink); font: var(--fw-semibold) var(--text-sm)/1.35 var(--font-sans);
+  }
+  .theme-industrial .hero__offer b { font-weight: 800; }
+  .theme-industrial .hero__offer svg { width: 1em; height: 1em; vertical-align: -0.15em; }
+  .theme-industrial .has-offer .hero .eyebrow { display: none; }  /* the pill takes its place */
+}
+@media (max-width: 640px) {
+  .theme-kobalt .has-offer { --bar-h: 36px; }
+  .theme-kobalt .offer-bar { font-size: 0.8125rem; gap: 6px; }
+  .theme-kobalt :is(.offer-bar__long, .offer-bar__see) { display: none; }
+  .theme-kobalt .offer-bar__short { display: inline; }
+}
+
+/* --- Hero on tablets (Industrial only) ----------------------- */
+/* TEMP: Mihailo compares this with Kobalt's stacked tablet hero.
+   641-900px: the offer pill / eyebrow and the title span the width; the lede
+   and the buttons sit left of the phone instead of above it. */
+@media (min-width: 641px) and (max-width: 900px) {
+  .theme-industrial .hero__grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "top top" "title title" "lede visual" "cta visual" ". visual";
+    grid-template-rows: auto auto auto auto 1fr;
+    gap: 0 var(--space-7);
+  }
+  .theme-industrial .hero__copy { display: contents; }
+  .theme-industrial :is(.hero__offer, .hero .eyebrow) { grid-area: top; justify-self: start; }
+  .theme-industrial .hero__title { grid-area: title; }
+  .theme-industrial .hero__lede { grid-area: lede; }
+  .theme-industrial .hero__cta { grid-area: cta; align-self: start; }
+  .theme-industrial .hero__visual { grid-area: visual; align-self: start; margin-top: 6px; }
+  .theme-industrial .phone { width: 240px; }
+}
