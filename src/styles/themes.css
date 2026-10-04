@@ -163,8 +163,23 @@
 .theme-industrial .hero__title { line-height: 0.94; }
 .theme-industrial .svc-card__price { font-weight: 900; font-stretch: 72%; color: var(--text-primary); }
 
-/* Hero accent words */
-.theme-kobalt .hero__title .accent { color: var(--accent); }
+/* Hero title on Kobalt: Industrial's treatment set in Manrope.
+   Sized so that at 1440 px it breaks like Industrial: three lines, with
+   the accent on the last line ("…MORE THAN AN / INSTAGRAM PROFILE."). */
+.theme-kobalt .hero__title {
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.875rem);
+  line-height: 0.96; letter-spacing: -0.04em; text-transform: uppercase;
+}
+
+/* Hero accent words: a marker in the accent colour.
+   Manrope's inline box is much taller than its capitals, so on Kobalt the
+   marker is painted as a band around the caps (Industrial's proportions)
+   rather than over the whole box, which would also cover the line above. */
+.theme-kobalt .hero__title .accent {
+  color: #FFFFFF; padding: 0 0.12em;
+  background: linear-gradient(var(--accent), var(--accent)) left 0 bottom 0.09em / 100% 1.13em no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
 .theme-industrial .hero__title .accent {
   color: var(--ink); background: var(--accent); padding: 0 0.12em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
@@ -183,7 +198,8 @@
 /* --- Sections --------------------------------------------- */
 .theme-kobalt .hero, .theme-kobalt #work { background: var(--section-alt); }
 
-/* Phone frame */
+/* Phone frame: hard offset shadow (Kobalt at ~80% of Industrial's) */
+.theme-kobalt .phone { box-shadow: 11px 11px 0 var(--accent); }
 .theme-industrial .phone { box-shadow: 14px 14px 0 var(--accent); }
 
 /* Cards */
@@ -206,3 +222,72 @@
 /* Form fields */
 .theme-industrial :is(.mb-input, .mb-textarea) { border: 1.5px solid var(--ink); }
 .theme-industrial :is(.mb-input, .mb-textarea):focus { border-color: var(--accent-text); box-shadow: 0 0 0 3px var(--accent-ring); }
+
+/* Contact block: the "Opens your email app" hints stay, a little quieter (contrast 4.68) */
+.theme-kobalt .contact__channels small { font-size: 0.75rem; color: var(--text-faint); }
+
+/* --- Footer ----------------------------------------------- */
+/* Industrial keeps its original footer (site.css): the parts added for
+   Kobalt are in the DOM for both themes and hidden here. */
+.theme-industrial :is(.footer__cta, .footer__heading, .footer__extra, .footer__bottom) { display: none; }
+.theme-industrial .footer__group { display: contents; }
+
+/* Kobalt: dark footer — call to action, columns, bottom bar. */
+.theme-kobalt .footer {
+  --footer-line: rgba(255, 255, 255, 0.14);
+  --focus-ring: var(--accent-on-ink);
+  padding: 0; border-top: 0; background: var(--ink); color: var(--on-ink-muted);
+}
+/* Rows without side padding, so the dividing lines line up with the content */
+.theme-kobalt .footer > .container {
+  width: calc(100% - 2 * var(--space-6)); max-width: calc(var(--container-xl) - 2 * var(--space-6));
+  padding-left: 0; padding-right: 0;
+}
+.theme-kobalt .footer__cta {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6);
+  padding: var(--space-9) 0 var(--space-8);
+}
+.theme-kobalt .footer__cta-title {
+  font: 800 clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.08 var(--font-display); letter-spacing: -0.035em; color: var(--on-ink);
+}
+.theme-kobalt .footer__offer { margin-top: var(--space-3); font: var(--fw-regular) 1rem/1.5 var(--font-sans); color: var(--on-ink-muted); }
+.theme-kobalt .footer__offer b { font-weight: var(--fw-semibold); color: var(--accent-on-ink); }
+
+.theme-kobalt .footer__inner {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr) minmax(0, 1.5fr); gap: var(--space-8);
+  padding: var(--space-8) 0; border-top: 1px solid var(--footer-line);
+}
+.theme-kobalt .footer__brand .logo { color: var(--on-ink); }
+.theme-kobalt .footer .logo-mark__tile { fill: var(--on-ink); }
+.theme-kobalt .footer .logo-mark__letters { fill: var(--ink); }
+.theme-kobalt .footer__brand p { color: var(--on-ink-muted); }
+.theme-kobalt .footer__heading {
+  margin-bottom: 4px; font: var(--fw-medium) var(--text-xs)/1.4 var(--font-mono);
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-ink-faint);
+}
+.theme-kobalt .footer__meta { grid-template-columns: repeat(2, minmax(max-content, 1fr)); gap: var(--space-6); }
+.theme-kobalt .footer__group { display: grid; gap: 10px; align-content: start; justify-items: start; }
+.theme-kobalt :is(.footer__privacy, .footer__copy) { display: none; }
+.theme-kobalt .footer :is(.footer__links, .footer__meta, .footer__bottom) a { color: var(--on-ink-muted); transition: color var(--dur-fast); }
+.theme-kobalt .footer :is(.footer__links, .footer__meta, .footer__bottom) a:hover { color: var(--on-ink); }
+
+.theme-kobalt .footer .lang-switch { background: transparent; border-color: var(--footer-line); }
+.theme-kobalt .footer .lang-switch__opt { color: var(--on-ink-muted); }
+.theme-kobalt .footer .lang-switch__opt:hover { color: var(--on-ink); }
+.theme-kobalt .footer .lang-switch__opt.is-active { background: var(--on-ink); color: var(--ink); }
+
+.theme-kobalt .footer__bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2) var(--space-6);
+  padding: var(--space-5) 0 var(--space-6); border-top: 1px solid var(--footer-line);
+  font: var(--fw-regular) var(--text-sm)/1.4 var(--font-sans); color: var(--on-ink-faint);
+}
+
+@media (max-width: 760px) {
+  .theme-kobalt .footer__cta { padding: var(--space-8) 0 var(--space-7); }
+  .theme-kobalt .footer__inner { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-7) 0; }
+  .theme-kobalt .footer__links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); }
+  .theme-kobalt .footer__links .footer__heading { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .theme-kobalt .footer > .container { width: calc(100% - 2 * var(--space-4)); }
+}

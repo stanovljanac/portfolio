@@ -119,9 +119,10 @@ for (const [theme, q] of Object.entries(THEMES)) {
   const res = await p.evaluate(() => {
     const lum = (c) => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map(Number).map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
     const bgOf = (el) => { for (let e = el; e; e = e.parentElement) { const c = getComputedStyle(e).backgroundColor; const a = c.match(/[\d.]+/g); if (a && (a.length < 4 || +a[3] > 0.5)) return c; } return "rgb(255,255,255)"; };
-    const sels = [".eyebrow", ".section__lede", ".work-card__label", ".work-card__desc", ".svc-note", ".steps__note", ".split__note", ".contact__privacy", ".contact__channels small", ".audience__text", ".audience__num", ".footer__links a", ".footer__meta span", ".nav__link", ".lang-switch__opt:not(.is-active)", ".offer__note", ".offer__text", ".offer .eyebrow", ".svc-card__price", ".step__num", ".hero__lede"];
+    const sels = [".eyebrow", ".section__lede", ".work-card__label", ".work-card__desc", ".svc-note", ".steps__note", ".split__note", ".contact__privacy", ".contact__channels small", ".audience__text", ".audience__num", ".footer__links a", ".footer__meta span", ".footer__heading", ".footer__offer", ".footer__bottom span", ".nav__link", ".lang-switch__opt:not(.is-active)", ".offer__note", ".offer__text", ".offer .eyebrow", ".svc-card__price", ".step__num", ".hero__lede"];
     const worst = {};
     for (const s of sels) for (const el of document.querySelectorAll(s)) {
+      if (!el.getClientRects().length) continue; // hidden in this theme (display: none)
       const L1 = lum(getComputedStyle(el).color), L2 = lum(bgOf(el));
       worst[s] = Math.min(worst[s] ?? 99, (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05));
     }

@@ -230,7 +230,10 @@ export const sr = {
     tagline: "Sajtovi i landing stranice za male biznise.",
     privacy: "Privatnost",
     navLabel: "Navigacija u podnožju",
+    navTitle: "Navigacija",
     copy: "© 2026 MihailoBuilds",
+    ctaTitle: "Imate projekat?",
+    offer: "niža cena za sledeća tri klijentska projekta.",
   },
 
   privacy: {

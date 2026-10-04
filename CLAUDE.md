@@ -80,6 +80,7 @@ Read this first in every session. The plan of work, one session per item, is in 
   - scope the CSS with `.theme-kobalt …` / `.theme-industrial …`
   - the DOM must still be identical, because the HTML is prerendered once
   - extra elements exist in both themes and are hidden with CSS in the other one
+- **Kobalt-only so far** (session 1): uppercase hero title with a marker accent, a hard phone shadow, quieter contact hints, and a dark footer (call to action, column headings, Viber/WhatsApp, bottom bar). Industrial hides the extra footer parts and keeps its original footer; the footer is outside `<main>`, so its height differs between the themes.
 - **Geometry check:** `qa:themes` compares the themes inside `<main>`: same DOM, section order and grid columns; section heights within 15%. A deliberate difference must be stated in the PR.
 
 ## Branches, previews, PRs
@@ -117,7 +118,7 @@ VITE_WEB3FORMS_ACCESS_KEY=test npm run build && node scripts/qa/form.mjs key   #
   - no horizontal overflow, clean console
   - geometry identical
   - contacts clean
-  - lowest contrast 5.67 (Kobalt) / 4.80 (Industrial); keep small text at **≥ 4.5**
+  - lowest contrast 4.68 (Kobalt: the contact hints, deliberately quieter since session 1) / 4.80 (Industrial); keep small text at **≥ 4.5**. Elements hidden in a theme are skipped.
   - focus visible
 - **Known issue:** CLS up to ~0.2 on mobile from web-font swapping. It is fixed in session 7 by self-hosting, preload and metric-matched fallbacks. Do not make it worse.
 

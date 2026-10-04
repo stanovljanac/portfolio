@@ -231,7 +231,10 @@ export const en: Dict = {
     tagline: "Websites and landing pages for small businesses.",
     privacy: "Privacy",
     navLabel: "Footer navigation",
+    navTitle: "Navigation",
     copy: "© 2026 MihailoBuilds",
+    ctaTitle: "Have a project in mind?",
+    offer: "a lower price for the next three client projects.",
   },
 
   privacy: {

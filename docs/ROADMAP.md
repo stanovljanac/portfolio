@@ -22,7 +22,7 @@ Jedna sesija radi jednu celinu. Sav kontekst je u `CLAUDE.md`, pa nova sesija ne
 
 | # | Sesija | Vrsta | Status |
 |---|---|---|---|
-| 1 | Kobalt: hero, senka telefona, footer | kod | todo |
+| 1 | Kobalt: hero, senka telefona, footer | kod | PR otvoren |
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | todo |
 | 3 | Snimci ekrana i nove kartice radova | kod | todo (treba mrežna dozvola) |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
@@ -83,6 +83,7 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
   - Prikazuje se samo dok je `OFFER.open`. Nema dugme za zatvaranje.
   - Na mobilnom je to glavni ulaz, jer su linkovi navigacije ispod 900 px sakriveni.
 - **Stavka u navigaciji:** „Offer" / „Ponuda", sa malim bedžom ili akcentom, takođe vodi na `#offer`.
+- **Podsetnik u Kobalt footeru** (`.footer__offer`, iz sesije 1) je za sada običan tekst; neka i on postane link na `#offer`.
 - Tekst ide u i18n (`en.ts`/`sr.ts`) i ne obećava ništa van ponude: samo niža cena za osnovnu izradu, sledeća 3 projekta.
 - Traka i navigacija ne smeju da izazovu horizontalni skrol ni na 320 px, niti da pomere sadržaj posle učitavanja.
 
