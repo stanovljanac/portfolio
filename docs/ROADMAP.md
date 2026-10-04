@@ -26,7 +26,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 |---|---|---|---|
 | 1 | Kobalt: hero, senka telefona, footer | kod | gotovo |
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
-| 3 | Snimci ekrana i nove kartice radova | kod | todo |
+| 3 | Snimci ekrana i nove kartice radova | kod | PR otvoren |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
 | 6 | Font za Industrial (3 varijante) | kod | todo |

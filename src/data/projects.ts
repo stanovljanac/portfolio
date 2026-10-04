@@ -1,4 +1,5 @@
 import type { Localized } from "../i18n";
+import { SHOTS, type Shot } from "./shots";
 
 export type Project = {
   slug: string;
@@ -7,10 +8,11 @@ export type Project = {
   label: Localized;
   desc: Localized;
   url: string;
-  /** Desktop screenshot; when missing, a placeholder is shown. */
-  image?: string;
-  /** Featured project gets the large card. */
+  /** Desktop screenshot (16:10, from scripts/capture-projects.mjs); when missing, a placeholder is shown. */
+  shot?: Shot;
+  /** Featured project gets the large card, with this mobile screenshot on a phone over the corner. */
   featured?: boolean;
+  mobileShot?: Shot;
 };
 
 /* Order matters: the salon website is the closest example of what
@@ -25,8 +27,9 @@ export const PROJECTS: Project[] = [
       en: "Website for a hair salon: services and prices, gallery, location and an appointment booking flow (design concept; in production it connects to a booking service).",
     },
     url: "https://mbhairsalon.mihailobuilds.com/",
-    image: "/projects/mb-hair-salon.png",
+    shot: SHOTS["mb-hair-salon"],
     featured: true,
+    mobileShot: SHOTS["mb-hair-salon-mobile-gallery"],
   },
   {
     slug: "keeper",
@@ -37,7 +40,7 @@ export const PROJECTS: Project[] = [
       en: "Landing page and website for an online photography course, with 23 modules organised by category.",
     },
     url: "https://keeper.mihailobuilds.com/",
-    image: "/projects/keeper.png",
+    shot: SHOTS.keeper,
   },
   {
     slug: "automation-desk",
@@ -48,7 +51,7 @@ export const PROJECTS: Project[] = [
       en: "Website for a content creator's personal brand: YouTube and social channels, resources, methodology and an enquiry form.",
     },
     url: "https://automationdesk.mihailobuilds.com/",
-    image: "/projects/automation-desk.png",
+    shot: SHOTS["automation-desk"],
   },
   {
     slug: "invoice-generator",
@@ -59,6 +62,6 @@ export const PROJECTS: Project[] = [
       en: "In-browser invoice generator: data entry, tax calculation and PDF export.",
     },
     url: "https://invoice.mihailobuilds.com/",
-    image: "/projects/invoice.png",
+    shot: SHOTS.invoice,
   },
 ];

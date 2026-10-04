@@ -212,6 +212,18 @@
 .theme-kobalt :is(.audience__item, .svc-card) { box-shadow: var(--shadow-sm); }
 .theme-kobalt .work-card--featured { box-shadow: var(--shadow-md); }
 .theme-industrial .work-card:hover { transform: none; border-color: var(--ink); }
+
+/* Work cards: the browser frame and the phone around the screenshots */
+.theme-kobalt .work-card__media { background: var(--accent-soft); }
+.theme-kobalt .browser { box-shadow: var(--shadow-lg); }
+.theme-kobalt .mini-phone { box-shadow: 5px 5px 0 var(--accent); }
+.theme-industrial .work-card__media { background: var(--bg-sunken); }
+.theme-industrial .browser { border: 1.5px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.theme-industrial .browser__bar { background: var(--surface-1); border-bottom: 1.5px solid var(--ink); }
+.theme-industrial .browser__dots i { border-radius: 0; background: var(--ink); }
+.theme-industrial .browser__dots i:first-child { background: var(--accent); }
+.theme-industrial .browser__url { border: 0; background: transparent; color: var(--text-secondary); }
+.theme-industrial .mini-phone { box-shadow: 7px 7px 0 var(--accent); }
 .theme-industrial .work-card__link { text-decoration-color: var(--accent); text-decoration-thickness: 3px; font-weight: 700; }
 .theme-industrial :is(.audience__num, .step__num) { font-weight: 600; }
 .theme-industrial .step { border-top-width: 3px; }

@@ -32,6 +32,7 @@ npm run qa:themes   # both themes: layout shift, overflow, console, geometry, co
 npm run qa:site     # no-JS, reduced motion, keyboard, anchors, language switch, links
 npm run qa:shots -- pages=/ widths=375,1440   # screenshots → .qa/
 node scripts/qa/form.mjs nokey|key            # contact form states (Web3Forms mocked)
+node scripts/capture-projects.mjs             # recapture the project screenshots (live sites → public/projects/)
 ```
 
 Working notes for Claude are in `CLAUDE.md`; the session-by-session plan is in `docs/ROADMAP.md`.
@@ -52,8 +53,8 @@ Each HTML file holds that page's `<title>`, description, canonical, hreflang and
 - **All copy** (both languages): `src/i18n/en.ts`, `src/i18n/sr.ts`
 - **Prices and the special offer** (`open: false` hides it once the three spots are taken): `src/data/pricing.ts`
 - **Email / phone** (Viber, WhatsApp): `src/data/contact.ts` — stored as character codes and never shown on the page. `<ContactLink>` (`src/components/Email.tsx`) points to the contact form and gets its real `mailto:` / `viber:` / `wa.me` address only when clicked. This deters scrapers; it is not a security measure. Use `{email}` in dictionary strings for an inline "by email" link.
-- **Projects**: `src/data/projects.ts` — screenshots go in `public/projects/`
-- **Hero phone screenshot**: `SALON_MOBILE_SHOT` in `src/components/Hero.tsx`
+- **Projects**: `src/data/projects.ts` (cards). Screenshots are made by `node scripts/capture-projects.mjs` (Playwright + sharp): it captures the live sites, exports WebP in several widths to `public/projects/` and regenerates `src/data/shots.ts`. Run it again when a site changes; see `public/projects/README.txt`
+- **Hero phone screenshot**: `SALON_MOBILE_SHOT` in `src/components/Hero.tsx` (also from the capture script)
 - **Portrait**: `PHOTO` in `src/components/About.tsx`
 - **OG images**: `public/og-sr.png`, `public/og-en.png` (1200×630)
 

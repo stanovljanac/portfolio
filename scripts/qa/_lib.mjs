@@ -18,6 +18,16 @@ export const THEMES = { kobalt: "", industrial: "?theme=industrial" };
 export const log = (...a) => console.log(...a);
 
 export async function launch() {
+  try {
+    await fetch(BASE);
+  } catch {
+    throw new Error(`Nothing is served at ${BASE}. Run \`npm run build && npm run preview\` first.`);
+  }
+  return launchChromium();
+}
+
+/* Chromium without the local-server check (scripts/capture-projects.mjs uses it too). */
+export async function launchChromium() {
   const candidates = [process.env.PLAYWRIGHT_MODULE, "playwright"];
   try {
     candidates.push(join(execSync("npm root -g", { stdio: ["ignore", "pipe", "ignore"] }).toString().trim(), "playwright/index.js"));
@@ -31,11 +41,6 @@ export async function launch() {
     } catch {}
   }
   if (!pw) throw new Error("Playwright not found. Set PLAYWRIGHT_MODULE=/path/to/node_modules/playwright/index.js");
-  try {
-    await fetch(BASE);
-  } catch {
-    throw new Error(`Nothing is served at ${BASE}. Run \`npm run build && npm run preview\` first.`);
-  }
   try {
     return await pw.chromium.launch();
   } catch (e) {
