@@ -14,7 +14,8 @@
       is regenerated. Only what USE lists is exported.
 
    The invoice app needs a login, so it is never captured: its card uses
-   Mihailo's own dashboard screenshot (scripts/sources/invoice-dashboard.png).
+   Mihailo's own dashboard screenshots from scripts/sources/ (TEMP: the old
+   one on Kobalt, the newer one with the app's nav on Industrial).
    Never log in to it or create an account. */
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
@@ -54,6 +55,7 @@ const USE = {
   keeper: { site: "keeper", device: "desktop", frame: "top" },
   "automation-desk": { site: "automation-desk", device: "desktop", frame: "top" },
   invoice: { file: "scripts/sources/invoice-dashboard.png", device: "desktop" },
+  "invoice-nav": { file: "scripts/sources/invoice-dashboard-nav.webp", device: "desktop" },
 };
 
 const arg = Object.fromEntries(process.argv.slice(2).map((a) => [a.split("=")[0], a.split("=")[1] ?? true]));

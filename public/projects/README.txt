@@ -14,12 +14,17 @@ src/data/shots.ts (srcset, width, height for every image).
                                      screenshot (scripts/sources/invoice-dashboard.png);
                                      the live app needs a login, so it is never
                                      captured
+  invoice-nav-*.webp                 TEMP, Industrial only: Mihailo's newer dashboard
+                                     screenshot with the app's nav
+                                     (scripts/sources/invoice-dashboard-nav.webp,
+                                     2000x1387, cut to 16:10). Kobalt keeps the old
+                                     one until the theme is chosen (roadmap session 7)
 
 Format
   desktop  1440x900 @2x, cut to 16:10, WebP at 640/960/1280/1600 px
   mobile   390x844 @3x, WebP at 300/450/600/810 px
   Viewport only (top of the page or one section, with the site's nav),
-  no full-page strips. The invoice source is 1213x760 @1x, so it is
+  no full-page strips. The old invoice source is 1213x760 @1x, so it is
   exported at 640/960/1213 px only.
 
 Recapture (when a site changes)
@@ -34,4 +39,5 @@ Recapture (when a site changes)
 New invoice screenshot
   Chrome DevTools > Device toolbar > 1440x900, DPR 2 > "Capture screenshot",
   top of the dashboard with the navigation, no cursor or open menus. Save it
-  as scripts/sources/invoice-dashboard.png and run the script with "export".
+  in scripts/sources/, point the invoice entry of USE at it and run the
+  script with "export".

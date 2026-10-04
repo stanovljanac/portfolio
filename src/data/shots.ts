@@ -38,4 +38,10 @@ export const SHOTS = {
     width: 1213,
     height: 758,
   },
+  "invoice-nav": {
+    src: "/projects/invoice-nav-960.webp",
+    srcSet: "/projects/invoice-nav-640.webp 640w, /projects/invoice-nav-960.webp 960w, /projects/invoice-nav-1280.webp 1280w, /projects/invoice-nav-1600.webp 1600w",
+    width: 2000,
+    height: 1250,
+  },
 } satisfies Record<string, Shot>;

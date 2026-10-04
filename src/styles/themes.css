@@ -205,7 +205,7 @@
 .theme-kobalt .hero, .theme-kobalt #work { background: var(--section-alt); }
 
 /* Phone frame: hard offset shadow (Kobalt lighter than Industrial's) */
-.theme-kobalt .phone { box-shadow: 8px 8px 0 var(--accent); }
+.theme-kobalt .phone { box-shadow: 6px 6px 0 var(--accent); }
 .theme-industrial .phone { box-shadow: 14px 14px 0 var(--accent); }
 
 /* Cards */
@@ -216,7 +216,7 @@
 /* Work cards: the browser frame and the phone around the screenshots */
 .theme-kobalt .work-card__media { background: var(--accent-soft); }
 .theme-kobalt .browser { box-shadow: var(--shadow-lg); }
-.theme-kobalt .mini-phone { box-shadow: 5px 5px 0 var(--accent); }
+.theme-kobalt .mini-phone { box-shadow: 4px 4px 0 var(--accent); }
 .theme-industrial .work-card__media { background: var(--bg-sunken); }
 .theme-industrial .browser { border: 1.5px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
 .theme-industrial .browser__bar { background: var(--surface-1); border-bottom: 1.5px solid var(--ink); }
@@ -224,6 +224,8 @@
 .theme-industrial .browser__dots i:first-child { background: var(--accent); }
 .theme-industrial .browser__url { border: 0; background: transparent; color: var(--text-secondary); }
 .theme-industrial .mini-phone { box-shadow: 7px 7px 0 var(--accent); }
+/* TEMP: a screenshot only one theme shows (the invoice card: old shot on Kobalt, new one on Industrial). */
+.theme-kobalt .theme-only-industrial, .theme-industrial .theme-only-kobalt { display: none; }
 .theme-industrial .work-card__link { text-decoration-color: var(--accent); text-decoration-thickness: 3px; font-weight: 700; }
 .theme-industrial :is(.audience__num, .step__num) { font-weight: 600; }
 .theme-industrial .step { border-top-width: 3px; }
@@ -299,22 +301,13 @@
   .theme-kobalt .offer-bar__short { display: inline; }
 }
 
-/* --- Hero on tablets (Industrial only) ----------------------- */
-/* TEMP: Mihailo compares this with Kobalt's stacked tablet hero.
-   641-900px: the offer pill / eyebrow and the title span the width; the lede
-   and the buttons sit left of the phone instead of above it. */
+/* --- Tablets (Industrial only) -------------------------------- */
+/* TEMP: Mihailo compares this with Kobalt's stacked tablet layout.
+   641-900px: the hero and the About section keep the desktop layout (copy
+   left, phone or photo right), so the whole hero fits the first screen. */
 @media (min-width: 641px) and (max-width: 900px) {
-  .theme-industrial .hero__grid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "top top" "title title" "lede visual" "cta visual" ". visual";
-    grid-template-rows: auto auto auto auto 1fr;
-    gap: 0 var(--space-7);
-  }
-  .theme-industrial .hero__copy { display: contents; }
-  .theme-industrial :is(.hero__offer, .hero .eyebrow) { grid-area: top; justify-self: start; }
-  .theme-industrial .hero__title { grid-area: title; }
-  .theme-industrial .hero__lede { grid-area: lede; }
-  .theme-industrial .hero__cta { grid-area: cta; align-self: start; }
-  .theme-industrial .hero__visual { grid-area: visual; align-self: start; margin-top: 6px; }
-  .theme-industrial .phone { width: 240px; }
+  .theme-industrial .hero__grid { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-6); }
+  .theme-industrial .phone { width: 210px; }
+  .theme-industrial .about { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-7); }
+  .theme-industrial .about__photo { max-width: none; }
 }

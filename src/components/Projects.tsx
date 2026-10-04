@@ -26,7 +26,33 @@ function ProjectCard({ p, flip }: { p: Project; flip: boolean }) {
           </div>
           <div className="browser__view">
             {p.shot ? (
-              <img src={p.shot.src} srcSet={p.shot.srcSet} sizes={SHOT_SIZES} alt="" loading="lazy" decoding="async" width={p.shot.width} height={p.shot.height} />
+              <>
+                {/* TEMP: with an Industrial-only screenshot, each theme hides the other's image (themes.css). */}
+                <img
+                  className={p.industrialShot ? "theme-only-kobalt" : undefined}
+                  src={p.shot.src}
+                  srcSet={p.shot.srcSet}
+                  sizes={SHOT_SIZES}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width={p.shot.width}
+                  height={p.shot.height}
+                />
+                {p.industrialShot ? (
+                  <img
+                    className="theme-only-industrial"
+                    src={p.industrialShot.src}
+                    srcSet={p.industrialShot.srcSet}
+                    sizes={SHOT_SIZES}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width={p.industrialShot.width}
+                    height={p.industrialShot.height}
+                  />
+                ) : null}
+              </>
             ) : (
               <div className="shot-placeholder">{t.work.shotPlaceholder}</div>
             )}
