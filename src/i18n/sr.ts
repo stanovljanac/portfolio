@@ -14,6 +14,13 @@ export const sr = {
     langLabel: "Jezik",
   },
 
+  /* Links to the special offer (#offer): bar above the nav, nav pill, hero pill. */
+  offerCta: {
+    bar: "sledeća 3 klijentska projekta po nižoj ceni.",
+    barShort: "za sledeća 3 projekta",
+    see: "Pogledajte ponudu",
+  },
+
   hero: {
     eyebrow: "Izrada sajtova i landing stranica za male biznise",
     titleLead: "Vašem biznisu treba više od",

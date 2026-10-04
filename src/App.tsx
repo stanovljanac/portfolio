@@ -11,12 +11,13 @@ import { Faq } from "./components/Faq";
 import { Contact } from "./components/Contact";
 import { Privacy } from "./components/Privacy";
 import { Footer } from "./components/Footer";
+import { OFFER } from "./data/pricing";
 
 export default function App({ locale, page }: { locale: Locale; page: Page }) {
   const t = DICTS[locale];
   return (
     <LocaleContext.Provider value={{ locale, page, t }}>
-      <div className="page">
+      <div className={"page" + (OFFER.open ? " has-offer" : "")}>
         <a className="skip-link" href="#main">
           {t.skip}
         </a>

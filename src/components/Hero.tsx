@@ -1,6 +1,7 @@
 import { Button } from "../ds";
 import { ArrowIcon } from "./icons";
 import { useT } from "../i18n";
+import { OFFER } from "../data/pricing";
 
 /* Path of the salon's mobile screenshot shown in the phone frame.
    Without it, a visible placeholder is rendered instead.
@@ -16,6 +17,11 @@ export function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="container hero__grid">
         <div className="hero__copy">
+          {OFFER.open ? (
+            <a className="hero__offer" href="#offer">
+              <b>{t.services.offer.eyebrow}</b> {t.offerCta.barShort} <ArrowIcon aria-hidden="true" />
+            </a>
+          ) : null}
           <p className="eyebrow">{t.hero.eyebrow}</p>
           <h1 id="hero-title" className="hero__title">
             {t.hero.titleLead} <span className="accent">{t.hero.titleAccent}</span>

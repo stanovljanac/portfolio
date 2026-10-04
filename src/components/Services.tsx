@@ -74,13 +74,17 @@ export function Services() {
         </Reveal>
 
         {OFFER.open ? (
-          <Reveal className="offer">
-            <p className="eyebrow">{s.offer.eyebrow}</p>
-            <h3 className="offer__title">{s.offer.title}</h3>
-            <p className="offer__text">{s.offer.text}</p>
-            <p className="offer__prices">{s.offer.prices}</p>
-            <p className="offer__note">{s.offer.note}</p>
-          </Reveal>
+          /* The anchor wraps the Reveal: its fade-up offset would otherwise
+             leave the block under the fixed nav after a jump to #offer. */
+          <div id="offer">
+            <Reveal className="offer">
+              <p className="eyebrow">{s.offer.eyebrow}</p>
+              <h3 className="offer__title">{s.offer.title}</h3>
+              <p className="offer__text">{s.offer.text}</p>
+              <p className="offer__prices">{s.offer.prices}</p>
+              <p className="offer__note">{s.offer.note}</p>
+            </Reveal>
+          </div>
         ) : null}
       </div>
     </section>

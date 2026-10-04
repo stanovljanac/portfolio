@@ -15,6 +15,13 @@ export const en: Dict = {
     langLabel: "Language",
   },
 
+  /* Links to the special offer (#offer): bar above the nav, nav pill, hero pill. */
+  offerCta: {
+    bar: "the next 3 client projects at a lower price.",
+    barShort: "for the next 3 projects",
+    see: "See the offer",
+  },
+
   hero: {
     eyebrow: "Websites and landing pages for small businesses",
     titleLead: "Your business needs more than",

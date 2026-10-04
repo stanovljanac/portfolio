@@ -16,7 +16,10 @@ export function Footer() {
           <p className="footer__cta-title">{t.footer.ctaTitle}</p>
           {OFFER.open ? (
             <p className="footer__offer">
-              <b>{t.services.offer.eyebrow}:</b> {t.footer.offer}
+              <b>{t.services.offer.eyebrow}:</b> {t.footer.offer}{" "}
+              <a href={href("offer")}>
+                {t.offerCta.see} <ArrowIcon aria-hidden="true" />
+              </a>
             </p>
           ) : null}
         </div>

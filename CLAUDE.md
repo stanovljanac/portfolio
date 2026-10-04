@@ -81,6 +81,7 @@ Read this first in every session. The plan of work, one session per item, is in 
   - the DOM must still be identical, because the HTML is prerendered once
   - extra elements exist in both themes and are hidden with CSS in the other one
 - **Kobalt-only so far** (session 1): uppercase Manrope hero title with a marker accent, a lighter hard phone shadow (8px; Industrial 14px), quieter contact hints. The dark footer (call to action, column headings, Viber/WhatsApp, bottom bar) is shared by both themes.
+- **Special offer highlight, one variant per theme** (until Mihailo picks one; roadmap session 2): Kobalt has the bar above the nav (`.offer-bar`; its height is `--bar-h`, which the hero, privacy page and anchor offsets add), Industrial has the nav pill (`.nav__offer`, from 1181px) and the hero pill (`.hero__offer`, below that). All link to `#offer` and exist only while `OFFER.open`.
 - **Geometry check:** `qa:themes` compares the themes inside `<main>`: same DOM, section order and grid columns; section heights within 15%. A deliberate difference must be stated in the PR.
 
 ## Branches, previews, PRs

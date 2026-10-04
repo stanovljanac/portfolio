@@ -25,7 +25,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | # | Sesija | Vrsta | Status |
 |---|---|---|---|
 | 1 | Kobalt: hero, senka telefona, footer | kod | PR otvoren |
-| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | todo |
+| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | PR otvoren (zajedno sa sesijom 1); čeka izbor varijante |
 | 3 | Snimci ekrana i nove kartice radova | kod | todo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
@@ -39,10 +39,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 ## Odluke koje čekaju Mihaila
 
 - **Tema:** Kobalt ili Industrial (posle sesija 1–3 i 6).
-- **Isticanje posebne ponude** (sesija 2), Mihailo je dobio snimke tri varijante:
-  1. traka u boji akcenta iznad navigacije, fiksirana zajedno sa njom
-  2. tamna plutajuća kartica pri dnu ekrana (levo na desktopu, preko cele širine na mobilnom), kad se skroluje ispod heroja
-  3. istaknuto dugme „Special offer" u navigaciji; na mobilnom traka u boji akcenta iznad naslova u heroju
+- **Isticanje posebne ponude** (sesija 2): na previewu je Kobalt sa trakom iznad navigacije (varijanta 1), a Industrial sa dugmetom u navigaciji i oznakom iznad naslova (varijanta 3). Mihailo bira jednu; varijanta 2 (plutajuća kartica) je odbijena.
 - **Font za Industrial** (sesija 6).
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
@@ -81,25 +78,21 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 
 **Cilj:** posebna ponuda je trenutno glavna stvar koju promovišemo, a zatrpana je u sekciji Usluge. Treba da se vidi odmah i da vodi pravo na nju.
 
-**Obim (obe teme):**
-- Blok ponude u `Services.tsx` dobija `id="offer"` i `scroll-margin-top`, da ga fiksna navigacija ne prekrije.
-- **Traka iznad navigacije:** tanka traka, npr. „Special offer: the next 3 client projects at a lower price → See the offer" / „Posebna ponuda: sledeća 3 projekta po nižoj ceni → Pogledajte ponudu".
-  - Vodi na `#offer`, a sa stranice privatnosti na `/#offer`.
-  - Prikazuje se samo dok je `OFFER.open`. Nema dugme za zatvaranje.
-  - Na mobilnom je to glavni ulaz, jer su linkovi navigacije ispod 900 px sakriveni.
-- **Stavka u navigaciji:** „Offer" / „Ponuda", sa malim bedžom ili akcentom, takođe vodi na `#offer`.
-- **Varijanta isticanja:** uradi onu koju je Mihailo izabrao (vidi „Odluke koje čekaju Mihaila"); ako je to varijanta 2 ili 3, ona zamenjuje traku i stavku iz ovog spiska.
-- **Podsetnik u footeru** (`.footer__offer`, iz sesije 1) je za sada običan tekst; neka i on postane link na `#offer`.
-- Tekst ide u i18n (`en.ts`/`sr.ts`) i ne obećava ništa van ponude: samo niža cena za osnovnu izradu, sledeća 3 projekta.
-- Traka i navigacija ne smeju da izazovu horizontalni skrol ni na 320 px, niti da pomere sadržaj posle učitavanja.
+**Urađeno u PR-u sesije 1** (stanovljanac/portfolio#2), po jedna varijanta po temi, da Mihailo uporedi:
+- Blok ponude ima sidro `#offer`. Sidro je omotač oko `<Reveal>`, jer bi ga pomeraj animacije ostavio ispod navigacije. `scroll-margin-top` uzima u obzir i traku (`--bar-h`).
+- **Kobalt, varijanta 1:** traka u boji akcenta iznad navigacije (`.offer-bar` u `Nav.tsx`), fiksirana zajedno sa njom. Visina je 40 px, a do 640 px 36 px sa kraćim tekstom. Vodi na `#offer`, a sa stranice privatnosti na `/#offer`.
+- **Industrial, varijanta 3:** dugme „Special offer" / „Posebna ponuda" u linkovima navigacije (`.nav__offer`, od 1181 px). Ispod toga je oznaka iznad naslova u heroju (`.hero__offer`), koja zamenjuje eyebrow.
+- Podsetnik u footeru vodi na `#offer` u obe teme.
+- Sve postoji samo dok je `OFFER.open`. Tekst je u i18n (`offerCta`).
+- `qa:themes` proverava da ništa iz navigacije i trake ne izlazi van ekrana i da se tekst ne lomi, na širinama 320–1280 px.
 
-**Gotovo kad:**
-- Klik na traku i na stavku navigacije spušta pravo na ponudu, u obe teme i na oba jezika, i sa stranice privatnosti.
-- Sa `OFFER.open = false` traka i stavka nestaju (proveri lokalno pa vrati na `true`).
-- `qa:themes` i `qa:site` su čisti.
+**Ostaje, posle Mihailovog izbora:**
+- Izabrana varijanta važi za obe teme (u boji teme). Druga se briše: markup, CSS u `themes.css` (blok „Special offer highlight"), i18n ključevi koji se više ne koriste.
+- Ako izabere traku, `--bar-h` važi za obe teme. Ako izabere dugme, `--bar-h` i `has-offer` se brišu.
+- Opet: klik vodi pravo na ponudu u obe teme, na oba jezika i sa stranice privatnosti. Sa `OFFER.open = false` sve nestaje. `qa:themes` i `qa:site` su čisti.
 
 ```text
-Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-cqi5ff i napravi svoju radnu granu od origin/claude/loving-noether-cqi5ff (ne od main). Pročitaj CLAUDE.md i docs/ROADMAP.md, pa uradi SESIJU 2 (istaknuta posebna ponuda: traka iznad navigacije i stavka u navigaciji, obe vode na #offer) tačno kako je opisana u roadmap-u. Ako nešto zahteva moju odluku, pitaj pre izmena; ostalo uradi samostalno. Na kraju: build i QA iz CLAUDE.md, pogledaj snimke ekrana za obe teme, commit, push, otvori PR u claude/loving-noether-cqi5ff (ne u main), u PR stavi Vercel preview linkove za Kobalt i ?theme=industrial, i ažuriraj status u docs/ROADMAP.md. Odgovaraj mi na srpskom.
+Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-cqi5ff i napravi svoju radnu granu od origin/claude/loving-noether-cqi5ff (ne od main). Pročitaj CLAUDE.md i docs/ROADMAP.md, pa završi SESIJU 2 (istaknuta posebna ponuda). Izabrao sam varijantu: [TRAKA IZNAD NAVIGACIJE ili DUGME U NAVIGACIJI]. Primeni je na obe teme i obriši drugu, tačno kako piše u roadmap-u. Na kraju: build i QA iz CLAUDE.md, pogledaj snimke ekrana za obe teme, commit, push, otvori PR u claude/loving-noether-cqi5ff (ne u main), u PR stavi Vercel preview linkove za Kobalt i ?theme=industrial, i ažuriraj status u docs/ROADMAP.md. Odgovaraj mi na srpskom.
 ```
 
 ---

@@ -236,3 +236,53 @@
 /* Layout and colours are shared (site.css); the CTA is the accent button on both themes. */
 .theme-industrial .footer .mb-btn--primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
 .theme-industrial .footer .mb-btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* --- Special offer highlight ------------------------------ */
+/* TEMP: one variant per theme, so Mihailo can compare them.
+   Kobalt: a bar above the nav. Industrial: a pill in the nav links from
+   1181px (the Serbian links need ~1150px with it) and above the hero title
+   below that.
+   Both exist in the DOM; each theme hides the other's. Shown while OFFER.open. */
+.theme-industrial .offer-bar, .theme-kobalt :is(.nav__offer, .hero__offer) { display: none; }
+
+.theme-kobalt .has-offer { --bar-h: 40px; }
+.theme-kobalt .offer-bar {
+  height: var(--bar-h); padding: 0 var(--space-4);
+  display: flex; align-items: center; justify-content: center; gap: var(--space-3);
+  background: var(--accent); color: #FFFFFF; font: var(--fw-medium) var(--text-sm)/1.2 var(--font-sans); white-space: nowrap;
+  transition: background var(--dur-fast);
+}
+.theme-kobalt .offer-bar:hover { background: var(--accent-hover); }
+.theme-kobalt .offer-bar:focus-visible { outline: 2px solid #FFFFFF; outline-offset: -5px; }
+.theme-kobalt .offer-bar b { font-weight: var(--fw-bold); }
+.theme-kobalt .offer-bar__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.theme-kobalt .offer-bar__short { display: none; }
+.theme-kobalt .offer-bar__cta { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: var(--fw-bold); }
+.theme-kobalt .offer-bar__see { text-decoration: underline; text-underline-offset: 3px; }
+.theme-kobalt .offer-bar__cta svg { width: 15px; height: 15px; }
+
+.theme-industrial .nav__offer {
+  display: inline-flex; align-items: center; gap: 8px; margin: -7px 0; padding: 6px 12px;
+  background: var(--accent-soft); border: 1.5px solid var(--ink); color: var(--ink); font-weight: 700;
+  transition: background var(--dur-fast);
+}
+.theme-industrial .nav__offer::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.theme-industrial .nav__offer:hover { background: var(--accent); color: var(--ink); }
+.theme-industrial .hero__offer { display: none; }
+
+@media (max-width: 1180px) {
+  .theme-industrial .nav__offer { display: none; }
+  .theme-industrial .hero__offer {
+    display: inline-block; padding: 9px 14px; border: 1.5px solid var(--ink);
+    background: var(--accent); color: var(--ink); font: var(--fw-semibold) var(--text-sm)/1.35 var(--font-sans);
+  }
+  .theme-industrial .hero__offer b { font-weight: 800; }
+  .theme-industrial .hero__offer svg { width: 1em; height: 1em; vertical-align: -0.15em; }
+  .theme-industrial .has-offer .hero .eyebrow { display: none; }  /* the pill takes its place */
+}
+@media (max-width: 640px) {
+  .theme-kobalt .has-offer { --bar-h: 36px; }
+  .theme-kobalt .offer-bar { font-size: 0.8125rem; gap: 6px; }
+  .theme-kobalt :is(.offer-bar__long, .offer-bar__see) { display: none; }
+  .theme-kobalt .offer-bar__short { display: inline; }
+}
