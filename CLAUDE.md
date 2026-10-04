@@ -1,0 +1,139 @@
+# MihailoBuilds website — working notes for Claude
+
+Read this first in every session. The plan of work, one session per item, is in `docs/ROADMAP.md`.
+
+## People and language
+- Owner: **Mihailo**, a QA engineer starting **MihailoBuilds**. Talk to him in **Serbian**. Code, comments, commit messages and PR text are in **English**.
+- He reviews every change on the Vercel preview and decides. Ask before taking anything that is his call: copy tone, prices, design direction.
+
+## What the business is
+- MihailoBuilds sells **websites and landing pages for small businesses**, with practical extras: a contact form, links to booking services, and similar.
+- It is **not** SaaS and not complex web apps.
+- The projects shown are **personal projects** and are labelled that way. The goal of the site is to win the **first client**.
+
+## Locked decisions (do not reopen without Mihailo)
+- **Routes:** English at `/`, Serbian at `/sr/`; privacy at `/privacy/` and `/sr/privatnost/`. hreflang `x-default` → `/`.
+- **No location** anywhere on the site. He works remotely.
+- **Prices:**
+  - Shown as starting prices ("from €X").
+  - **Special offer:** "the next three client projects at a lower price".
+    - Controlled by `OFFER.open` (true/false) in `src/data/pricing.ts`.
+    - No counter. Covers the core build only.
+    - Never tied to Google reviews; that is against Google policy.
+- **Process:**
+  1. Written proposal + deposit
+  2. Design approval
+  3. Build with **2 revision rounds** within the agreed scope
+  4. Launch + **30-day warranty**
+
+  After design approval, a new design, new sections, new features or replacing all the content count as new work. Outages of third-party services are the provider's responsibility.
+- **Contact form:** part of the base price only if the client wants one. Complex forms are add-ons.
+- **Booking** must be described honestly. On the salon project it is a design concept; in production it connects to a booking service (e.g. Cal.com). Out of the box Mihailo connects a form to email; anything more is extra time and money.
+- **Copy must not expand the scope.** No promises of Google rankings, more customers, guaranteed results and the like.
+- **Live project sites** (`*.mihailobuilds.com`) are separate projects. Never change them from this repo.
+
+## Contact data rule (hard requirement from Mihailo)
+- The email address and phone number are **never visible** on the page and **never appear as plain text** in `dist/`.
+- They are also **never written in plain text anywhere in the repo**: code, docs, comments, commit messages, PR descriptions. Scrapers read GitHub too.
+- They are stored as character codes in `src/data/contact.ts`.
+- `<ContactLink kind="email|viber|whatsapp">` (`src/components/Email.tsx`) links to `#contact`. The real `mailto:` / `viber:` / `wa.me` address is set only on click or middle-click.
+- `{email}` in a dictionary string renders an inline "by email" link (`<WithEmail>`).
+- The hints under the links ("Opens your email app" etc.) stay. They tell the visitor that an app will open, since no address is shown.
+- This deters scrapers; it is not security.
+- **Check:** after every build run `npm run qa:leak`, plus the contact block of `npm run qa:themes`.
+- **Form:** Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY`), hidden honeypot `botcheck`, and a guard against double submits.
+
+## Architecture
+- **Stack:** Vite 5 multi-page app (`appType: "mpa"`), React 18 + TypeScript, plain CSS. There is no router.
+- **Pages:** four real HTML entries — `index.html` (en), `sr/index.html`, `privacy/index.html`, `sr/privatnost/index.html`.
+  - Each holds its own `<title>`, description, canonical, hreflang, OG tags and `<div id="root" data-page="home|privacy"><!--app-html--></div>`.
+- **Prerender:** `npm run build` runs these steps:
+  1. `tsc`
+  2. client build
+  3. SSR build of `src/entry-server.tsx`
+  4. `scripts/prerender.mjs`, which injects the markup, replaces `__SITE_URL__` (HTML, `sitemap.xml`, `robots.txt`) and warns about leftover `[[…]]` placeholders
+- **Client:** `src/main.tsx` hydrates the page. Locale comes from `<html lang>`, page from `data-page`.
+- **i18n:** `src/i18n/en.ts` and `sr.ts` hold **all copy**. They are typed, so `sr` must match the shape of `en`.
+  - `useLocale()` / `useT()` read it.
+  - `PATHS` and `sectionHref(locale, page, id)` build links.
+  - Never hardcode copy in components.
+- **Data:** `src/data/projects.ts` (work cards), `src/data/pricing.ts` (prices + offer), `src/data/contact.ts`.
+- **Components** (`src/components/`): Nav, Hero, Audience, Projects, Services (contains the offer block), Process, About, Faq, Contact, Privacy, Footer, LangSwitch, Logo, Email (ContactLink), Reveal.
+  - The hero deliberately does not use `<Reveal>`: it must be visible before JS runs.
+- **Styles:** `src/styles/index.css` imports, in this order:
+  1. `tokens/` (base tokens)
+  2. `themes.css` (theme variables + per-theme overrides)
+  3. `ds.css` (button, field and other primitives, exported from `src/ds`)
+  4. `site.css` (page layout, using theme variables only)
+- **Logo:** MB monogram drawn as SVG paths in `src/components/Logo.tsx`, coloured by CSS variables; also `public/favicon.svg`. Keep it simple: no font tooling.
+- **Other:** `vercel.json` sets `trailingSlash: true`. Locally, URLs without a trailing slash return 404 in `vite preview`; that is expected.
+- **Placeholders:** written as `[[…]]`. The build lists the ones left. **None may reach `main`.**
+
+## Temporary: two themes side by side
+- **Kobalt** (default, `.theme-kobalt`): Manrope + JetBrains Mono, white, cobalt accent `#2F5BFF`, rounded corners.
+- **Industrial** (`.theme-industrial`): Archivo (condensed headings) + IBM Plex Mono, off-white, black 1.5px borders, orange accent `#FF4F00`, square corners, hard offset shadows.
+- **Switching:**
+  - `?theme=industrial` switches the theme via the inline script in the `<head>` of all four HTML files. The URL alone decides; there is no storage.
+  - The script also adds the parameter to internal links, so the theme survives navigation.
+- **Both stay until the site is complete.** Mihailo picks one in roadmap session 7.
+- **Every change must work in both themes**, unless a session says it is for one theme only. Then:
+  - scope the CSS with `.theme-kobalt …` / `.theme-industrial …`
+  - the DOM must still be identical, because the HTML is prerendered once
+  - extra elements exist in both themes and are hidden with CSS in the other one
+- **Geometry check:** `qa:themes` compares the themes inside `<main>`: same DOM, section order and grid columns; section heights within 15%. A deliberate difference must be stated in the PR.
+
+## Branches, previews, PRs
+- **`main` is production** (the old site is live). Do not touch it until launch (roadmap session 8).
+- **The integration branch is `claude/loving-noether-cqi5ff`.** It has a Vercel preview.
+  - Kobalt: `<preview-url>/`
+  - Industrial: `<preview-url>/?theme=industrial`
+- **One session = one roadmap item:**
+  1. Start from `origin/claude/loving-noether-cqi5ff`, not from `main`. Use the branch name the session gives you, but base it on the integration branch:
+     `git fetch origin claude/loving-noether-cqi5ff && git checkout -B <session-branch> origin/claude/loving-noether-cqi5ff`
+  2. Do only that item.
+  3. Build, QA and look at the screenshots.
+  4. Commit and push.
+  5. Open a PR with **base `claude/loving-noether-cqi5ff`**, never `main`.
+  6. Put the Vercel preview links (both themes) in the PR description and set the item's status in `docs/ROADMAP.md`.
+  7. Mihailo reviews the preview and merges.
+- **Order:** code sessions run one after another, because they all touch `site.css`; merge the previous PR first. Research sessions can run at any time, in parallel.
+- **Tooling:** there is no `gh` CLI; use the GitHub MCP tools.
+- **Finding the preview URL:** the Vercel bot comments on the PR. Otherwise use the GitHub deployments API: `deployments?ref=<branch>`, then `/statuses`, and read `environment_url`.
+
+## Commands and QA
+```bash
+npm install
+npm run build                    # tsc + build + prerender; lists placeholders left
+npm run qa:leak                  # contact data in dist/? (no browser needed)
+npm run preview                  # serves dist/ on :4173 — run it in the background for the checks below
+npm run qa:themes                # both themes: CLS, overflow, console, geometry, theme propagation, contacts, contrast, focus (~1 min)
+npm run qa:site                  # no-JS, reduced motion, keyboard, FAQ, anchors, language switch, links
+npm run qa:shots -- pages=/,/sr/ widths=375,1440 viewport=1   # screenshots → .qa/ (git-ignored); see the header of scripts/qa/shots.mjs
+node scripts/qa/form.mjs nokey   # form states, build without a Web3Forms key
+VITE_WEB3FORMS_ACCESS_KEY=test npm run build && node scripts/qa/form.mjs key   # mocked API: loading, success, errors, one call on double submit
+```
+- **Look at the screenshots** (open the PNGs) before calling a visual change done. Check 320, 375 and 1440 px, both themes, `/` and `/sr/`; Serbian text is longer.
+- **Baseline** (start of the roadmap):
+  - no horizontal overflow, clean console
+  - geometry identical
+  - contacts clean
+  - lowest contrast 5.67 (Kobalt) / 4.80 (Industrial); keep small text at **≥ 4.5**
+  - focus visible
+- **Known issue:** CLS up to ~0.2 on mobile from web-font swapping. It is fixed in session 7 by self-hosting, preload and metric-matched fallbacks. Do not make it worse.
+
+## Cloud environment limits
+- **Certificates:** Chromium rejects the sandbox proxy's certificate. Playwright contexts need `ignoreHTTPSErrors: true`, otherwise Google Fonts silently fall back. `scripts/qa/_lib.mjs` handles this and caches fonts, which take ~6 s per page through the proxy.
+- **Browser:** Playwright is used from the global npm install; the scripts find it. If `PLAYWRIGHT_BROWSERS_PATH` points to the wrong folder, they fall back to `/opt/pw-browsers/chromium`. Never run `playwright install`.
+- **Live project sites:** `*.mihailobuilds.com` is blocked by the default network policy (403 / `EGRESS_BLOCKED`).
+  - Mihailo can allow it: environment settings → Network access → Custom → Allowed domains: `*.mihailobuilds.com`, keeping the package-manager defaults.
+  - Until then, screenshots of the live projects have to come from him.
+
+## Conventions
+- **CSS:** use theme variables and tokens; no raw colours in `site.css`. Theme-specific rules go in `themes.css`.
+- **Accessibility:**
+  - keyboard focus always visible
+  - small-text contrast ≥ 4.5
+  - `prefers-reduced-motion` respected
+  - content visible without JS
+- **Images:** set `width`/`height` on every image (no layout shift). Project screenshots live in `public/projects/`; see its README.
+- **Docs:** keep `README.md` and this file up to date when you change how something works or where it is edited.

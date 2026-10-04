@@ -3,8 +3,10 @@ import { ArrowIcon } from "./icons";
 import { useT } from "../i18n";
 
 /* Path of the salon's mobile screenshot shown in the phone frame.
-   Until the file exists, a visible placeholder is rendered instead. */
-const SALON_MOBILE_SHOT: string | undefined = undefined; // e.g. "/projects/mb-hair-salon-mobile.png"
+   Without it, a visible placeholder is rendered instead.
+   Interim image (416px wide, canvas extended to the screen ratio);
+   to be recaptured at 390×844 @3x — see docs/ROADMAP.md, session 3. */
+const SALON_MOBILE_SHOT: string | undefined = "/projects/mb-hair-salon-mobile.png";
 
 /* The hero deliberately does not use <Reveal>: it must be visible in the
    prerendered HTML immediately, before any JavaScript runs. */
@@ -33,7 +35,7 @@ export function Hero() {
           <div className="phone">
             <div className="phone__screen">
               {SALON_MOBILE_SHOT ? (
-                <img src={SALON_MOBILE_SHOT} alt={t.hero.shotAlt} width={390} height={844} />
+                <img src={SALON_MOBILE_SHOT} alt={t.hero.shotAlt} width={416} height={937} />
               ) : (
                 <div className="shot-placeholder">{t.hero.shotPlaceholder}</div>
               )}

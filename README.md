@@ -22,6 +22,20 @@ npm run build    # type-check + build + prerender → dist/
 npm run preview  # serve dist/ locally
 ```
 
+## QA
+
+Browser checks use Playwright (not a project dependency; see `scripts/qa/_lib.mjs`) against `npm run preview`:
+
+```bash
+npm run qa:leak     # contact data must not appear in dist/
+npm run qa:themes   # both themes: layout shift, overflow, console, geometry, contacts, contrast, focus
+npm run qa:site     # no-JS, reduced motion, keyboard, anchors, language switch, links
+npm run qa:shots -- pages=/ widths=375,1440   # screenshots → .qa/
+node scripts/qa/form.mjs nokey|key            # contact form states (Web3Forms mocked)
+```
+
+Working notes for Claude are in `CLAUDE.md`; the session-by-session plan is in `docs/ROADMAP.md`.
+
 ## Pages
 
 | URL | File |
