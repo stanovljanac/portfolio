@@ -82,6 +82,7 @@ Read this first in every session. The plan of work, one session per item, is in 
   - extra elements exist in both themes and are hidden with CSS in the other one
 - **Kobalt-only so far** (session 1): uppercase Manrope hero title with a marker accent, a lighter hard phone shadow (8px; Industrial 14px), quieter contact hints. The dark footer (call to action, column headings, Viber/WhatsApp, bottom bar) is shared by both themes.
 - **Special offer highlight, one variant per theme** (until Mihailo picks one; roadmap session 2): Kobalt has the bar above the nav (`.offer-bar`; its height is `--bar-h`, which the hero, privacy page and anchor offsets add), Industrial has the nav pill (`.nav__offer`, from 1181px) and the hero pill (`.hero__offer`, below that). All link to `#offer` and exist only while `OFFER.open`.
+- **Industrial-only tablet hero** (641–900px, until Mihailo picks): the title spans the width, the lede and buttons sit left of the phone (`.hero__copy` becomes `display: contents` inside a grid with named areas). Kobalt keeps the stacked hero.
 - **Geometry check:** `qa:themes` compares the themes inside `<main>`: same DOM, section order and grid columns; section heights within 15%. A deliberate difference must be stated in the PR.
 
 ## Branches, previews, PRs
@@ -108,7 +109,7 @@ npm install
 npm run build                    # tsc + build + prerender; lists placeholders left
 npm run qa:leak                  # contact data in dist/? (no browser needed)
 npm run preview                  # serves dist/ on :4173 — run it in the background for the checks below
-npm run qa:themes                # both themes: CLS, overflow, console, geometry, nav fits 320–900 px, theme propagation, contacts, contrast, focus (~2 min)
+npm run qa:themes                # both themes: CLS, overflow, console, geometry, nav fits 320–1280 px, theme propagation, contacts, contrast, focus (~2 min)
 npm run qa:site                  # no-JS, reduced motion, keyboard, FAQ, anchors, language switch, links
 npm run qa:shots -- pages=/,/sr/ widths=375,1440 viewport=1   # screenshots → .qa/ (git-ignored); see the header of scripts/qa/shots.mjs
 node scripts/qa/form.mjs nokey   # form states, build without a Web3Forms key

@@ -24,8 +24,8 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 
 | # | Sesija | Vrsta | Status |
 |---|---|---|---|
-| 1 | Kobalt: hero, senka telefona, footer | kod | PR otvoren |
-| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | PR otvoren (zajedno sa sesijom 1); čeka izbor varijante |
+| 1 | Kobalt: hero, senka telefona, footer | kod | gotovo |
+| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
 | 3 | Snimci ekrana i nove kartice radova | kod | todo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
@@ -40,6 +40,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 
 - **Tema:** Kobalt ili Industrial (posle sesija 1–3 i 6).
 - **Isticanje posebne ponude** (sesija 2): na previewu je Kobalt sa trakom iznad navigacije (varijanta 1), a Industrial sa dugmetom u navigaciji i oznakom iznad naslova (varijanta 3). Mihailo bira jednu; varijanta 2 (plutajuća kartica) je odbijena.
+- **Hero na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima naslov preko cele širine, a ispod njega tekst i dugmad levo, telefon desno. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
 - **Font za Industrial** (sesija 6).
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
@@ -106,14 +107,15 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 - **Mobilni:** 390×844, DPR 3.
 - Vrh stranice sa navigacijom, bez kursora i bez otvorenih menija.
 
-**Invoice Generator:** `invoice.mihailobuilds.com` odmah preusmerava na `/login`. Mihailo je odlučio (sesija 1): kartica prikazuje **njegov snimak Dashboard-a** (prihod + plaćeno/neplaćeno), sada u `public/projects/invoice.png` (1193×748). Ovaj sajt se ne snima; snimak samo ide u isti okvir i format kao ostali. Ne prijavljuj se pravim nalogom i ne pravi nalog.
+**Invoice Generator:** `invoice.mihailobuilds.com` odmah preusmerava na `/login`. Mihailo je odlučio (sesija 1): kartica prikazuje **njegov snimak Dashboard-a sa poslednjim fakturama**, sada u `public/projects/invoice.png` (1213×760). Ovaj sajt se ne snima; snimak samo ide u isti okvir i format kao ostali. Ne prijavljuj se pravim nalogom i ne pravi nalog.
 
 **Obim:**
+- **MB Hair Salon kartica** ne sme da ponavlja hero salona, jer ga već prikazuje telefon u našem heroju. Sada je to sekcija za zakazivanje („Reserve your chair."); zadrži taj ili sličan kadar (ne hero).
 - **Snimanje** Playwright-om, za sva 4 sajta (MB Hair Salon, Keeper, The Automation Desk, Invoice Generator):
   - desktop 1440×900 na `deviceScaleFactor: 2`
   - mobilni 390×844 na `deviceScaleFactor: 3`
   - vrh stranice sa navigacijom; sačekaj fontove, slike i 3D/canvas animacije; bez kursora
-  - salon iz više kadrova (hero, usluge), pa izaberi onaj koji najbolje predstavlja sajt
+  - salon iz više kadrova (usluge, zakazivanje, galerija; ne hero), pa izaberi onaj koji najbolje predstavlja sajt
   - mobilni snimak salona za telefon u heroju zamenjuje privremeni `public/projects/mb-hair-salon-mobile.png`
 - **Izvoz:** WebP u više širina za `srcset`/`sizes`, sa `width`/`height` na svakoj slici (bez pomeranja sadržaja). Snimci su ograničeni na vrh stranice, bez full-page traka. Proveri kvalitet na 2x ekranu.
 - **Redizajn kartica (obe teme):**

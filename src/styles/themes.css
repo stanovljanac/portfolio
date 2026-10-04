@@ -286,3 +286,23 @@
   .theme-kobalt :is(.offer-bar__long, .offer-bar__see) { display: none; }
   .theme-kobalt .offer-bar__short { display: inline; }
 }
+
+/* --- Hero on tablets (Industrial only) ----------------------- */
+/* TEMP: Mihailo compares this with Kobalt's stacked tablet hero.
+   641-900px: the offer pill / eyebrow and the title span the width; the lede
+   and the buttons sit left of the phone instead of above it. */
+@media (min-width: 641px) and (max-width: 900px) {
+  .theme-industrial .hero__grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "top top" "title title" "lede visual" "cta visual" ". visual";
+    grid-template-rows: auto auto auto auto 1fr;
+    gap: 0 var(--space-7);
+  }
+  .theme-industrial .hero__copy { display: contents; }
+  .theme-industrial :is(.hero__offer, .hero .eyebrow) { grid-area: top; justify-self: start; }
+  .theme-industrial .hero__title { grid-area: title; }
+  .theme-industrial .hero__lede { grid-area: lede; }
+  .theme-industrial .hero__cta { grid-area: cta; align-self: start; }
+  .theme-industrial .hero__visual { grid-area: visual; align-self: start; margin-top: 6px; }
+  .theme-industrial .phone { width: 240px; }
+}
