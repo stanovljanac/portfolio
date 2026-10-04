@@ -2,12 +2,14 @@ import { Button } from "../ds";
 import { ArrowIcon } from "./icons";
 import { useT } from "../i18n";
 import { OFFER } from "../data/pricing";
+import { SHOTS, type Shot } from "../data/shots";
 
-/* Path of the salon's mobile screenshot shown in the phone frame.
-   Without it, a visible placeholder is rendered instead.
-   Interim image (416px wide, canvas extended to the screen ratio);
-   to be recaptured at 390×844 @3x — see docs/ROADMAP.md, session 3. */
-const SALON_MOBILE_SHOT: string | undefined = "/projects/mb-hair-salon-mobile.png";
+/* The salon's mobile screenshot (390×844 @3x, top of the page) shown in the
+   phone frame; from scripts/capture-projects.mjs. Without it, a visible
+   placeholder is rendered instead. */
+const SALON_MOBILE_SHOT: Shot | undefined = SHOTS["mb-hair-salon-mobile"];
+/* The phone screen is 270px wide, 220px on tablets and phones (site.css, themes.css). */
+const SALON_MOBILE_SIZES = "(max-width: 900px) 220px, 270px";
 
 /* The hero deliberately does not use <Reveal>: it must be visible in the
    prerendered HTML immediately, before any JavaScript runs. */
@@ -41,7 +43,14 @@ export function Hero() {
           <div className="phone">
             <div className="phone__screen">
               {SALON_MOBILE_SHOT ? (
-                <img src={SALON_MOBILE_SHOT} alt={t.hero.shotAlt} width={416} height={937} />
+                <img
+                  src={SALON_MOBILE_SHOT.src}
+                  srcSet={SALON_MOBILE_SHOT.srcSet}
+                  sizes={SALON_MOBILE_SIZES}
+                  alt={t.hero.shotAlt}
+                  width={SALON_MOBILE_SHOT.width}
+                  height={SALON_MOBILE_SHOT.height}
+                />
               ) : (
                 <div className="shot-placeholder">{t.hero.shotPlaceholder}</div>
               )}

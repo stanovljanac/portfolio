@@ -26,7 +26,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 |---|---|---|---|
 | 1 | Kobalt: hero, senka telefona, footer | kod | gotovo |
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
-| 3 | Snimci ekrana i nove kartice radova | kod | todo |
+| 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
 | 6 | Font za Industrial (3 varijante) | kod | todo |
@@ -40,7 +40,8 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 
 - **Tema:** Kobalt ili Industrial (posle sesija 1–3 i 6).
 - **Isticanje posebne ponude** (sesija 2): na previewu je Kobalt sa trakom iznad navigacije (varijanta 1), a Industrial sa dugmetom u navigaciji i oznakom iznad naslova (varijanta 3). Mihailo bira jednu; varijanta 2 (plutajuća kartica) je odbijena.
-- **Hero na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima naslov preko cele širine, a ispod njega tekst i dugmad levo, telefon desno. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
+- **Hero i „O meni" na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima raspored kao desktop: tekst levo, telefon (odnosno fotografija) desno, pa ceo hero staje u ekran. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
+- **Snimak za Invoice karticu** (sesija 3): Kobalt prikazuje stari snimak Dashboard-a (bez navigacije, 1x), a Industrial novi (sa navigacijom aplikacije, oštriji). Bira se uz temu u sesiji 7.
 - **Font za Industrial** (sesija 6).
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
@@ -245,6 +246,7 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
   - fontovi te teme
   - `THEMES` i poređenje geometrije u `scripts/qa/` (skripte ostaju, samo za jednu temu)
   - klasa na `<html>` postaje stalna, ili se varijable spajaju u `:root`
+  - Invoice snimak koji nije izabran: `industrialShot` u `src/data/projects.ts`, klase `theme-only-*` u `Projects.tsx` i `themes.css`, unos u `USE` u `scripts/capture-projects.mjs` i izvorni fajl u `scripts/sources/`; posle izmene `node scripts/capture-projects.mjs export`
 - **Fontovi na našem serveru** (umesto Google Fonts):
   - woff2 sa latin + latin-ext (č, ć, š, đ, ž) u `public/fonts/`
   - `@font-face` sa `font-display: swap`

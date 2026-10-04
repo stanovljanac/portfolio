@@ -29,3 +29,6 @@ dist-ssr
 
 # QA screenshots (scripts/qa)
 .qa
+
+# Raw captures of the project sites (scripts/capture-projects.mjs)
+.capture

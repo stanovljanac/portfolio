@@ -8,7 +8,7 @@ import { BASE, THEMES, contactNeedles, launch, log, newContext, scrollThrough } 
 
 const b = await launch();
 const needles = contactNeedles();
-const GRIDS = [".audience", ".work-grid", ".svc-grid", ".svc-details", ".steps", ".split", ".about", ".faq", ".contact", ".contact__row", ".footer__inner", ".hero__grid"];
+const GRIDS = [".audience", ".work-list", ".work-card", ".svc-grid", ".svc-details", ".steps", ".split", ".about", ".faq", ".contact", ".contact__row", ".footer__inner", ".hero__grid"];
 const geo = {};
 
 for (const path of ["/", "/sr/"]) for (const w of [320, 375, 1440]) for (const [theme, q] of Object.entries(THEMES)) {
