@@ -41,6 +41,7 @@
   --on-ink: #FFFFFF;
   --on-ink-muted: #C9D3EA;
   --on-ink-faint: #A3AECB;
+  --on-ink-line: rgba(255, 255, 255, 0.14);
 
   --accent: #2F5BFF;
   --accent-hover: #1F45E0;
@@ -107,6 +108,7 @@
   --on-ink: #F2F2EF;
   --on-ink-muted: #D4D4CE;
   --on-ink-faint: #B5B5AE;
+  --on-ink-line: rgba(242, 242, 239, 0.18);
 
   --accent: #FF4F00;
   --accent-hover: #E64700;
@@ -152,12 +154,16 @@
 /* The nav CTA is the one orange button. */
 .theme-industrial .nav__actions .mb-btn--primary { background: var(--accent); color: var(--ink); }
 .theme-industrial .nav__actions .mb-btn--primary:hover { background: var(--accent-hover); }
+/* Button arrows: centred on the lowercase letters, not on the line box
+   (Manrope's x-height sits ~0.08em below the box centre, Archivo's ~0.04em). */
+.theme-kobalt .mb-btn__icon { transform: translateY(0.08em); }
+.theme-industrial .mb-btn__icon { transform: translateY(0.04em); }
 
 /* --- Typography ------------------------------------------- */
-.theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price) {
+.theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price, .footer__cta-title) {
   font-weight: 800; letter-spacing: -0.035em;
 }
-.theme-industrial :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name) {
+.theme-industrial :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name, .footer__cta-title) {
   font-weight: 900; font-stretch: 74%; text-transform: uppercase; letter-spacing: -0.005em;
 }
 .theme-industrial .hero__title { line-height: 0.94; }
@@ -198,8 +204,8 @@
 /* --- Sections --------------------------------------------- */
 .theme-kobalt .hero, .theme-kobalt #work { background: var(--section-alt); }
 
-/* Phone frame: hard offset shadow (Kobalt at ~80% of Industrial's) */
-.theme-kobalt .phone { box-shadow: 11px 11px 0 var(--accent); }
+/* Phone frame: hard offset shadow (Kobalt lighter than Industrial's) */
+.theme-kobalt .phone { box-shadow: 8px 8px 0 var(--accent); }
 .theme-industrial .phone { box-shadow: 14px 14px 0 var(--accent); }
 
 /* Cards */
@@ -227,67 +233,6 @@
 .theme-kobalt .contact__channels small { font-size: 0.75rem; color: var(--text-faint); }
 
 /* --- Footer ----------------------------------------------- */
-/* Industrial keeps its original footer (site.css): the parts added for
-   Kobalt are in the DOM for both themes and hidden here. */
-.theme-industrial :is(.footer__cta, .footer__heading, .footer__extra, .footer__bottom) { display: none; }
-.theme-industrial .footer__group { display: contents; }
-
-/* Kobalt: dark footer — call to action, columns, bottom bar. */
-.theme-kobalt .footer {
-  --footer-line: rgba(255, 255, 255, 0.14);
-  --focus-ring: var(--accent-on-ink);
-  padding: 0; border-top: 0; background: var(--ink); color: var(--on-ink-muted);
-}
-/* Rows without side padding, so the dividing lines line up with the content */
-.theme-kobalt .footer > .container {
-  width: calc(100% - 2 * var(--space-6)); max-width: calc(var(--container-xl) - 2 * var(--space-6));
-  padding-left: 0; padding-right: 0;
-}
-.theme-kobalt .footer__cta {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6);
-  padding: var(--space-9) 0 var(--space-8);
-}
-.theme-kobalt .footer__cta-title {
-  font: 800 clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.08 var(--font-display); letter-spacing: -0.035em; color: var(--on-ink);
-}
-.theme-kobalt .footer__offer { margin-top: var(--space-3); font: var(--fw-regular) 1rem/1.5 var(--font-sans); color: var(--on-ink-muted); }
-.theme-kobalt .footer__offer b { font-weight: var(--fw-semibold); color: var(--accent-on-ink); }
-
-.theme-kobalt .footer__inner {
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr) minmax(0, 1.5fr); gap: var(--space-8);
-  padding: var(--space-8) 0; border-top: 1px solid var(--footer-line);
-}
-.theme-kobalt .footer__brand .logo { color: var(--on-ink); }
-.theme-kobalt .footer .logo-mark__tile { fill: var(--on-ink); }
-.theme-kobalt .footer .logo-mark__letters { fill: var(--ink); }
-.theme-kobalt .footer__brand p { color: var(--on-ink-muted); }
-.theme-kobalt .footer__heading {
-  margin-bottom: 4px; font: var(--fw-medium) var(--text-xs)/1.4 var(--font-mono);
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-ink-faint);
-}
-.theme-kobalt .footer__meta { grid-template-columns: repeat(2, minmax(max-content, 1fr)); gap: var(--space-6); }
-.theme-kobalt .footer__group { display: grid; gap: 10px; align-content: start; justify-items: start; }
-.theme-kobalt :is(.footer__privacy, .footer__copy) { display: none; }
-.theme-kobalt .footer :is(.footer__links, .footer__meta, .footer__bottom) a { color: var(--on-ink-muted); transition: color var(--dur-fast); }
-.theme-kobalt .footer :is(.footer__links, .footer__meta, .footer__bottom) a:hover { color: var(--on-ink); }
-
-.theme-kobalt .footer .lang-switch { background: transparent; border-color: var(--footer-line); }
-.theme-kobalt .footer .lang-switch__opt { color: var(--on-ink-muted); }
-.theme-kobalt .footer .lang-switch__opt:hover { color: var(--on-ink); }
-.theme-kobalt .footer .lang-switch__opt.is-active { background: var(--on-ink); color: var(--ink); }
-
-.theme-kobalt .footer__bottom {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2) var(--space-6);
-  padding: var(--space-5) 0 var(--space-6); border-top: 1px solid var(--footer-line);
-  font: var(--fw-regular) var(--text-sm)/1.4 var(--font-sans); color: var(--on-ink-faint);
-}
-
-@media (max-width: 760px) {
-  .theme-kobalt .footer__cta { padding: var(--space-8) 0 var(--space-7); }
-  .theme-kobalt .footer__inner { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-7) 0; }
-  .theme-kobalt .footer__links { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); }
-  .theme-kobalt .footer__links .footer__heading { grid-column: 1 / -1; }
-}
-@media (max-width: 640px) {
-  .theme-kobalt .footer > .container { width: calc(100% - 2 * var(--space-4)); }
-}
+/* Layout and colours are shared (site.css); the CTA is the accent button on both themes. */
+.theme-industrial .footer .mb-btn--primary { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+.theme-industrial .footer .mb-btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }

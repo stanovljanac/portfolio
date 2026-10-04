@@ -39,11 +39,14 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 ## Odluke koje čekaju Mihaila
 
 - **Tema:** Kobalt ili Industrial (posle sesija 1–3 i 6).
+- **Isticanje posebne ponude** (sesija 2), Mihailo je dobio snimke tri varijante:
+  1. traka u boji akcenta iznad navigacije, fiksirana zajedno sa njom
+  2. tamna plutajuća kartica pri dnu ekrana (levo na desktopu, preko cele širine na mobilnom), kad se skroluje ispod heroja
+  3. istaknuto dugme „Special offer" u navigaciji; na mobilnom traka u boji akcenta iznad naslova u heroju
 - **Font za Industrial** (sesija 6).
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
-- **Invoice kartica:** šta prikazati, jer sajt odmah vodi na `/login` (sesija 3).
 
 ---
 
@@ -85,7 +88,8 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
   - Prikazuje se samo dok je `OFFER.open`. Nema dugme za zatvaranje.
   - Na mobilnom je to glavni ulaz, jer su linkovi navigacije ispod 900 px sakriveni.
 - **Stavka u navigaciji:** „Offer" / „Ponuda", sa malim bedžom ili akcentom, takođe vodi na `#offer`.
-- **Podsetnik u Kobalt footeru** (`.footer__offer`, iz sesije 1) je za sada običan tekst; neka i on postane link na `#offer`.
+- **Varijanta isticanja:** uradi onu koju je Mihailo izabrao (vidi „Odluke koje čekaju Mihaila"); ako je to varijanta 2 ili 3, ona zamenjuje traku i stavku iz ovog spiska.
+- **Podsetnik u footeru** (`.footer__offer`, iz sesije 1) je za sada običan tekst; neka i on postane link na `#offer`.
 - Tekst ide u i18n (`en.ts`/`sr.ts`) i ne obećava ništa van ponude: samo niža cena za osnovnu izradu, sledeća 3 projekta.
 - Traka i navigacija ne smeju da izazovu horizontalni skrol ni na 320 px, niti da pomere sadržaj posle učitavanja.
 
@@ -109,7 +113,7 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 - **Mobilni:** 390×844, DPR 3.
 - Vrh stranice sa navigacijom, bez kursora i bez otvorenih menija.
 
-**Invoice Generator:** `invoice.mihailobuilds.com` odmah preusmerava na `/login`. Pre snimanja pitaj Mihaila šta kartica treba da prikaže: login stranu, demo stanje ili njegov snimak. Ne prijavljuj se pravim nalogom i ne pravi nalog.
+**Invoice Generator:** `invoice.mihailobuilds.com` odmah preusmerava na `/login`. Mihailo je odlučio (sesija 1): kartica prikazuje **njegov snimak Dashboard-a** (prihod + plaćeno/neplaćeno), sada u `public/projects/invoice.png` (1193×748). Ovaj sajt se ne snima; snimak samo ide u isti okvir i format kao ostali. Ne prijavljuj se pravim nalogom i ne pravi nalog.
 
 **Obim:**
 - **Snimanje** Playwright-om, za sva 4 sajta (MB Hair Salon, Keeper, The Automation Desk, Invoice Generator):

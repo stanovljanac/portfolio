@@ -49,6 +49,23 @@ for (const path of ["/", "/sr/"]) for (const w of [320, 375, 1440]) {
   log(path, w, "same order:", order, "| same columns:", cols, cols ? "" : JSON.stringify([k.cols, i.cols]), "| same DOM:", k.dom === i.dom, "| height diffs >15%:", diffs.length ? diffs.join("; ") : "none");
 }
 
+/* .page clips horizontal overflow, so a nav item pushed off screen does not
+   show up as a scrollbar above: check that every nav element is inside the viewport. */
+log("\n--- nav fits the viewport (320–900 px)");
+for (const path of ["/", "/sr/"]) for (const [theme, q] of Object.entries(THEMES)) {
+  const bad = [];
+  for (const w of [320, 360, 390, 430, 480, 540, 600, 640, 768, 900]) {
+    const ctx = await newContext(b, { viewport: { width: w, height: 800 } });
+    const p = await ctx.newPage();
+    await p.goto(BASE + path + q, { waitUntil: "networkidle" });
+    await p.evaluate(() => document.fonts.ready);
+    const out = await p.evaluate(() => Math.max(0, ...[...document.querySelectorAll(".nav__inner *")].filter((e) => e.getClientRects().length).map((e) => { const r = e.getBoundingClientRect(); return Math.max(r.right - innerWidth, -r.left); })));
+    if (out > 0.5) bad.push(`${w}px: ${Math.round(out)}px outside`);
+    await ctx.close();
+  }
+  log(path.padEnd(4), theme.padEnd(10), bad.length ? "CLIPPED " + bad.join("; ") : "ok");
+}
+
 log("\n--- theme determinism + link propagation");
 {
   const ctx = await newContext(b);
@@ -58,7 +75,7 @@ log("\n--- theme determinism + link propagation");
   log("tab1 industrial:", await cls(t1), "| tab2 '/':", await cls(t2));
   await t1.click(".nav .lang-switch__opt:not(.is-active)"); await t1.waitForLoadState();
   log("industrial → SR:", t1.url(), await cls(t1));
-  await t1.click(".footer__links a[href*='privat']"); await t1.waitForLoadState();
+  await t1.click(".footer__bottom a[href*='privat']"); await t1.waitForLoadState();
   log("industrial → privacy:", t1.url(), await cls(t1));
   await t1.click(".nav__logo"); await t1.waitForLoadState();
   log("industrial → logo:", t1.url(), await cls(t1));

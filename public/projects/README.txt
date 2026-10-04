@@ -4,7 +4,8 @@ Project screenshots used on the site.
   mb-hair-salon-mobile.png  -> phone frame in the hero (interim, see below)
   keeper.png                -> Keeper card
   automation-desk.png       -> The Automation Desk card
-  invoice.png               -> Invoice Generator card
+  invoice.png               -> Invoice Generator card (Mihailo's dashboard screenshot;
+                               the live app needs a login, so it is not captured)
 
 Paths are set in src/data/projects.ts (cards) and SALON_MOBILE_SHOT in
 src/components/Hero.tsx (hero). A missing image falls back to a placeholder.
