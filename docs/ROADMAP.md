@@ -2,6 +2,11 @@
 
 Jedna sesija radi jednu celinu. Sav kontekst je u `CLAUDE.md`, pa nova sesija ne treba ništa iz prethodnih razgovora.
 
+**Stanje rada se prati samo ovde**, u ovom fajlu na radnoj grani `claude/loving-noether-cqi5ff`:
+https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs/ROADMAP.md
+
+`main` je produkcija (mihailobuilds.com) i ne menja se do lansiranja (sesija 8).
+
 ## Kako pokrenuti sesiju
 
 1. Na claude.ai/code otvori **novu sesiju** na repou `stanovljanac/portfolio`.
@@ -13,10 +18,7 @@ Jedna sesija radi jednu celinu. Sav kontekst je u `CLAUDE.md`, pa nova sesija ne
 - **Kodne sesije** idu jedna po jedna, jer sve menjaju iste CSS fajlove: 1 → 2 → 3 → 6 → 7 → 8. Sledeću pokreni tek kad je prethodni PR spojen.
 - **Istraživanja** (4 i 5) mogu bilo kad, i paralelno sa ostalim.
 
-**Pre sesije 3** dozvoli pristup tvojim sajtovima, da bi Claude sam napravio oštre snimke:
-1. U podešavanjima okruženja otvori **Network access** i izaberi **Custom**.
-2. U **Allowed domains** dodaj `*.mihailobuilds.com`.
-3. Podrazumevane domene ostavi uključene.
+**Paralelne sesije** (npr. 4 i 5) menjaju susedne redove u tabeli statusa, pa njihovi PR-ovi mogu da se sudare. Tada sesija spoji radnu granu u svoju i zadrži oba statusa.
 
 ## Status
 
@@ -24,7 +26,7 @@ Jedna sesija radi jednu celinu. Sav kontekst je u `CLAUDE.md`, pa nova sesija ne
 |---|---|---|---|
 | 1 | Kobalt: hero, senka telefona, footer | kod | todo |
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | todo |
-| 3 | Snimci ekrana i nove kartice radova | kod | todo (treba mrežna dozvola) |
+| 3 | Snimci ekrana i nove kartice radova | kod | todo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
 | 6 | Font za Industrial (3 varijante) | kod | todo |
@@ -41,7 +43,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
-- **Mrežna dozvola** za `*.mihailobuilds.com` (pre sesije 3).
+- **Invoice kartica:** šta prikazati, jer sajt odmah vodi na `/login` (sesija 3).
 
 ---
 
@@ -101,10 +103,12 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 
 **Cilj:** kartice radova izgledaju profesionalno: oštri snimci iste razmere, čitljiv tekst, dobro isečeni.
 
-**Preduslov:** `*.mihailobuilds.com` je dozvoljen u mrežnim podešavanjima (vidi vrh dokumenta). Proveri sa `curl -sI https://mbhairsalon.mihailobuilds.com/`. Ako je blokiran, ne nastavljaj sa snimanjem, nego daj Mihailu tačnu specifikaciju snimaka:
+**Pristup sajtovima:** `*.mihailobuilds.com` je dozvoljen u mrežnim podešavanjima (4. 10. 2026), pa Claude snima sam. Ako `curl -sI https://mbhairsalon.mihailobuilds.com/` ipak ne vraća 200, ne nastavljaj sa snimanjem, nego daj Mihailu tačnu specifikaciju snimaka:
 - **Desktop:** Chrome DevTools → Device toolbar → 1440×900, DPR 2 → „Capture screenshot".
 - **Mobilni:** 390×844, DPR 3.
 - Vrh stranice sa navigacijom, bez kursora i bez otvorenih menija.
+
+**Invoice Generator:** `invoice.mihailobuilds.com` odmah preusmerava na `/login`. Pre snimanja pitaj Mihaila šta kartica treba da prikaže: login stranu, demo stanje ili njegov snimak. Ne prijavljuj se pravim nalogom i ne pravi nalog.
 
 **Obim:**
 - **Snimanje** Playwright-om, za sva 4 sajta (MB Hair Salon, Keeper, The Automation Desk, Invoice Generator):

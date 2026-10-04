@@ -124,9 +124,10 @@ VITE_WEB3FORMS_ACCESS_KEY=test npm run build && node scripts/qa/form.mjs key   #
 ## Cloud environment limits
 - **Certificates:** Chromium rejects the sandbox proxy's certificate. Playwright contexts need `ignoreHTTPSErrors: true`, otherwise Google Fonts silently fall back. `scripts/qa/_lib.mjs` handles this and caches fonts, which take ~6 s per page through the proxy.
 - **Browser:** Playwright is used from the global npm install; the scripts find it. If `PLAYWRIGHT_BROWSERS_PATH` points to the wrong folder, they fall back to `/opt/pw-browsers/chromium`. Never run `playwright install`.
-- **Live project sites:** `*.mihailobuilds.com` is blocked by the default network policy (403 / `EGRESS_BLOCKED`).
-  - Mihailo can allow it: environment settings → Network access → Custom → Allowed domains: `*.mihailobuilds.com`, keeping the package-manager defaults.
-  - Until then, screenshots of the live projects have to come from him.
+- **Network:** the environment uses a custom allowlist.
+  - Allowed (since 4 Oct 2026): `*.mihailobuilds.com` (the live projects, for screenshots), the GitHub API, Google Fonts, npm.
+  - Blocked: `vercel.com` and `*.vercel.app`. Run QA locally against `npm run preview` and get the preview URL from the GitHub deployments API. Mihailo can add `*.vercel.app` if a session ever needs to open the preview itself.
+  - `invoice.mihailobuilds.com` redirects to `/login`. Never log in with a real account or create one; ask Mihailo what to show.
 
 ## Conventions
 - **CSS:** use theme variables and tokens; no raw colours in `site.css`. Theme-specific rules go in `themes.css`.
