@@ -28,7 +28,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | gotovo (`docs/research/pricing.md`); Mihailo bira cene |
-| 5 | Ime, logo i pravni rizik | istraživanje | todo |
+| 5 | Ime, logo i pravni rizik | istraživanje | PR otvoren |
 | 6 | Font za Industrial (3 varijante) | kod | PR otvoren (izabrana varijanta b) |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
 | 8 | Finalni sadržaj i lansiranje | kod | čeka 4, 7 i podatke |
@@ -45,6 +45,8 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Cene:** redovne, posebne i održavanje. Preporuka iz sesije 4 je u `docs/research/pricing.md`: landing od €250 / ponuda €150, sajt od €500 / ponuda €300, održavanje €30 / €60 / €100 mesečno (do 1 / 2 / 4 h), rad van plana €25/h, avans 50%. Mihailo bira konačne brojeve; upisuje ih sesija 8.
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
+- **Ime, logo i pravni rizik** (sesija 5): ishod, odluke i zadaci su u odeljku „Sesija 5“ ispod, a obrazloženje u `docs/research/name-and-legal.md`. Mihailo još sam radi pretrage u registrima žigova i registar izvora slika.
+- **Kartice radova u portfoliju:** da li Automation Desk (i Keeper) treba da nose oznaku „koncept“ pored „Lični projekat“ (tekst je Mihailova odluka).
 
 ---
 
@@ -199,6 +201,27 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 
 Kod se ne menja.
 
+**Ishod (2026-10-05):** `docs/research/name-and-legal.md` je gotov (PR otvoren). Registri žigova (ZIS, EUIPO, TMview, WIPO, USPTO) i APR nisu mogli da se pretraže iz okruženja, pa su ocene za ime i monogram „nizak, privremeno“ dok Mihailo sam ne odradi pretrage iz odeljka 6 dokumenta. Mihailo je odgovorio na pitanja iz istraživanja.
+
+- **Odluke Mihaila:**
+  - **Salon demo:** ukloniti izmišljeni email; Instagram `@mbhairsalon` ukloniti ili zameniti sa `@mbhairsalontest` (samo ako ga on otvori i kontroliše); dodati vidljivu oznaku „koncept/demo“ (i poruku „Demo: ništa nije poslato“ posle forme).
+  - **Automation Desk:** koncept sajt. Tvrdnja „50K+ engineers“ je izmišljena i zajednica ne postoji, pa ide oznaka „koncept“ i skidanje broja i reči o zajednici. Nalozi (YouTube, Instagram, Facebook, X) su njegovi i pravi.
+  - **Keeper:** ime ostaje (kurs fotografije, ne softver za lozinke), uz TMview proveru KEEPER (RS, EM, WO; klase 9, 41, 42).
+  - **Poreklo slika (po Mihailu):** salon sa Pexels-a i drugih sajtova sa besplatnim slikama; Keeper generisan Gemini modelom, vidljivi žig je skinuo on; naslovne slike Automation Desk-a napravio Claude Design; snimak Invoice-a su test podaci.
+  - **Monogram i kod:** sve je nastalo uz AI asistenta (Claude). Tužba zbog toga je malo verovatna, ali je zaštita po autorskom pravu slaba; zapisi o nastanku se čuvaju.
+  - **Google Fonts u politici privatnosti:** rečenica ostaje dok sajt učitava fontove sa Google-a; briše se u sesiji 7 (vidi dole).
+- **U ovom repou, u sesiji 7:** rečenica o Google Fonts i oba `preconnect` linka; `OFL.txt` uz woff2; brisanje neupotrebljenih glifova u `src/components/icons.tsx`. Mihailo odlučuje o zastavama u izboru jezika (tekst „English / Srpski“ umesto zastava).
+- **Van repoa** (živi sajtovi `*.mihailobuilds.com`, rade se u njihovim projektima, nikad iz ovog repoa):
+  - salon: ukloniti email i Instagram handle, oznaka „koncept“, poruka posle forme;
+  - Automation Desk: oznaka „koncept“, skinuti „50K+ engineers“;
+  - Keeper: opciono oznaka „AI-generisane slike“.
+- **Mihailo sam:**
+  - pretrage u registrima (odeljak 6 dokumenta, oko 10 minuta) i TMview za KEEPER;
+  - registar izvora slika (URL, autor, licenca, datum) za 10 slika salona;
+  - sačuvati Gemini istoriju i originale Keeper slika;
+  - otvoriti `@mbhairsalontest` ako ga želi;
+  - potvrditi odakle je `engine-diagram.png` (potpis OpenAI-ja u fajlu).
+
 ```text
 Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-cqi5ff i napravi svoju radnu granu od origin/claude/loving-noether-cqi5ff (ne od main). Pročitaj CLAUDE.md i docs/ROADMAP.md, pa uradi SESIJU 5 (istraživanje imena MihailoBuilds, MB monograma, demo sajta MB Hair Salon i licenci: rizik od tužbe ili zabune) tačno kako je opisana u roadmap-u. Koristi deep-research skill ako je dostupan. Ne menjaj kod. Rezultat upiši u docs/research/name-and-legal.md (srpski, sa izvorima), commit, push, otvori PR u claude/loving-noether-cqi5ff (ne u main), ažuriraj status u docs/ROADMAP.md i na kraju mi u chatu ukratko reci šta je rizično, a šta nije.
 ```
@@ -254,12 +277,13 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
   - `<link rel="preload">` samo za 1–2 ključna fajla
   - rezervni font usklađenih mera (`size-adjust`, `ascent-override`, `descent-override`)
   - cilj: **CLS < 0.05** na 320, 375 i 1440 px
-  - ukloniti Google Fonts iz politike privatnosti, ako se pominju
+  - ukloniti rečenicu o Google Fonts iz politike privatnosti (`en.ts`, `sr.ts`) i oba `preconnect` linka ka Google-u u sva 4 HTML fajla, u istoj izmeni (do tada je rečenica tačna)
+  - uz woff2 fajlove ide `OFL.txt` i autorska linija svakog fonta; IBM Plex Mono ima rezervisano ime, pa gotove fajlove ne obrađivati sopstvenim subsetterom (detalji u `docs/research/name-and-legal.md`)
 - **Brend fajlovi:**
   - konačni favicon (SVG + PNG/ICO, apple-touch-icon) u boji izabrane teme
   - nove OG slike (`og-en.png`, `og-sr.png`, 1200×630) u novom stilu, preko skripte u `scripts/`
   - `theme-color` meta
-- **Brisanje starih fajlova:** `public/logo-lockup*.svg`, `public/mark-aperture*.svg` i svega što se više ne koristi.
+- **Brisanje starih fajlova:** `public/logo-lockup*.svg`, `public/mark-aperture*.svg` i svega što se više ne koristi. Uključuje neupotrebljene glifove `XIcon`, `LinkedinIcon` i `GithubIcon` u `src/components/icons.tsx`.
 - **Dokumentacija:** ažurirati `README.md` i `CLAUDE.md` (bez dela o dve teme).
 
 ```text
