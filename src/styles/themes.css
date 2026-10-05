@@ -75,8 +75,11 @@
 
 /* --- Industrial: concrete, ink, signal orange ------------- */
 .theme-industrial {
-  --font-sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Text and small titles in Manrope (as on Kobalt); condensed Archivo only for the
+     uppercase display headings and the wordmark (--font-condensed). */
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-condensed: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --bg-base: #F2F2EF;
@@ -155,19 +158,18 @@
 .theme-industrial .nav__actions .mb-btn--primary { background: var(--accent); color: var(--ink); }
 .theme-industrial .nav__actions .mb-btn--primary:hover { background: var(--accent-hover); }
 /* Button arrows: centred on the lowercase letters, not on the line box
-   (Manrope's x-height sits ~0.08em below the box centre, Archivo's ~0.04em). */
-.theme-kobalt .mb-btn__icon { transform: translateY(0.08em); }
-.theme-industrial .mb-btn__icon { transform: translateY(0.04em); }
+   (Manrope's x-height sits ~0.08em below the box centre). */
+.mb-btn__icon { transform: translateY(0.08em); }
 
 /* --- Typography ------------------------------------------- */
 .theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price, .footer__cta-title) {
   font-weight: 800; letter-spacing: -0.035em;
 }
 .theme-industrial :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name, .footer__cta-title) {
-  font-weight: 900; font-stretch: 74%; text-transform: uppercase; letter-spacing: -0.005em;
+  font-family: var(--font-condensed); font-weight: 900; font-stretch: 74%; text-transform: uppercase; letter-spacing: -0.005em;
 }
 .theme-industrial .hero__title { line-height: 0.94; }
-.theme-industrial .svc-card__price { font-weight: 900; font-stretch: 72%; color: var(--text-primary); }
+.theme-industrial .svc-card__price { font-family: var(--font-condensed); font-weight: 900; font-stretch: 72%; color: var(--text-primary); }
 
 /* Hero title on Kobalt: Industrial's treatment set in Manrope.
    Sized so that at 1440 px it breaks like Industrial: three lines, with
