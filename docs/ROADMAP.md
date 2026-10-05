@@ -46,7 +46,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
-- **Ime, logo i pravni rizik** (sesija 5, `docs/research/name-and-legal.md`): registri žigova nisu mogli da se pretraže iz okruženja, pa Mihailo sam pravi pretrage iz odeljka 6 dokumenta (oko 10 minuta). Čeka se i njegov odgovor na pitanja iz odeljka 5: poreklo fotografija salona i slika Keepera, šta Keeper radi, kako je nastao MB monogram i čiji su nalozi vezani na Automation Desk. Popravke živih sajtova (`*.mihailobuilds.com`) rade se u njihovim projektima, ne u ovom repou.
+- **Ime, logo i pravni rizik** (sesija 5, `docs/research/name-and-legal.md`): registri žigova nisu mogli da se pretraže iz okruženja, pa Mihailo sam pravi pretrage iz odeljka 6 dokumenta (oko 10 minuta). Odgovorio je na pitanja o slikama, Keeperu i nalozima (odeljak „Odgovori Mihaila“). Otvoreno: registar izvora slika, dokaz porekla Keeper slika (Gemini istorija, originali), tvrdnja „50K+“ na Automation Desk-u, nastanak MB monograma, test podaci na Invoice snimku. Rečenica o Google Fonts u politici privatnosti se briše u sesiji 7, zajedno sa prelaskom fontova na naš server. Izmene na živim sajtovima (`*.mihailobuilds.com`: uklanjanje mejla i Instagram handle-a salona, oznaka „koncept“) rade se u njihovim projektima, ne u ovom repou.
 
 ---
 
