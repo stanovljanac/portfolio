@@ -1,10 +1,10 @@
 /* ============================================================
    MihailoBuilds — page layout & section styles.
-   Colors, fonts and radii come from the theme (src/styles/themes.css).
+   Colours, fonts, radii and shadows come from the tokens (src/styles/tokens/).
    ============================================================ */
 
 /* --- Page primitives -------------------------------------- */
-/* --bar-h: height of the special-offer bar above the nav (themes.css; 0 when there is none). */
+/* --bar-h: height of the special-offer bar above the nav (see "Special offer bar"; 0 when there is none). */
 .page { --bar-h: 0px; position: relative; min-height: 100vh; background: var(--bg-base); overflow-x: clip; }
 
 .container {
@@ -43,16 +43,15 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .section__head { max-width: 720px; margin-bottom: var(--space-8); }
 
 .eyebrow {
-  margin: 0; display: inline-flex; align-items: center; gap: 10px;
+  margin: 0; display: inline-flex; align-items: center;
   font: var(--fw-medium) var(--text-xs)/1.4 var(--font-mono);
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text);
 }
-.eyebrow::before { content: ""; flex: none; width: 18px; height: 1px; background: currentColor; opacity: .7; }
 
 .section__title {
   margin: var(--space-4) 0 0;
-  font: var(--fw-semibold) clamp(1.9rem, 1.3rem + 2.2vw, 3rem)/1.08 var(--font-display);
-  letter-spacing: -0.025em; text-wrap: balance;
+  font: 800 clamp(1.9rem, 1.3rem + 2.2vw, 3rem)/1.08 var(--font-display);
+  letter-spacing: -0.035em; text-wrap: balance;
 }
 .section__lede {
   margin-top: var(--space-4); max-width: 620px;
@@ -90,6 +89,26 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 }
 .nav__logo { flex: none; display: flex; align-items: center; color: var(--text-primary); }
 
+/* --- Special offer bar ------------------------------------ */
+/* Above the nav and fixed with it, while OFFER.open. It links to #offer;
+   its height (--bar-h) is added to the hero, the privacy page and the
+   anchor offsets. */
+.page.has-offer { --bar-h: 40px; }
+.offer-bar {
+  height: var(--bar-h); padding: 0 var(--space-4);
+  display: flex; align-items: center; justify-content: center; gap: var(--space-3);
+  background: var(--accent); color: var(--on-accent); font: var(--fw-medium) var(--text-sm)/1.2 var(--font-sans); white-space: nowrap;
+  transition: background var(--dur-fast);
+}
+.offer-bar:hover { background: var(--accent-hover); }
+.offer-bar:focus-visible { outline: 2px solid var(--on-accent); outline-offset: -5px; }
+.offer-bar b { font-weight: var(--fw-bold); }
+.offer-bar__text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.offer-bar__short { display: none; }
+.offer-bar__cta { flex: none; display: inline-flex; align-items: center; gap: 6px; font-weight: var(--fw-bold); }
+.offer-bar__see { text-decoration: underline; text-underline-offset: 3px; }
+.offer-bar__cta svg { width: 15px; height: 15px; }
+
 /* --- Logo (MB monogram) ----------------------------------- */
 .logo { display: inline-flex; align-items: center; gap: 12px; }
 .logo-mark { flex: none; display: block; }
@@ -97,7 +116,6 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .logo-mark__bar { fill: var(--accent); }
 .logo-mark__letters { fill: var(--on-ink); }
 .logo__word { font: 800 1.125rem/1 var(--font-display); letter-spacing: -0.02em; white-space: nowrap; }
-.theme-industrial .logo__word { font-family: var(--font-condensed); font-weight: 800; font-stretch: 80%; letter-spacing: 0.02em; text-transform: uppercase; }
 .nav__links { display: flex; gap: 28px; margin-left: auto; }
 .nav__link { font: var(--type-label); color: var(--text-secondary); white-space: nowrap; transition: color var(--dur-fast); }
 .nav__link:hover { color: var(--text-primary); }
@@ -120,18 +138,29 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .flag { flex: none; display: block; width: 18px; height: 12px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(26, 24, 19, 0.18); }
 
 /* --- Hero ------------------------------------------------- */
-.hero { padding: calc(148px + var(--bar-h)) 0 var(--space-11); }
+.hero { padding: calc(148px + var(--bar-h)) 0 var(--space-11); background: var(--section-alt); }
 .hero__grid {
   display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   gap: var(--space-9); align-items: center;
 }
+/* Uppercase, heaviest Manrope. Sized so that at 1440 px it breaks into three
+   lines, with the accent on the last one ("…MORE THAN AN / INSTAGRAM PROFILE."). */
 .hero__title {
   margin: var(--space-5) 0 var(--space-5);
-  font: var(--fw-semibold) clamp(2.4rem, 1.3rem + 4vw, 4.5rem)/1.02 var(--font-display);
-  letter-spacing: -0.035em; text-wrap: balance;
+  font: 800 clamp(2.25rem, 1.6rem + 2.6vw, 3.875rem)/0.96 var(--font-display-caps);
+  letter-spacing: -0.04em; text-transform: uppercase; text-wrap: balance;
 }
+/* The accent words: a marker in the accent colour. Manrope's inline box is
+   much taller than its capitals, so the marker is painted as a band around
+   the caps rather than over the whole box, which would also cover the line above. */
 .hero__title .accent {
-  color: var(--accent-text);
+  color: var(--on-accent); padding: 0 0.12em;
+  background: linear-gradient(var(--accent), var(--accent)) left 0 bottom 0.09em / 100% 1.13em no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.hero .eyebrow {
+  padding: 6px 12px; border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--accent-text);
+  letter-spacing: 0.06em;
 }
 .hero__lede {
   max-width: 560px;
@@ -142,7 +171,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 
 .phone {
   width: min(290px, 100%); padding: 10px;
-  border-radius: 46px; background: var(--ink); box-shadow: var(--shadow-xl);
+  border-radius: 46px; background: var(--ink); box-shadow: 6px 6px 0 var(--accent);   /* hard offset shadow */
 }
 .phone__screen { aspect-ratio: 390 / 844; border-radius: 36px; overflow: hidden; background: var(--ink); }   /* the ratio of the mobile capture */
 .phone__screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
@@ -151,7 +180,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .audience { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
 .audience__item {
   display: flex; flex-direction: column; gap: var(--space-5); padding: var(--space-5);
-  background: var(--surface-1); border: var(--card-border); border-radius: var(--radius-lg);
+  background: var(--surface-1); border: var(--card-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
 }
 .audience__num { font: var(--fw-medium) var(--text-xs)/1 var(--font-mono); letter-spacing: 0.1em; color: var(--accent-text); }
 .audience__title { font: var(--fw-semibold) 1.0625rem/1.4 var(--font-sans); letter-spacing: 0; }
@@ -163,6 +192,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
    featured card adds a phone with the mobile screenshot over the frame's
    corner. Cards stack below 901px. Image `sizes` in Projects.tsx follow
    these widths and paddings. */
+#work { background: var(--section-alt); }
 .work-list { display: grid; gap: var(--space-6); }
 .work-card {
   position: relative; height: 100%; overflow: hidden;
@@ -173,15 +203,16 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .work-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 .work-card:has(.work-card__link:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
 .work-card--flip { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.work-card--featured { box-shadow: var(--shadow-md); }
 
 .work-card__media {
   position: relative; display: flex; align-items: center; padding: var(--space-7);
-  background: var(--surface-3); border-right: var(--card-border);
+  background: var(--accent-soft); border-right: var(--card-border);
 }
 .work-card--flip .work-card__media { order: 2; border-right: 0; border-left: var(--card-border); }
 .work-card--featured .work-card__media { padding-right: calc(var(--space-7) + 32px); padding-bottom: calc(var(--space-7) + 24px); }
 
-.browser { width: 100%; overflow: hidden; background: var(--surface-1); border: 1px solid var(--border-default); border-radius: var(--radius-md); }
+.browser { width: 100%; overflow: hidden; background: var(--surface-1); border: 1px solid var(--border-default); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); }
 .browser__bar {
   display: grid; grid-template-columns: 1fr minmax(0, auto) 1fr; align-items: center; gap: var(--space-3);
   height: 34px; padding: 0 var(--space-3); background: var(--surface-2); border-bottom: 1px solid var(--border-default);
@@ -198,14 +229,14 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 
 .mini-phone {
   position: absolute; right: var(--space-5); bottom: var(--space-5); width: 148px; padding: 7px;
-  border-radius: 26px; background: var(--ink); box-shadow: var(--shadow-xl);
+  border-radius: 26px; background: var(--ink); box-shadow: 4px 4px 0 var(--accent);
 }
 .mini-phone__screen { aspect-ratio: 390 / 844; overflow: hidden; border-radius: 19px; background: var(--ink); }
 .mini-phone__screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
 .work-card__body { display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: var(--space-7); }
 .work-card__label { font: var(--fw-medium) 11px/1.4 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-.work-card__name { font: var(--fw-semibold) clamp(1.5rem, 1.15rem + 1vw, 2rem)/1.1 var(--font-display); letter-spacing: -0.02em; }
+.work-card__name { font: 800 clamp(1.5rem, 1.15rem + 1vw, 2rem)/1.1 var(--font-display); letter-spacing: -0.035em; }
 .work-card__desc { font: var(--fw-regular) 1rem/1.6 var(--font-sans); color: var(--text-secondary); }
 .work-card__link {
   margin-top: var(--space-3); align-self: flex-start;
@@ -224,10 +255,10 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
 .svc-card {
   display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-6);
-  background: var(--surface-1); border: var(--card-border); border-radius: var(--radius-lg);
+  background: var(--surface-1); border: var(--card-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
 }
 .svc-card__name { font: var(--fw-semibold) 1.25rem/1.2 var(--font-display); }
-.svc-card__price { font: var(--fw-semibold) 1.625rem/1.1 var(--font-display); letter-spacing: -0.02em; color: var(--accent-text); }
+.svc-card__price { font: 800 1.625rem/1.1 var(--font-display); letter-spacing: -0.035em; color: var(--accent-text); }
 .svc-card__desc { font: var(--fw-regular) 0.9375rem/1.6 var(--font-sans); color: var(--text-secondary); }
 .svc-note { margin-top: var(--space-4); font: var(--type-label); font-weight: 400; color: var(--text-muted); }
 
@@ -253,8 +284,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 
 .offer { margin-top: var(--space-8); padding: var(--space-8); border-radius: var(--radius-xl); background: var(--ink); color: var(--on-ink); }
 .offer .eyebrow { color: var(--accent-on-ink); }
-.offer .eyebrow::before { background: var(--accent-on-ink); }
-.offer__title { margin: var(--space-3) 0 var(--space-4); color: var(--on-ink); font: var(--fw-semibold) clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.15 var(--font-display); }
+.offer__title { margin: var(--space-3) 0 var(--space-4); color: var(--on-ink); font: 800 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.15 var(--font-display); letter-spacing: -0.035em; }
 .offer__text { max-width: 760px; font: var(--fw-regular) 1.0625rem/1.65 var(--font-sans); color: var(--on-ink-muted); }
 .offer__prices { margin-top: var(--space-5); font: var(--fw-semibold) 1.125rem/1.4 var(--font-display); color: var(--accent-on-ink); }
 .offer__note { margin-top: 6px; font: var(--fw-regular) var(--text-sm)/1.5 var(--font-sans); color: var(--on-ink-faint); }
@@ -274,7 +304,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 
 .own {
   margin-top: var(--space-5); padding: var(--space-8) var(--space-6); text-align: center;
-  border: 1px solid var(--border-gold); border-radius: var(--radius-xl); background: var(--accent-soft);
+  border: 1px solid var(--accent-line); border-radius: var(--radius-xl); background: var(--accent-soft);
 }
 .own__title { font: var(--fw-bold) clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem)/1.1 var(--font-display); letter-spacing: -0.02em; }
 .own__text { margin-top: var(--space-3); font: var(--fw-regular) 1.0625rem/1.6 var(--font-sans); color: var(--text-secondary); }
@@ -328,7 +358,8 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .contact__channels svg { flex: none; width: 20px; height: 20px; color: var(--accent-text); }
 .contact__channels span { display: flex; flex-direction: column; min-width: 0; }
 .contact__channels b { font: var(--fw-medium) 0.9375rem/1.3 var(--font-sans); }
-.contact__channels small { font: var(--fw-regular) 0.8125rem/1.4 var(--font-sans); color: var(--text-muted); overflow-wrap: anywhere; }
+/* The "Opens your email app" hints stay (no address is shown), a little quieter (contrast 4.68). */
+.contact__channels small { font: var(--fw-regular) 0.75rem/1.4 var(--font-sans); color: var(--text-faint); overflow-wrap: anywhere; }
 .contact__reply { margin-top: var(--space-4); font: var(--fw-regular) var(--text-sm)/1.5 var(--font-sans); color: var(--text-secondary); }
 .contact__privacy { margin-top: var(--space-2); font: var(--fw-regular) 0.8125rem/1.5 var(--font-sans); color: var(--text-muted); }
 .contact__privacy a { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
@@ -337,7 +368,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .legal { max-width: 760px; padding-top: calc(128px + var(--bar-h)); padding-bottom: var(--space-11); }
 .legal__back { font: var(--type-label); color: var(--text-secondary); }
 .legal__back:hover { color: var(--text-primary); }
-.legal__title { margin: var(--space-6) 0 var(--space-2); font: var(--fw-semibold) clamp(2rem, 1.5rem + 2vw, 3rem)/1.1 var(--font-display); letter-spacing: -0.025em; }
+.legal__title { margin: var(--space-6) 0 var(--space-2); font: 800 clamp(2rem, 1.5rem + 2vw, 3rem)/1.1 var(--font-display); letter-spacing: -0.035em; }
 .legal__updated { margin-bottom: var(--space-7); font: var(--type-label); font-weight: 400; color: var(--text-muted); }
 .legal__section { margin-top: var(--space-7); }
 .legal__section h2 { margin-bottom: var(--space-3); font: var(--fw-semibold) 1.25rem/1.3 var(--font-display); }
@@ -355,7 +386,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-6);
   padding: var(--space-9) 0 var(--space-8);
 }
-.footer__cta-title { font: var(--fw-semibold) clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.08 var(--font-display); letter-spacing: -0.025em; color: var(--on-ink); }
+.footer__cta-title { font: 800 clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)/1.08 var(--font-display); letter-spacing: -0.035em; color: var(--on-ink); }
 .footer__offer { margin-top: var(--space-3); font: var(--fw-regular) 1rem/1.5 var(--font-sans); color: var(--on-ink-muted); }
 .footer__offer b { font-weight: var(--fw-bold); color: var(--accent-on-ink); }
 .footer__offer a { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-weight: var(--fw-semibold); color: var(--on-ink); text-decoration: underline; text-underline-offset: 3px; }
@@ -398,19 +429,22 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
   .audience { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .svc-grid { grid-template-columns: 1fr; }
 }
+/* Tablets (641-900px): the hero and the About section keep the desktop
+   layout (copy left, phone or photo right), so the whole hero fits the
+   first screen. They stack on phones (640px and below). */
 @media (max-width: 900px) {
   .nav__links, .nav__sep { display: none; }
   .nav__actions { margin-left: auto; }
   .hero { padding: calc(112px + var(--bar-h)) 0 var(--space-9); }
-  .hero__grid { grid-template-columns: 1fr; gap: var(--space-8); }
-  .phone { width: min(230px, 62vw); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-6); }
+  .phone { width: 210px; }
   .work-card, .work-card--flip { grid-template-columns: minmax(0, 1fr); }
   .work-card__media, .work-card--flip .work-card__media { order: 0; padding: var(--space-6); border: 0; border-bottom: var(--card-border); }
   .work-card--featured .work-card__media { padding-right: calc(var(--space-6) + 32px); padding-bottom: calc(var(--space-6) + 24px); }
   .mini-phone { width: 124px; right: var(--space-4); bottom: var(--space-4); }
   .work-card__body { padding: var(--space-6); }
-  .about, .faq, .contact { grid-template-columns: 1fr; gap: var(--space-7); }
-  .about__photo { max-width: 360px; }
+  .about { gap: var(--space-7); }
+  .faq, .contact { grid-template-columns: 1fr; gap: var(--space-7); }
 }
 @media (max-width: 760px) {
   .section { padding: var(--space-9) 0; }
@@ -422,7 +456,15 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
   .offer { padding: var(--space-6); }
 }
 @media (max-width: 640px) {
+  .page.has-offer { --bar-h: 36px; }
+  .offer-bar { font-size: 0.8125rem; gap: 6px; }
+  .offer-bar__long, .offer-bar__see { display: none; }
+  .offer-bar__short { display: inline; }
   .container, .nav__inner { padding-left: var(--space-4); padding-right: var(--space-4); }  /* sides only: .legal and the footer rows keep their vertical padding */
+  .hero__grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .phone { width: min(230px, 62vw); }
+  .about { grid-template-columns: 1fr; }
+  .about__photo { max-width: 360px; }
   .footer > .container { width: calc(100% - 2 * var(--space-4)); }
   .nav__inner { gap: var(--space-3); }
   .audience, .contact__row { grid-template-columns: 1fr; }

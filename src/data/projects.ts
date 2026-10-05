@@ -13,8 +13,6 @@ export type Project = {
   /** Featured project gets the large card, with this mobile screenshot on a phone over the corner. */
   featured?: boolean;
   mobileShot?: Shot;
-  /** TEMP: a different screenshot on the Industrial theme, so Mihailo can compare them (decided with the theme, roadmap session 7). */
-  industrialShot?: Shot;
 };
 
 /* Order matters: the salon website is the closest example of what
@@ -65,6 +63,5 @@ export const PROJECTS: Project[] = [
     },
     url: "https://invoice.mihailobuilds.com/",
     shot: SHOTS.invoice,
-    industrialShot: SHOTS["invoice-nav"],
   },
 ];

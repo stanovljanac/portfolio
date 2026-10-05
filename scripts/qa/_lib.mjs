@@ -13,8 +13,6 @@ export const OUT = resolve(process.env.QA_OUT || join(ROOT, ".qa"));
 mkdirSync(OUT, { recursive: true });
 
 export const PAGES = ["/", "/sr/", "/privacy/", "/sr/privatnost/"];
-// TEMP: remove one theme once the choice is made (see docs/ROADMAP.md, session 7).
-export const THEMES = { kobalt: "", industrial: "?theme=industrial" };
 export const log = (...a) => console.log(...a);
 
 export async function launch() {
@@ -52,27 +50,10 @@ export async function launchChromium() {
 }
 
 /* ignoreHTTPSErrors: the cloud sandbox proxies HTTPS with its own CA, which
-   Chromium rejects; without it Google Fonts silently fall back.
-   Google Fonts responses are cached in memory across contexts (each fetch
-   through the proxy takes seconds); QA_NO_FONT_CACHE=1 turns that off. */
-const fontCache = new Map();
+   Chromium rejects. The site itself loads nothing from other origins
+   (fonts are self-hosted), so this only matters for external links. */
 export async function newContext(browser, opts = {}) {
-  const ctx = await browser.newContext({ ignoreHTTPSErrors: true, ...opts });
-  if (!process.env.QA_NO_FONT_CACHE) {
-    await ctx.route(/^https:\/\/fonts\.(googleapis|gstatic)\.com\//, async (route) => {
-      try {
-        const url = route.request().url();
-        let hit = fontCache.get(url);
-        if (!hit) {
-          const res = await route.fetch();
-          hit = { status: res.status(), headers: res.headers(), body: await res.body() };
-          if (res.ok()) fontCache.set(url, hit);
-        }
-        await route.fulfill(hit);
-      } catch {} // the page closed while the font was still loading
-    });
-  }
-  return ctx;
+  return browser.newContext({ ignoreHTTPSErrors: true, ...opts });
 }
 
 /* Scroll through the page so every <Reveal> section becomes visible.
@@ -88,8 +69,7 @@ export async function scrollThrough(page, step = 300) {
   await page.waitForTimeout(800);
 }
 
-export const shotName = (path, w, theme = "") =>
-  (path === "/" ? "en" : path.replaceAll("/", "_").replace(/^_|_$/g, "")) + (theme ? "-" + theme : "") + "-" + w;
+export const shotName = (path, w) => (path === "/" ? "en" : path.replaceAll("/", "_").replace(/^_|_$/g, "")) + "-" + w;
 
 /* Strings that must never appear in the built files or on the page.
    They are derived from the character codes in src/data/contact.ts, so the

@@ -13,7 +13,7 @@ const root = process.cwd();
 const dist = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
-const { render } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
+const { render, themeColor } = await import(pathToFileURL(path.join(ssrDir, "entry-server.js")).href);
 
 const PAGES = [
   { file: "index.html", locale: "en", page: "home" },
@@ -26,7 +26,10 @@ for (const p of PAGES) {
   const file = path.join(dist, p.file);
   const html = fs.readFileSync(file, "utf8");
   if (!html.includes("<!--app-html-->")) throw new Error(`Missing <!--app-html--> in ${p.file}`);
-  const out = html.replace("<!--app-html-->", render(p.locale, p.page)).replaceAll("__SITE_URL__", SITE_URL);
+  const out = html
+    .replace("<!--app-html-->", render(p.locale, p.page))
+    .replaceAll("__SITE_URL__", SITE_URL)
+    .replaceAll("__THEME_COLOR__", themeColor);
   fs.writeFileSync(file, out);
 }
 

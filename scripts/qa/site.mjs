@@ -1,4 +1,4 @@
-/* Behaviour checks that do not depend on the theme:
+/* Behaviour checks:
    - content visible without JavaScript (prerender + <noscript>)
    - reduced motion shows every section
    - keyboard: FAQ toggles, anchor lands below the fixed nav, language switch

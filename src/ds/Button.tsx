@@ -2,7 +2,7 @@ import type { ElementType, ReactNode } from "react";
 
 type ButtonProps = {
   children?: ReactNode;
-  variant?: "primary" | "secondary" | "ghost" | "outline" | "danger";
+  variant?: "primary" | "secondary";
   size?: "sm" | "md" | "lg";
   block?: boolean;
   leadingIcon?: ReactNode;

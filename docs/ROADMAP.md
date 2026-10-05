@@ -11,7 +11,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 
 1. Na claude.ai/code otvori **novu sesiju** na repou `stanovljanac/portfolio`.
 2. Kopiraj prompt te sesije (blok ispod naslova) i pošalji ga.
-3. Sesija na kraju otvara **PR u `claude/loving-noether-cqi5ff`** i daje preview linkove za obe teme.
+3. Sesija na kraju otvara **PR u `claude/loving-noether-cqi5ff`** i daje preview link.
 4. Pogledaj preview. Ako je dobro, spoji PR (Merge). Ako nije, napiši šta da promeni u istoj sesiji.
 
 **Redosled:**
@@ -25,23 +25,21 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | # | Sesija | Vrsta | Status |
 |---|---|---|---|
 | 1 | Kobalt: hero, senka telefona, footer | kod | gotovo |
-| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
+| 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | gotovo (izabrana traka; završeno u PR-u sesije 7) |
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | gotovo (`docs/research/pricing.md`); Mihailo bira cene |
-| 5 | Ime, logo i pravni rizik | istraživanje | PR otvoren |
-| 6 | Font za Industrial (3 varijante) | kod | PR otvoren (izabrana varijanta b) |
-| 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
-| 8 | Finalni sadržaj i lansiranje | kod | čeka 4, 7 i podatke |
+| 5 | Ime, logo i pravni rizik | istraživanje | gotovo (`docs/research/name-and-legal.md`); Mihailo radi pretrage u registrima |
+| 6 | Font za Industrial (3 varijante) | kod | gotovo (varijanta b; Industrial je posle obrisan u sesiji 7) |
+| 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | PR otvoren (Kobalt) |
+| 8 | Finalni sadržaj i lansiranje | kod | čeka 7 i podatke |
 | 9 | Šablon ponude i plan obraćanja klijentima | dokument | kasnije |
 
 Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren` → `gotovo`.
 
 ## Odluke koje čekaju Mihaila
 
-- **Tema:** Kobalt ili Industrial (posle sesija 1–3 i 6).
-- **Isticanje posebne ponude** (sesija 2): na previewu je Kobalt sa trakom iznad navigacije (varijanta 1), a Industrial sa dugmetom u navigaciji i oznakom iznad naslova (varijanta 3). Mihailo bira jednu; varijanta 2 (plutajuća kartica) je odbijena.
-- **Hero i „O meni" na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima raspored kao desktop: tekst levo, telefon (odnosno fotografija) desno, pa ceo hero staje u ekran. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
-- **Snimak za Invoice karticu** (sesija 3): Kobalt prikazuje stari snimak Dashboard-a (bez navigacije, 1x), a Industrial novi (sa navigacijom aplikacije, oštriji). Bira se uz temu u sesiji 7.
+Odlučeno u sesiji 7 (5. 10. 2026): tema **Kobalt**; posebna ponuda kao **traka iznad navigacije**; na tabletu **tekst levo, telefon desno**; Invoice kartica sa **novim snimkom** (sa navigacijom aplikacije); **zastave** u izboru jezika ostaju.
+
 - **Cene:** redovne, posebne i održavanje. Preporuka iz sesije 4 je u `docs/research/pricing.md`: landing od €250 / ponuda €150, sajt od €500 / ponuda €300, održavanje €30 / €60 / €100 mesečno (do 1 / 2 / 4 h), rad van plana €25/h, avans 50%. Mihailo bira konačne brojeve; upisuje ih sesija 8.
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
@@ -89,7 +87,9 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 - Sve postoji samo dok je `OFFER.open`. Tekst je u i18n (`offerCta`).
 - `qa:themes` proverava da ništa iz navigacije i trake ne izlazi van ekrana i da se tekst ne lomi, na širinama 320–1280 px.
 
-**Ostaje, posle Mihailovog izbora:**
+**Ishod (sesija 7):** Mihailo je izabrao traku. Primenjeno kako piše ispod: dugme u navigaciji i oznaka u heroju su obrisani (markup i CSS), a `--bar-h` i `has-offer` važe za ceo sajt. Ključevi u i18n (`offerCta`) i dalje služe traci i footeru.
+
+**Ostajalo je, posle Mihailovog izbora:**
 - Izabrana varijanta važi za obe teme (u boji teme). Druga se briše: markup, CSS u `themes.css` (blok „Special offer highlight"), i18n ključevi koji se više ne koriste.
 - Ako izabere traku, `--bar-h` važi za obe teme. Ako izabere dugme, `--bar-h` i `has-offer` se brišu.
 - Opet: klik vodi pravo na ponudu u obe teme, na oba jezika i sa stranice privatnosti. Sa `OFFER.open = false` sve nestaje. `qa:themes` i `qa:site` su čisti.
@@ -210,7 +210,7 @@ Kod se ne menja.
   - **Poreklo slika (po Mihailu):** salon sa Pexels-a i drugih sajtova sa besplatnim slikama; Keeper generisan Gemini modelom, vidljivi žig je skinuo on; naslovne slike Automation Desk-a napravio Claude Design; snimak Invoice-a su test podaci.
   - **Monogram i kod:** sve je nastalo uz AI asistenta (Claude). Tužba zbog toga je malo verovatna, ali je zaštita po autorskom pravu slaba; zapisi o nastanku se čuvaju.
   - **Google Fonts u politici privatnosti:** rečenica ostaje dok sajt učitava fontove sa Google-a; briše se u sesiji 7 (vidi dole).
-- **U ovom repou, u sesiji 7:** rečenica o Google Fonts i oba `preconnect` linka; `OFL.txt` uz woff2; brisanje neupotrebljenih glifova u `src/components/icons.tsx`. Mihailo odlučuje o zastavama u izboru jezika (tekst „English / Srpski“ umesto zastava).
+- **U ovom repou, urađeno u sesiji 7:** rečenica o Google Fonts i oba `preconnect` linka su obrisani; `OFL.txt` je uz woff2; neupotrebljeni glifovi u `src/components/icons.tsx` su obrisani. Zastave u izboru jezika ostaju (Mihailova odluka).
 - **Van repoa** (živi sajtovi `*.mihailobuilds.com`, rade se u njihovim projektima, nikad iz ovog repoa):
   - salon: ukloniti email i Instagram handle, oznaka „koncept“, poruka posle forme;
   - Automation Desk: oznaka „koncept“, skinuti „50K+ engineers“;
@@ -262,6 +262,12 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 ## Sesija 7: Izbor teme i čišćenje
 
 **Preduslov:** Mihailo je izabrao temu (Kobalt ili Industrial). Prompt počinje izborom.
+
+**Ishod (2026-10-05):** Mihailo je izabrao **Kobalt**, traku za posebnu ponudu (završava sesiju 2), tablet raspored sa tekstom levo i telefonom desno, novi Invoice snimak i zadržao zastave. PR je otvoren.
+- Industrial je obrisan, zajedno sa skriptom `?theme=`. Kobalt vrednosti su sada tokeni u `src/styles/tokens/` (bez klase na `<html>`); ostaci starog tamnog „gold“ sistema i neupotrebljene `ds` komponente (Badge, Card, IconButton, Tag) su obrisani. Pre namernih izmena, snimci svih stranica na 320/375/768/1440 px su bili piksel-identični starom Kobaltu.
+- Fontovi: Manrope i JetBrains Mono sa našeg domena (`public/fonts/`, latin + latin-ext, sa `OFL.txt`), preload za Manrope, rezervni fontovi usklađenih mera. CLS je 0.000 na sve 4 stranice; sa fontovima koji kasne 1,5 s najviše 0.01 (ranije do 0.14 na stranici privatnosti). Sajt više ništa ne učitava sa Google-a.
+- Favicon (SVG, ICO, apple-touch-icon), nove OG slike iz `scripts/brand-assets.mjs`, `theme-color` prati traku ponude.
+- `qa:themes` je sada `qa:main` (jedna tema; dodat CLS sa sporim fontovima i provera spoljnih zahteva).
 
 **Obim:**
 - **Brisanje druge teme:**

@@ -15,7 +15,7 @@ export const en: Dict = {
     langLabel: "Language",
   },
 
-  /* Links to the special offer (#offer): bar above the nav, nav pill, hero pill. */
+  /* Links to the special offer (#offer): the bar above the nav and the footer reminder. */
   offerCta: {
     bar: "the next 3 client projects at a lower price.",
     barShort: "for the next 3 projects",
@@ -261,7 +261,7 @@ export const en: Dict = {
         p: [
           "When you send a message through the contact form: your name, email address and the content of the message.",
           "When you contact me directly (email, Viber, WhatsApp): the information you choose to send.",
-          "When you visit the website: technical data processed by the hosting, analytics and font services (described below).",
+          "When you visit the website: technical data processed by the hosting and analytics services (described below).",
         ],
       },
       {
@@ -284,7 +284,6 @@ export const en: Dict = {
         p: [
           "Web3Forms — the service that forwards contact form messages to my email. [[verify: server location and retention period]]",
           "Vercel — website hosting and Vercel Web Analytics for traffic statistics. [[verify: what data is collected and where it is stored]]",
-          "Google Fonts — fonts are loaded from Google's servers, so your browser sends your IP address to Google.",
           "My email provider — where received messages are stored. [[verify: provider name]]",
         ],
       },

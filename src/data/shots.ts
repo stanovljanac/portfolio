@@ -34,13 +34,7 @@ export const SHOTS = {
   },
   "invoice": {
     src: "/projects/invoice-960.webp",
-    srcSet: "/projects/invoice-640.webp 640w, /projects/invoice-960.webp 960w, /projects/invoice-1213.webp 1213w",
-    width: 1213,
-    height: 758,
-  },
-  "invoice-nav": {
-    src: "/projects/invoice-nav-960.webp",
-    srcSet: "/projects/invoice-nav-640.webp 640w, /projects/invoice-nav-960.webp 960w, /projects/invoice-nav-1280.webp 1280w, /projects/invoice-nav-1600.webp 1600w",
+    srcSet: "/projects/invoice-640.webp 640w, /projects/invoice-960.webp 960w, /projects/invoice-1280.webp 1280w, /projects/invoice-1600.webp 1600w",
     width: 2000,
     height: 1250,
   },

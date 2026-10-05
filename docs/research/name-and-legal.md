@@ -92,12 +92,12 @@ U portfolio repou:
 
 ### Uskoro
 
-- [ ] **Samohostovanje fontova u portfoliju** (roadmap sesija 7): fajl sa licencama uz woff2, obrisati Google Fonts linkove i oba preconnect-a, u istom izdanju obrisati rečenicu u politici privatnosti; Plex ne obrađivati sam; proveriti `ttx` da nameID 0 i 14 ostaju. Razlog: gasi GDPR rizik i ispunjava OFL.
+- [x] **Samohostovanje fontova u portfoliju** (urađeno u sesiji 7, 2026-10-05; nameID 0 i 14 su u fajlovima) (roadmap sesija 7): fajl sa licencama uz woff2, obrisati Google Fonts linkove i oba preconnect-a, u istom izdanju obrisati rečenicu u politici privatnosti; Plex ne obrađivati sam; proveriti `ttx` da nameID 0 i 14 ostaju. Razlog: gasi GDPR rizik i ispunjava OFL.
 - [ ] **Kratak razgovor sa srpskim advokatom za IP pre bilo koje prijave** (ime i logo). Razlog: pretrage nisu pravna ocena. Cenu za Srbiju nisam našao; EU pretrage koštaju oko 99-900 EUR ([Njord Law](https://www.njordlaw.com/european-union-trademarks/faq-trademark-searching-europe)) [S].
 - [ ] **Registar slika:** po fajlu izvor, autor, licenca (sa snimkom stranice licence), datum, saglasnost. Razlog: bez toga ne možeš da dokažeš da si imao pravo da ih koristiš.
 - [ ] **Odluka o imenu MB Hair Salon;** za novo ime prava pretraga (klasa 44 i 3). Za Keeper: TMview provera KEEPER (RS, EM, WO; klase 9, 41, 42); ime ostaje ako je čisto. Razlog: salon je jedina stavka imena sa srednjim rizikom.
 - [ ] **Automation Desk:** dodati oznaku „koncept“ i skinuti „50K+“ i reči o zajednici koja ne postoji (potvrđeno: izmišljeno). Razlog: lažna brojka uz prave naloge.
-- [ ] **Zastave** zameniti tekstom; obrisati neupotrebljene glifove u `icons.tsx` i `public/logo-lockup*.svg` (roadmap to već planira). Razlog: manje rizika i čistiji kod.
+- [x] **Zastave** zameniti tekstom; obrisati neupotrebljene glifove u `icons.tsx` i `public/logo-lockup*.svg` (roadmap to već planira). Razlog: manje rizika i čistiji kod. Urađeno u sesiji 7: glifovi i `logo-lockup*.svg` su obrisani; zastave ostaju po Mihailovoj odluci (ukras, `aria-hidden`, uz tekst EN/SR).
 - [ ] **Salon i Automation Desk:** samohostovanje fontova i fajl sa licencama trećih strana (Phosphor MIT, Next.js paketi). Razlog: isti GDPR i licencni razlozi.
 - [ ] **Domeni i handle-ovi:** WHOIS, pa registruj mihailobuilds.rs (možda i .eu) i uskladi handle-ove. Razlog: poslovni predlog; na pravni rizik malo utiče.
 - [ ] **Slova monograma** provući kroz alat za prepoznavanje fonta. Razlog: isključuje da je neki komercijalni font trasiran.
