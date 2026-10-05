@@ -28,7 +28,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
-| 5 | Ime, logo i pravni rizik | istraživanje | todo |
+| 5 | Ime, logo i pravni rizik | istraživanje | PR otvoren |
 | 6 | Font za Industrial (3 varijante) | kod | todo |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
 | 8 | Finalni sadržaj i lansiranje | kod | čeka 4, 7 i podatke |
@@ -46,6 +46,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
+- **Ime, logo i pravni rizik** (sesija 5, `docs/research/name-and-legal.md`): registri žigova nisu mogli da se pretraže iz okruženja, pa Mihailo sam pravi pretrage iz odeljka 6 dokumenta (oko 10 minuta). Čeka se i njegov odgovor na pitanja iz odeljka 5: poreklo fotografija salona i slika Keepera, šta Keeper radi, kako je nastao MB monogram i čiji su nalozi vezani na Automation Desk. Popravke živih sajtova (`*.mihailobuilds.com`) rade se u njihovim projektima, ne u ovom repou.
 
 ---
 
