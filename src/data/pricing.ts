@@ -1,12 +1,11 @@
-/* Starting prices (EUR), shared by both language versions.
-   Values wrapped in [[…]] are placeholders and must be filled in
-   before production — the build prints a warning while any remain. */
+/* Starting prices (EUR), shared by both language versions. Maintenance
+   has no fixed price: it is agreed with each client, and work that takes
+   longer is billed by the hour. */
 
 export const PRICING = {
-  website: "[[Y]]",
-  landing: "[[X]]",
-  maintenance: "[[Z]]",
-  maintenanceHours: "[[N]]",
+  website: "400",
+  landing: "200",
+  hourly: "15",
 };
 
 /* Special offer for the next three client projects. Set `open` to
@@ -14,6 +13,6 @@ export const PRICING = {
    The offer is not renewed. */
 export const OFFER = {
   open: true,
-  website: "[[Y′]]",
-  landing: "[[X′]]",
+  website: "250",
+  landing: "120",
 };

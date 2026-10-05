@@ -15,8 +15,10 @@ Read this first in every session. The plan of work, one session per item, is in 
 - **Routes:** English at `/`, Serbian at `/sr/`; privacy at `/privacy/` and `/sr/privatnost/`. hreflang `x-default` → `/`.
 - **No location** anywhere on the site. He works remotely.
 - **Prices:**
-  - Shown as starting prices ("from €X").
+  - Shown as starting prices ("from €X"): landing page from €200, business website from €400 (`src/data/pricing.ts`, roadmap session 8).
+  - **Maintenance has no fixed price.** It is agreed with each client, based on their needs; the site says "By agreement". Work that takes longer is billed at €15 per hour (`PRICING.hourly`).
   - **Special offer:** "the next three client projects at a lower price".
+    - Landing page from €120, business website from €250.
     - Controlled by `OFFER.open` (true/false) in `src/data/pricing.ts`.
     - No counter. Covers the core build only.
     - Never tied to Google reviews; that is against Google policy.
@@ -51,7 +53,7 @@ Read this first in every session. The plan of work, one session per item, is in 
   1. `tsc`
   2. client build
   3. SSR build of `src/entry-server.tsx`
-  4. `scripts/prerender.mjs`, which injects the markup, replaces `__SITE_URL__` (HTML, `sitemap.xml`, `robots.txt`) and `__THEME_COLOR__` (`themeColor` in `src/entry-server.tsx`: the offer bar's colour while `OFFER.open`, else white), and warns about leftover `[[…]]` placeholders
+  4. `scripts/prerender.mjs`, which injects the markup, replaces `__SITE_URL__` (HTML, `sitemap.xml`, `robots.txt`) and `__THEME_COLOR__` (`themeColor` in `src/entry-server.tsx`: the offer bar's colour while `OFFER.open`, else white), and checks for leftover `[[…]]` placeholders (fails the production build, see below)
 - **Client:** `src/main.tsx` hydrates the page. Locale comes from `<html lang>`, page from `data-page`.
 - **i18n:** `src/i18n/en.ts` and `sr.ts` hold **all copy**. They are typed, so `sr` must match the shape of `en`.
   - `useLocale()` / `useT()` read it.
@@ -68,7 +70,7 @@ Read this first in every session. The plan of work, one session per item, is in 
 - **Logo:** MB monogram drawn as SVG paths in `src/components/Logo.tsx`, coloured by CSS variables; also `public/favicon.svg`. Keep it simple: no font tooling.
 - **Brand files:** `public/favicon.ico`, `public/apple-touch-icon.png` and the OG images (`public/og-en.png`, `og-sr.png`, 1200×630) come from `npm run build && node scripts/brand-assets.mjs`: icons from `favicon.svg`, OG images from the built hero copy in the site's fonts and colours. Run it again when the hero copy, the logo or the colours change.
 - **Other:** `vercel.json` sets `trailingSlash: true`. Locally, URLs without a trailing slash return 404 in `vite preview`; that is expected.
-- **Placeholders:** written as `[[…]]`. The build lists the ones left. **None may reach `main`.**
+- **Placeholders:** written as `[[…]]`. The build lists the ones left in the four pages, `sitemap.xml` and `robots.txt`. **None may reach `main`:** with `VERCEL_ENV=production` (the production deploy from `main`) or `STRICT_PLACEHOLDERS=1` the build fails; preview and local builds only warn.
 
 ## Design (Kobalt)
 - Chosen in roadmap session 7. White canvas, navy ink `#0B1B3F`, cobalt accent `#2F5BFF`, rounded corners, soft navy shadows. All values are tokens in `src/styles/tokens/`; there are no theme classes.

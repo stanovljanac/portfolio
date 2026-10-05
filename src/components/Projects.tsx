@@ -25,20 +25,16 @@ function ProjectCard({ p, flip }: { p: Project; flip: boolean }) {
             <span className="browser__url">{domain}</span>
           </div>
           <div className="browser__view">
-            {p.shot ? (
-              <img
-                src={p.shot.src}
-                srcSet={p.shot.srcSet}
-                sizes={SHOT_SIZES}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                width={p.shot.width}
-                height={p.shot.height}
-              />
-            ) : (
-              <div className="shot-placeholder">{t.work.shotPlaceholder}</div>
-            )}
+            <img
+              src={p.shot.src}
+              srcSet={p.shot.srcSet}
+              sizes={SHOT_SIZES}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width={p.shot.width}
+              height={p.shot.height}
+            />
           </div>
         </div>
         {p.featured && p.mobileShot ? (

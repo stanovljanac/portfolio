@@ -30,8 +30,8 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 4 | Istraživanje cena i održavanja | istraživanje | gotovo (`docs/research/pricing.md`); Mihailo bira cene |
 | 5 | Ime, logo i pravni rizik | istraživanje | gotovo (`docs/research/name-and-legal.md`); Mihailo radi pretrage u registrima |
 | 6 | Font za Industrial (3 varijante) | kod | gotovo (varijanta b; Industrial je posle obrisan u sesiji 7) |
-| 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | PR otvoren (Kobalt) |
-| 8 | Finalni sadržaj i lansiranje | kod | čeka 7 i podatke |
+| 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | gotovo (Kobalt) |
+| 8 | Finalni sadržaj i lansiranje | kod | u toku (cene upisane; čeka rokove, fotografiju, domen i podatke za politiku privatnosti) |
 | 9 | Šablon ponude i plan obraćanja klijentima | dokument | kasnije |
 
 Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren` → `gotovo`.
@@ -40,7 +40,8 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 
 Odlučeno u sesiji 7 (5. 10. 2026): tema **Kobalt**; posebna ponuda kao **traka iznad navigacije**; na tabletu **tekst levo, telefon desno**; Invoice kartica sa **novim snimkom** (sa navigacijom aplikacije); **zastave** u izboru jezika ostaju.
 
-- **Cene:** redovne, posebne i održavanje. Preporuka iz sesije 4 je u `docs/research/pricing.md`: landing od €250 / ponuda €150, sajt od €500 / ponuda €300, održavanje €30 / €60 / €100 mesečno (do 1 / 2 / 4 h), rad van plana €25/h, avans 50%. Mihailo bira konačne brojeve; upisuje ih sesija 8.
+- **Cene:** odlučeno u sesiji 8 (vidi odeljak „Sesija 8“).
+- **Rokovi** za FAQ („Koliko traje izrada?“).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
 - **Ime, logo i pravni rizik** (sesija 5): ishod, odluke i zadaci su u odeljku „Sesija 5“ ispod, a obrazloženje u `docs/research/name-and-legal.md`. Mihailo još sam radi pretrage u registrima žigova i registar izvora slika.
@@ -301,6 +302,16 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 ## Sesija 8: Finalni sadržaj i lansiranje
 
 **Preduslov:** gotove sesije 4 i 7. Mihailo daje cene, rokove, fotografiju i potvrdu domena.
+
+**Stanje (2026-10-05):**
+- **Cene (Mihailova odluka):** landing od €200, sajt od €400; posebna ponuda landing od €120, sajt od €250. **Održavanje nema fiksnu cenu:** dogovara se sa svakim klijentom prema njegovim potrebama (na sajtu „Po dogovoru“). Ako nešto traži više vremena, naplaćuje se **€15 po satu** (`PRICING.hourly`). Upisano u `src/data/pricing.ts` i u tekst kartice „Održavanje“.
+- **Provera placeholdera:** produkcijski build na Vercelu (`VERCEL_ENV=production`, grana `main`) pada dok ostane ijedan `[[…]]`; lokalno isto sa `STRICT_PLACEHOLDERS=1`. Preview i lokalni build samo upozoravaju. Obrisani su i nekorišćeni rezervni placeholderi za snimke.
+- **Čeka Mihaila:**
+  - rokovi za FAQ;
+  - fotografija za „O meni“ (ili odluka da se lansira bez nje);
+  - potvrda domena `mihailobuilds.com`;
+  - za politiku privatnosti: naziv email provajdera, najduži rok čuvanja poruka i datum objave; uz to da u mrežnim podešavanjima okruženja doda `web3forms.com`, `docs.web3forms.com` i `vercel.com` (Allowed domains), jer se uslovi Web3Forms-a i Vercela ne mogu pročitati iz okruženja, a pretraga daje protivrečne podatke;
+  - Web3Forms ključ u Vercel env (Production) i jedna prava test poruka.
 
 **Obim:**
 - **Cene:** upisati u `src/data/pricing.ts` (redovne, posebne, održavanje, sati održavanja).

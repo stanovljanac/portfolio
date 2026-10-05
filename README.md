@@ -50,7 +50,7 @@ Each HTML file holds that page's `<title>`, description, canonical, hreflang, Op
 ## Where to edit
 
 - **All copy** (both languages): `src/i18n/en.ts`, `src/i18n/sr.ts`
-- **Prices and the special offer** (`open: false` hides it once the three spots are taken): `src/data/pricing.ts`
+- **Prices, the hourly rate and the special offer** (`open: false` hides it once the three spots are taken): `src/data/pricing.ts`
 - **Email / phone** (Viber, WhatsApp): `src/data/contact.ts` — stored as character codes and never shown on the page. `<ContactLink>` (`src/components/Email.tsx`) points to the contact form and gets its real `mailto:` / `viber:` / `wa.me` address only when clicked. This deters scrapers; it is not a security measure. Use `{email}` in dictionary strings for an inline "by email" link.
 - **Projects**: `src/data/projects.ts` (cards). Screenshots are made by `node scripts/capture-projects.mjs` (Playwright + sharp): it captures the live sites, exports WebP in several widths to `public/projects/` and regenerates `src/data/shots.ts`. Run it again when a site changes; see `public/projects/README.txt`
 - **Hero phone screenshot**: `SALON_MOBILE_SHOT` in `src/components/Hero.tsx` (also from the capture script)
@@ -60,4 +60,4 @@ Each HTML file holds that page's `<title>`, description, canonical, hreflang, Op
 
 ## Placeholders
 
-Values written as `[[…]]` are placeholders. `npm run build` lists every one that is left — **none may reach production**. The privacy policy's `[[proveriti]]` items must be checked against the actual terms of Web3Forms and Vercel, not guessed.
+Values written as `[[…]]` are placeholders. `npm run build` lists every one that is left — **none may reach production**: the production build on Vercel (`VERCEL_ENV=production`) fails while any remain, and `STRICT_PLACEHOLDERS=1 npm run build` does the same locally. Preview builds only warn. The privacy policy's `[[proveriti]]` items must be checked against the actual terms of Web3Forms and Vercel, not guessed.

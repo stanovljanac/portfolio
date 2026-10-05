@@ -4,9 +4,8 @@ import { useT } from "../i18n";
 import { SHOTS, type Shot } from "../data/shots";
 
 /* The salon's mobile screenshot (390×844 @3x, top of the page) shown in the
-   phone frame; from scripts/capture-projects.mjs. Without it, a visible
-   placeholder is rendered instead. */
-const SALON_MOBILE_SHOT: Shot | undefined = SHOTS["mb-hair-salon-mobile"];
+   phone frame; from scripts/capture-projects.mjs. */
+const SALON_MOBILE_SHOT: Shot = SHOTS["mb-hair-salon-mobile"];
 /* The phone screen is 270px wide, at most 220px on tablets and phones (.phone in site.css). */
 const SALON_MOBILE_SIZES = "(max-width: 900px) 220px, 270px";
 
@@ -36,18 +35,14 @@ export function Hero() {
         <div className="hero__visual">
           <div className="phone">
             <div className="phone__screen">
-              {SALON_MOBILE_SHOT ? (
-                <img
-                  src={SALON_MOBILE_SHOT.src}
-                  srcSet={SALON_MOBILE_SHOT.srcSet}
-                  sizes={SALON_MOBILE_SIZES}
-                  alt={t.hero.shotAlt}
-                  width={SALON_MOBILE_SHOT.width}
-                  height={SALON_MOBILE_SHOT.height}
-                />
-              ) : (
-                <div className="shot-placeholder">{t.hero.shotPlaceholder}</div>
-              )}
+              <img
+                src={SALON_MOBILE_SHOT.src}
+                srcSet={SALON_MOBILE_SHOT.srcSet}
+                sizes={SALON_MOBILE_SIZES}
+                alt={t.hero.shotAlt}
+                width={SALON_MOBILE_SHOT.width}
+                height={SALON_MOBILE_SHOT.height}
+              />
             </div>
           </div>
         </div>

@@ -40,14 +40,22 @@ for (const f of ["sitemap.xml", "robots.txt"]) {
 
 fs.rmSync(ssrDir, { recursive: true, force: true });
 
-// Placeholders ([[…]]) must be filled before production. Warn, but don't
-// fail — preview deployments should keep working in the meantime.
+// Placeholders ([[…]]) must never reach production. The production build on
+// Vercel (VERCEL_ENV=production, i.e. `main`) fails while any are left;
+// preview and local builds only warn, so previews keep working in the
+// meantime. STRICT_PLACEHOLDERS=1 makes a local build fail the same way.
 const leftovers = [];
-for (const p of PAGES) {
-  const matches = fs.readFileSync(path.join(dist, p.file), "utf8").match(/\[\[[^\]]*\]\]/g) ?? [];
-  if (matches.length) leftovers.push(`  ${p.file}: ${[...new Set(matches)].join(", ")}`);
+for (const f of [...PAGES.map((p) => p.file), "sitemap.xml", "robots.txt"]) {
+  const matches = fs.readFileSync(path.join(dist, f), "utf8").match(/\[\[[^\]]*\]\]/g) ?? [];
+  if (matches.length) leftovers.push(`  ${f}: ${[...new Set(matches)].join(", ")}`);
 }
 console.log(`prerendered ${PAGES.length} pages`);
 if (leftovers.length) {
-  console.warn("\n⚠ Placeholders left — fill these in before production:\n" + leftovers.join("\n") + "\n");
+  const strict = process.env.VERCEL_ENV === "production" || process.env.STRICT_PLACEHOLDERS === "1";
+  const msg = "Placeholders left — fill these in before production:\n" + leftovers.join("\n");
+  if (strict) {
+    console.error(`\n✖ ${msg}\n`);
+    process.exit(1);
+  }
+  console.warn(`\n⚠ ${msg}\n`);
 }

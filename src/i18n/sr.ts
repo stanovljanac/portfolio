@@ -29,7 +29,6 @@ export const sr = {
     ctaWork: "Pogledaj radove",
     ctaStart: "Započni projekat",
     shotAlt: "Sajt MB Hair Salon na telefonu",
-    shotPlaceholder: "[[screenshot salona — mobilni]]",
   },
 
   audience: {
@@ -62,7 +61,6 @@ export const sr = {
     lede: "Lični projekti koje sam sam osmislio, dizajnirao i objavio — od sajta za salon do alata za fakture.",
     visit: "Pogledaj sajt",
     newTab: "(otvara se u novom tabu)",
-    shotPlaceholder: "[[screenshot — desktop]]",
   },
 
   services: {
@@ -82,8 +80,8 @@ export const sr = {
       },
       {
         name: "Održavanje",
-        price: `od ${PRICING.maintenance} € / mesečno`,
-        desc: `Do ${PRICING.maintenanceHours} sati sitnih izmena mesečno, tehnička provera i ažuriranja. Jasno je šta je uključeno — nije neograničeno.`,
+        price: "Po dogovoru",
+        desc: `Dogovara se sa svakim klijentom, prema potrebama sajta: izmene, dopune, tehničke provere i ažuriranja. Ako nešto traži više vremena, naplaćuje se ${PRICING.hourly} € po satu.`,
       },
     ],
     note: "Konačna cena zavisi od obima, broja stranica i funkcija.",

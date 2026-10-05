@@ -30,7 +30,6 @@ export const en: Dict = {
     ctaWork: "View my work",
     ctaStart: "Start a project",
     shotAlt: "The MB Hair Salon website on a phone",
-    shotPlaceholder: "[[salon screenshot — mobile]]",
   },
 
   audience: {
@@ -63,7 +62,6 @@ export const en: Dict = {
     lede: "Personal projects I came up with, designed and launched myself — from a salon website to an invoicing tool.",
     visit: "Visit site",
     newTab: "(opens in a new tab)",
-    shotPlaceholder: "[[screenshot — desktop]]",
   },
 
   services: {
@@ -83,8 +81,8 @@ export const en: Dict = {
       },
       {
         name: "Maintenance",
-        price: `from €${PRICING.maintenance} / month`,
-        desc: `Up to ${PRICING.maintenanceHours} hours of small changes a month, technical checks and updates. Clearly defined — not unlimited.`,
+        price: "By agreement",
+        desc: `Agreed with each client, based on what the website needs: changes, additions, technical checks and updates. Anything that takes longer is billed at €${PRICING.hourly} per hour.`,
       },
     ],
     note: "The final price depends on scope, number of pages and functionality.",
