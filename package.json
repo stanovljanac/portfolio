@@ -9,7 +9,7 @@
     "build": "tsc --noEmit && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
     "qa:leak": "node scripts/qa/leak.mjs",
-    "qa:themes": "node scripts/qa/themes.mjs",
+    "qa:main": "node scripts/qa/main.mjs",
     "qa:site": "node scripts/qa/site.mjs",
     "qa:shots": "node scripts/qa/shots.mjs"
   },

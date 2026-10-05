@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="sr" class="theme-kobalt">
+<html lang="sr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,32 +19,12 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#FFFFFF" />
-    <script>
-      /* TEMP: theme preview switch, remove once the theme is chosen.
-         "/" is always Kobalt; "?theme=industrial" is always Industrial.
-         In Industrial mode, internal links keep the parameter (EN/SR, privacy). */
-      (function () {
-        if (new URLSearchParams(location.search).get("theme") !== "industrial") return;
-        var root = document.documentElement;
-        root.classList.remove("theme-kobalt");
-        root.classList.add("theme-industrial");
-        document.addEventListener("click", function (e) {
-          var a = e.target.closest && e.target.closest('a[href^="/"]');
-          if (!a) return;
-          var url = new URL(a.getAttribute("href"), location.href);
-          url.searchParams.set("theme", "industrial");
-          a.setAttribute("href", url.pathname + url.search + url.hash);
-        }, true);
-      })();
-    </script>
+    <meta name="theme-color" content="__THEME_COLOR__" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wdth,wght@62..100,800..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope-latin-ext.woff2" as="font" type="font/woff2" crossorigin />
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MihailoBuilds","url":"__SITE_URL__/","inLanguage":"sr"}</script>
   </head>

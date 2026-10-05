@@ -14,7 +14,7 @@ export const sr = {
     langLabel: "Jezik",
   },
 
-  /* Links to the special offer (#offer): bar above the nav, nav pill, hero pill. */
+  /* Links to the special offer (#offer): the bar above the nav and the footer reminder. */
   offerCta: {
     bar: "sledeća 3 klijentska projekta po nižoj ceni.",
     barShort: "za sledeća 3 projekta",
@@ -260,7 +260,7 @@ export const sr = {
         p: [
           "Kada pošaljete poruku preko kontakt forme: ime, email adresu i sadržaj poruke.",
           "Kada me kontaktirate direktno (email, Viber, WhatsApp): podatke koje sami pošaljete.",
-          "Prilikom posete sajtu: tehničke podatke koje obrađuju hosting, analitika i servis za fontove (opisano ispod).",
+          "Prilikom posete sajtu: tehničke podatke koje obrađuju hosting i analitika (opisano ispod).",
         ],
       },
       {
@@ -283,7 +283,6 @@ export const sr = {
         p: [
           "Web3Forms — servis koji poruke iz kontakt forme prosleđuje na moj email. [[proveriti: lokacija servera i rok čuvanja]]",
           "Vercel — hosting sajta i Vercel Web Analytics za merenje posećenosti. [[proveriti: koji podaci se prikupljaju i gde se čuvaju]]",
-          "Google Fonts — fontovi se učitavaju sa Google-ovih servera, pa vaš browser pri tome šalje Google-u vašu IP adresu.",
           "Moj email provajder — kod koga se čuvaju primljene poruke. [[proveriti: naziv provajdera]]",
         ],
       },

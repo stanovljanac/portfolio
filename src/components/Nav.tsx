@@ -43,11 +43,6 @@ export function Nav() {
           <a className="nav__link" href={href("faq")}>
             {t.nav.faq}
           </a>
-          {OFFER.open ? (
-            <a className="nav__link nav__offer" href={href("offer")}>
-              {t.services.offer.eyebrow}
-            </a>
-          ) : null}
         </nav>
         <div className="nav__actions">
           <span className="nav__sep" aria-hidden="true" />

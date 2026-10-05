@@ -1,23 +1,22 @@
 /* Screenshots for visual review, saved to .qa/ (git-ignored).
-   node scripts/qa/shots.mjs [pages=/,/sr/] [widths=375,1440] [themes=kobalt,industrial] [slice=1300] [dpr=1] [viewport=1]
+   node scripts/qa/shots.mjs [pages=/,/sr/] [widths=375,1440] [slice=1300] [dpr=1] [viewport=1]
      slice=N     also cut the full page into N-px tall parts (easier to read than one long image)
      viewport=1  only the first screen instead of the full page */
-import { BASE, OUT, THEMES, launch, log, newContext, scrollThrough, shotName } from "./_lib.mjs";
+import { BASE, OUT, launch, log, newContext, scrollThrough, shotName } from "./_lib.mjs";
 
 const arg = Object.fromEntries(process.argv.slice(2).map((a) => a.split("=")));
 const pages = (arg.pages || "/,/sr/").split(",");
 const widths = (arg.widths || "375,1440").split(",").map(Number);
-const themes = (arg.themes || Object.keys(THEMES).join(",")).split(",");
 const slice = Number(arg.slice || 0);
 const dpr = Number(arg.dpr || 1);
 
 const b = await launch();
-for (const path of pages) for (const w of widths) for (const theme of themes) {
+for (const path of pages) for (const w of widths) {
   const ctx = await newContext(b, { viewport: { width: w, height: w > 1000 ? 900 : 812 }, deviceScaleFactor: dpr });
   const page = await ctx.newPage();
-  await page.goto(BASE + path + THEMES[theme], { waitUntil: "networkidle" });
+  await page.goto(BASE + path, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
-  const name = shotName(path, w, theme);
+  const name = shotName(path, w);
   if (arg.viewport) {
     await page.screenshot({ path: `${OUT}/${name}-top.png` });
   } else {

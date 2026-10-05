@@ -11,21 +11,16 @@ src/data/shots.ts (srcset, width, height for every image).
   keeper-*.webp                      Keeper card (top of the page)
   automation-desk-*.webp             The Automation Desk card (top of the page)
   invoice-*.webp                     Invoice Generator card: Mihailo's dashboard
-                                     screenshot (scripts/sources/invoice-dashboard.png);
-                                     the live app needs a login, so it is never
-                                     captured
-  invoice-nav-*.webp                 TEMP, Industrial only: Mihailo's newer dashboard
                                      screenshot with the app's nav
-                                     (scripts/sources/invoice-dashboard-nav.webp,
-                                     2000x1387, cut to 16:10). Kobalt keeps the old
-                                     one until the theme is chosen (roadmap session 7)
+                                     (scripts/sources/invoice-dashboard.webp,
+                                     2000x1387, cut to 16:10); the live app needs
+                                     a login, so it is never captured
 
 Format
   desktop  1440x900 @2x, cut to 16:10, WebP at 640/960/1280/1600 px
   mobile   390x844 @3x, WebP at 300/450/600/810 px
   Viewport only (top of the page or one section, with the site's nav),
-  no full-page strips. The old invoice source is 1213x760 @1x, so it is
-  exported at 640/960/1213 px only.
+  no full-page strips.
 
 Recapture (when a site changes)
   node scripts/capture-projects.mjs              all sites, then export

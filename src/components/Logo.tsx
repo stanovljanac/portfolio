@@ -1,5 +1,5 @@
 /* MB monogram: hand-drawn geometric letters on a square tile with an
-   accent bar. Pure shapes (no font), colored by the active theme. */
+   accent bar. Pure shapes (no font), coloured by the CSS variables. */
 const M = "M7 27V11h3.9l2.35 7.6L15.6 11h3.9v16h-3.1v-9.4l-1.9 5.8H12l-1.9-5.8V27z";
 const B_TOP = "M21 11h7a3.5 3.5 0 0 1 3.5 3.5v1A3.5 3.5 0 0 1 28 19h-7z";
 const B_BOTTOM = "M21 18.5h7.5a4 4 0 0 1 4 4v.5a4 4 0 0 1-4 4H21z";
@@ -17,7 +17,7 @@ export function LogoMark({ size = 40 }: { size?: number }) {
   );
 }
 
-/* Mark + wordmark. The wordmark is real text in the theme's font. */
+/* Mark + wordmark. The wordmark is real text in the site font. */
 export function Logo({ size = 40 }: { size?: number }) {
   return (
     <span className="logo">
