@@ -31,7 +31,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 5 | Ime, logo i pravni rizik | istraživanje | gotovo (`docs/research/name-and-legal.md`); Mihailo radi pretrage u registrima |
 | 6 | Font za Industrial (3 varijante) | kod | gotovo (varijanta b; Industrial je posle obrisan u sesiji 7) |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | gotovo (Kobalt) |
-| 8 | Finalni sadržaj i lansiranje | kod | PR otvoren (sve osim fotografije; PR u `main` tek kad stigne fotografija) |
+| 8 | Finalni sadržaj i lansiranje | kod | spojeno sve osim fotografije (#8); posle fotografije PR u `main` |
 | 9 | Šablon ponude i plan obraćanja klijentima | dokument | kasnije |
 
 Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren` → `gotovo`.
@@ -301,15 +301,15 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 
 **Preduslov:** gotove sesije 4 i 7. Mihailo daje cene, rokove, fotografiju i potvrdu domena.
 
-**Stanje (2026-10-05):** PR otvoren. Ostaje samo fotografija za „O meni“; dok je nema, produkcijski build pada, pa se PR u `main` otvara tek posle nje.
+**Stanje (2026-10-05):** PR #8 spojen u radnu granu. Ostaje samo fotografija za „O meni“; dok je nema, produkcijski build pada, pa se PR u `main` otvara tek posle nje.
 - **Cene (Mihailova odluka):** landing od €200, sajt od €400; posebna ponuda landing od €120, sajt od €250. **Održavanje nema fiksnu cenu:** dogovara se sa svakim klijentom prema njegovim potrebama (na sajtu „Po dogovoru“). Ako nešto traži više vremena, naplaćuje se **€15 po satu** (`PRICING.hourly`).
 - **Rokovi u FAQ-u:** landing stranica 1–2 nedelje, sajt za biznis 2–4 nedelje.
 - **Domen:** `mihailobuilds.com` je potvrđen kao konačan (`SITE_URL` u `scripts/prerender.mjs` se ne menja).
-- **Politika privatnosti:** svi `[[verify]]` / `[[proveriti]]` popunjeni iz pravih uslova (izvori i datumi su u PR-u sesije 8): Web3Forms (politika privatnosti od 13. 7. 2026, FAQ), Vercel (Privacy Notice od 1. 6. 2026, DPA od 17. 3. 2026, „Web Analytics: Privacy and Compliance“ od 26. 6. 2026) i Google (politika privatnosti od 1. 10. 2026, preko arhive Open Terms Archive, jer je `policies.google.com` blokiran). Email servis je Gmail. Rok čuvanja poruka: najkasnije 12 meseci posle poslednjeg kontakta ako ne dođe do saradnje (predlog sesije 8, Mihailo potvrđuje). Datum: 5. 10. 2026; menja se kad god se tekst politike promeni.
+- **Politika privatnosti:** svi `[[verify]]` / `[[proveriti]]` popunjeni iz pravih uslova (izvori i datumi su u PR-u sesije 8): Web3Forms (politika privatnosti od 13. 7. 2026, FAQ), Vercel (Privacy Notice od 1. 6. 2026, DPA od 17. 3. 2026, „Web Analytics: Privacy and Compliance“ od 26. 6. 2026) i Google (politika privatnosti od 1. 10. 2026, preko arhive Open Terms Archive, jer je `policies.google.com` blokiran). Email servis je Gmail. Rok čuvanja poruka: najkasnije 12 meseci posle poslednjeg kontakta ako ne dođe do saradnje (Mihailo potvrdio). Datum: 5. 10. 2026; menja se kad god se tekst politike promeni.
 - **Provera placeholdera:** produkcijski build na Vercelu (`VERCEL_ENV=production`, grana `main`) pada dok ostane ijedan `[[…]]`; lokalno isto sa `STRICT_PLACEHOLDERS=1`. Preview i lokalni build samo upozoravaju. Obrisani su i nekorišćeni rezervni placeholderi za snimke.
 - **Čeka Mihaila:**
   - fotografija za „O meni“ (`PHOTO` u `About.tsx`); posle nje build, QA i PR iz `claude/loving-noether-cqi5ff` u `main`, koji Mihailo spaja;
-  - potvrda roka čuvanja poruka (12 meseci). Da bi to važilo i za Web3Forms, koji poruke čuva do 3 godine, poruke iz forme treba brisati i u Web3Forms panelu;
+  - da bi rok od 12 meseci važio i za Web3Forms, koji poruke čuva do 3 godine, poruke iz forme treba brisati i u Web3Forms panelu;
   - Web3Forms ključ: trenutni sajt koristi istu promenljivu (`VITE_WEB3FORMS_ACCESS_KEY`), pa je verovatno već postavljena za Production u Vercelu. Treba proveriti, a posle lansiranja poslati jednu pravu test poruku;
   - ručni pregled na telefonu.
 
