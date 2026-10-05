@@ -27,7 +27,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 1 | Kobalt: hero, senka telefona, footer | kod | gotovo |
 | 2 | Istaknuta posebna ponuda (traka + navigacija) | kod | urađeno po varijanta za svaku temu; čeka izbor |
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
-| 4 | Istraživanje cena i održavanja | istraživanje | todo |
+| 4 | Istraživanje cena i održavanja | istraživanje | gotovo (`docs/research/pricing.md`); Mihailo bira cene |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
 | 6 | Font za Industrial (3 varijante) | kod | todo |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
@@ -43,7 +43,7 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Hero i „O meni" na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima raspored kao desktop: tekst levo, telefon (odnosno fotografija) desno, pa ceo hero staje u ekran. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
 - **Snimak za Invoice karticu** (sesija 3): Kobalt prikazuje stari snimak Dashboard-a (bez navigacije, 1x), a Industrial novi (sa navigacijom aplikacije, oštriji). Bira se uz temu u sesiji 7.
 - **Font za Industrial** (sesija 6).
-- **Cene:** redovne, posebne i održavanje (posle sesije 4).
+- **Cene:** redovne, posebne i održavanje. Preporuka iz sesije 4 je u `docs/research/pricing.md`: landing od €250 / ponuda €150, sajt od €500 / ponuda €300, održavanje €30 / €60 / €100 mesečno (do 1 / 2 / 4 h), rad van plana €25/h, avans 50%. Mihailo bira konačne brojeve; upisuje ih sesija 8.
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
 
