@@ -30,7 +30,6 @@ export const en: Dict = {
     ctaWork: "View my work",
     ctaStart: "Start a project",
     shotAlt: "The MB Hair Salon website on a phone",
-    shotPlaceholder: "[[salon screenshot — mobile]]",
   },
 
   audience: {
@@ -63,7 +62,6 @@ export const en: Dict = {
     lede: "Personal projects I came up with, designed and launched myself — from a salon website to an invoicing tool.",
     visit: "Visit site",
     newTab: "(opens in a new tab)",
-    shotPlaceholder: "[[screenshot — desktop]]",
   },
 
   services: {
@@ -83,8 +81,8 @@ export const en: Dict = {
       },
       {
         name: "Maintenance",
-        price: `from €${PRICING.maintenance} / month`,
-        desc: `Up to ${PRICING.maintenanceHours} hours of small changes a month, technical checks and updates. Clearly defined — not unlimited.`,
+        price: "By agreement",
+        desc: `Agreed with each client, based on what the website needs: changes, additions, technical checks and updates. Anything that takes longer is billed at €${PRICING.hourly} per hour.`,
       },
     ],
     note: "The final price depends on scope, number of pages and functionality.",
@@ -173,7 +171,7 @@ export const en: Dict = {
       },
       {
         q: "How long does it take?",
-        a: "[[Typical timelines: landing page … days, business website … weeks.]] It depends mostly on when the copy and photos are ready. The exact timeline is in the proposal.",
+        a: "Usually 1–2 weeks for a landing page and 2–4 weeks for a business website. It depends mostly on when the copy and photos are ready. The exact timeline is in the proposal.",
       },
       {
         q: "What do you need from me?",
@@ -246,7 +244,7 @@ export const en: Dict = {
 
   privacy: {
     title: "Privacy policy",
-    updated: "Last updated: [[publication date]]",
+    updated: "Last updated: 5 October 2026",
     back: "Back to home",
     sections: [
       {
@@ -268,33 +266,33 @@ export const en: Dict = {
         h: "Purpose and legal basis",
         p: [
           "I use the details from your message only to reply and, if you ask, to prepare a proposal. This processing is necessary for steps taken at your request before any possible collaboration.",
-          "I use visit data to understand website traffic. [[verify: legal basis for analytics]]",
+          "I use visit data to understand website traffic. The legal basis is my legitimate interest in knowing how the website is used; the statistics are aggregated and do not show who you are.",
           "I don't sell your data, use it for advertising or send newsletters.",
         ],
       },
       {
         h: "How long I keep data",
         p: [
-          "I keep messages for as long as needed to respond to your enquiry and, if we work together, for the duration of the collaboration. [[verify: maximum retention period]]",
-          "Retention periods at the services listed below are set by their own terms. [[verify]]",
+          "I keep messages for as long as needed to respond to your enquiry and, if we work together, for the duration of the collaboration. If we don't end up working together, I delete them no later than 12 months after our last contact.",
+          "Web3Forms keeps form submissions for at most three years from the date they are sent, unless they are deleted earlier. Vercel Web Analytics discards visit sessions after 24 hours. Otherwise, Vercel and Google keep data according to their own privacy policies.",
         ],
       },
       {
         h: "Who else has access",
         p: [
-          "Web3Forms — the service that forwards contact form messages to my email. [[verify: server location and retention period]]",
-          "Vercel — website hosting and Vercel Web Analytics for traffic statistics. [[verify: what data is collected and where it is stored]]",
-          "My email provider — where received messages are stored. [[verify: provider name]]",
+          "Web3Forms (Web3Creative, India) — the service that forwards contact form messages to my email. Messages pass through its infrastructure at Amazon Web Services, Cloudflare and Hetzner, and the sender's IP address and email address may be checked by the spam filters CleanTalk and Akismet.",
+          "Vercel Inc. (USA) — website hosting and Vercel Web Analytics for traffic statistics. On every visit Vercel processes your IP address, the city and country derived from it, and technical data about your browser and device. Analytics stores only anonymous data points: the page, the referring site, country, region and city, operating system, browser and device type.",
+          "Google (Gmail) — my email service, where received messages are stored.",
         ],
       },
       {
         h: "Transfers outside Serbia",
-        p: ["The services listed may process data outside Serbia. [[verify: countries and transfer basis for each service]]"],
+        p: ["The services listed process data outside Serbia. Vercel processes data mainly in the United States; for transfers from the EU it relies on the EU Standard Contractual Clauses and the EU-U.S. Data Privacy Framework. Web3Forms operates from India on infrastructure that may process data in several regions, and for transfers from the EU relies on the EU Standard Contractual Clauses. Google keeps data on servers around the world."],
       },
       {
         h: "Cookies and analytics",
         p: [
-          "The website does not use cookies for advertising or cross-site tracking. Basic traffic statistics are provided by Vercel Web Analytics. [[verify: whether Vercel Web Analytics uses cookies]]",
+          "The website does not use cookies for advertising or cross-site tracking. Basic traffic statistics are provided by Vercel Web Analytics, which does not use third-party cookies: it recognises visitors by a hash created from the request and does not keep visit sessions permanently; they are discarded after 24 hours.",
         ],
       },
       {

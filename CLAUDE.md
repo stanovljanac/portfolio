@@ -14,9 +14,13 @@ Read this first in every session. The plan of work, one session per item, is in 
 ## Locked decisions (do not reopen without Mihailo)
 - **Routes:** English at `/`, Serbian at `/sr/`; privacy at `/privacy/` and `/sr/privatnost/`. hreflang `x-default` → `/`.
 - **No location** anywhere on the site. He works remotely.
+- **Domain:** `mihailobuilds.com` (confirmed in roadmap session 8; `SITE_URL` in `scripts/prerender.mjs`).
+- **Timelines** (FAQ): landing page 1–2 weeks, business website 2–4 weeks.
 - **Prices:**
-  - Shown as starting prices ("from €X").
+  - Shown as starting prices ("from €X"): landing page from €200, business website from €400 (`src/data/pricing.ts`, roadmap session 8).
+  - **Maintenance has no fixed price.** It is agreed with each client, based on their needs; the site says "By agreement". Work that takes longer is billed at €15 per hour (`PRICING.hourly`).
   - **Special offer:** "the next three client projects at a lower price".
+    - Landing page from €120, business website from €250.
     - Controlled by `OFFER.open` (true/false) in `src/data/pricing.ts`.
     - No counter. Covers the core build only.
     - Never tied to Google reviews; that is against Google policy.
@@ -42,6 +46,7 @@ Read this first in every session. The plan of work, one session per item, is in 
 - This deters scrapers; it is not security.
 - **Check:** after every build run `npm run qa:leak`, plus the contact block of `npm run qa:main`.
 - **Form:** Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY`), hidden honeypot `botcheck`, and a guard against double submits.
+- **Privacy policy** (`privacy` in `en.ts` / `sr.ts`): every statement about Web3Forms, Vercel and Google comes from their own terms (sources in the session 8 PR). Email is Gmail. When the services, the form or the analytics change, re-check the text against their current terms and update the "Last updated" date.
 
 ## Architecture
 - **Stack:** Vite 5 multi-page app (`appType: "mpa"`), React 18 + TypeScript, plain CSS. There is no router.
@@ -51,7 +56,7 @@ Read this first in every session. The plan of work, one session per item, is in 
   1. `tsc`
   2. client build
   3. SSR build of `src/entry-server.tsx`
-  4. `scripts/prerender.mjs`, which injects the markup, replaces `__SITE_URL__` (HTML, `sitemap.xml`, `robots.txt`) and `__THEME_COLOR__` (`themeColor` in `src/entry-server.tsx`: the offer bar's colour while `OFFER.open`, else white), and warns about leftover `[[…]]` placeholders
+  4. `scripts/prerender.mjs`, which injects the markup, replaces `__SITE_URL__` (HTML, `sitemap.xml`, `robots.txt`) and `__THEME_COLOR__` (`themeColor` in `src/entry-server.tsx`: the offer bar's colour while `OFFER.open`, else white), and checks for leftover `[[…]]` placeholders (fails the production build, see below)
 - **Client:** `src/main.tsx` hydrates the page. Locale comes from `<html lang>`, page from `data-page`.
 - **i18n:** `src/i18n/en.ts` and `sr.ts` hold **all copy**. They are typed, so `sr` must match the shape of `en`.
   - `useLocale()` / `useT()` read it.
@@ -68,7 +73,7 @@ Read this first in every session. The plan of work, one session per item, is in 
 - **Logo:** MB monogram drawn as SVG paths in `src/components/Logo.tsx`, coloured by CSS variables; also `public/favicon.svg`. Keep it simple: no font tooling.
 - **Brand files:** `public/favicon.ico`, `public/apple-touch-icon.png` and the OG images (`public/og-en.png`, `og-sr.png`, 1200×630) come from `npm run build && node scripts/brand-assets.mjs`: icons from `favicon.svg`, OG images from the built hero copy in the site's fonts and colours. Run it again when the hero copy, the logo or the colours change.
 - **Other:** `vercel.json` sets `trailingSlash: true`. Locally, URLs without a trailing slash return 404 in `vite preview`; that is expected.
-- **Placeholders:** written as `[[…]]`. The build lists the ones left. **None may reach `main`.**
+- **Placeholders:** written as `[[…]]`. The build lists the ones left in the four pages, `sitemap.xml` and `robots.txt`. **None may reach `main`:** with `VERCEL_ENV=production` (the production deploy from `main`) or `STRICT_PLACEHOLDERS=1` the build fails; preview and local builds only warn.
 
 ## Design (Kobalt)
 - Chosen in roadmap session 7. White canvas, navy ink `#0B1B3F`, cobalt accent `#2F5BFF`, rounded corners, soft navy shadows. All values are tokens in `src/styles/tokens/`; there are no theme classes.

@@ -8,8 +8,8 @@ export type Project = {
   label: Localized;
   desc: Localized;
   url: string;
-  /** Desktop screenshot (16:10, from scripts/capture-projects.mjs); when missing, a placeholder is shown. */
-  shot?: Shot;
+  /** Desktop screenshot (16:10, from scripts/capture-projects.mjs). */
+  shot: Shot;
   /** Featured project gets the large card, with this mobile screenshot on a phone over the corner. */
   featured?: boolean;
   mobileShot?: Shot;
