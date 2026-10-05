@@ -29,7 +29,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
-| 6 | Font za Industrial (3 varijante) | kod | todo |
+| 6 | Font za Industrial (3 varijante) | kod | u toku: varijante gotove, čeka izbor |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
 | 8 | Finalni sadržaj i lansiranje | kod | čeka 4, 7 i podatke |
 | 9 | Šablon ponude i plan obraćanja klijentima | dokument | kasnije |

@@ -23,17 +23,25 @@
     <script>
       /* TEMP: theme preview switch, remove once the theme is chosen.
          "/" is always Kobalt; "?theme=industrial" is always Industrial.
-         In Industrial mode, internal links keep the parameter (EN/SR, privacy). */
+         In Industrial mode, internal links keep the parameter (EN/SR, privacy).
+         TEMP (roadmap session 6): "&font=a|b|c" picks the Industrial font variant
+         (a: Archivo everywhere, the default; b: condensed Archivo + Manrope;
+         c: condensed Bricolage Grotesque + Manrope). Remove once chosen. */
       (function () {
-        if (new URLSearchParams(location.search).get("theme") !== "industrial") return;
+        var q = new URLSearchParams(location.search);
+        if (q.get("theme") !== "industrial") return;
         var root = document.documentElement;
         root.classList.remove("theme-kobalt");
         root.classList.add("theme-industrial");
+        var font = q.get("font");
+        if (font !== "a" && font !== "b" && font !== "c") font = "";
+        if (font) root.classList.add("font-" + font);
         document.addEventListener("click", function (e) {
           var a = e.target.closest && e.target.closest('a[href^="/"]');
           if (!a) return;
           var url = new URL(a.getAttribute("href"), location.href);
           url.searchParams.set("theme", "industrial");
+          if (font) url.searchParams.set("font", font);
           a.setAttribute("href", url.pathname + url.search + url.hash);
         }, true);
       })();
@@ -43,7 +51,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap"
     />
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MihailoBuilds","url":"__SITE_URL__/","inLanguage":"en"}</script>

@@ -97,7 +97,7 @@ section[id], #main, #offer { scroll-margin-top: calc(76px + var(--bar-h)); }
 .logo-mark__bar { fill: var(--accent); }
 .logo-mark__letters { fill: var(--on-ink); }
 .logo__word { font: 800 1.125rem/1 var(--font-display); letter-spacing: -0.02em; white-space: nowrap; }
-.theme-industrial .logo__word { font-weight: 800; font-stretch: 80%; letter-spacing: 0.02em; text-transform: uppercase; }
+.theme-industrial .logo__word { font-family: var(--font-condensed); font-weight: 800; font-stretch: 80%; letter-spacing: 0.02em; text-transform: uppercase; }
 .nav__links { display: flex; gap: 28px; margin-left: auto; }
 .nav__link { font: var(--type-label); color: var(--text-secondary); white-space: nowrap; transition: color var(--dur-fast); }
 .nav__link:hover { color: var(--text-primary); }

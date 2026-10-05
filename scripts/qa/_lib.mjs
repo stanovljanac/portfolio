@@ -14,7 +14,8 @@ mkdirSync(OUT, { recursive: true });
 
 export const PAGES = ["/", "/sr/", "/privacy/", "/sr/privatnost/"];
 // TEMP: remove one theme once the choice is made (see docs/ROADMAP.md, session 7).
-export const THEMES = { kobalt: "", industrial: "?theme=industrial" };
+// TEMP (session 6): QA_FONT=a|b|c runs the Industrial checks on that font variant.
+export const THEMES = { kobalt: "", industrial: "?theme=industrial" + (process.env.QA_FONT ? "&font=" + process.env.QA_FONT : "") };
 export const log = (...a) => console.log(...a);
 
 export async function launch() {
