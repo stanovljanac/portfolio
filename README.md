@@ -10,7 +10,7 @@ The website for **MihailoBuilds**: websites and landing pages for small business
 - **Prerendered**: each page ships its full content in the HTML and React hydrates it (`src/entry-server.tsx` + `scripts/prerender.mjs`)
 - Plain CSS design system: base tokens in `src/styles/tokens/`, themes in `src/styles/themes.css` (`.theme-kobalt`, `.theme-industrial`), components in `src/styles/ds.css`, page styles in `src/styles/site.css`
 - Contact form via Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY` in `.env` / Vercel env)
-- Fonts (Google Fonts): Manrope + JetBrains Mono (Kobalt), Archivo + IBM Plex Mono (Industrial)
+- Fonts (Google Fonts): Manrope + JetBrains Mono (Kobalt), Manrope + condensed Archivo (display headings only) + IBM Plex Mono (Industrial)
 - Logo: MB monogram drawn as SVG shapes in `src/components/Logo.tsx` (colored by the theme); `public/favicon.svg`
 
 ## Develop

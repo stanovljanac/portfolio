@@ -71,15 +71,10 @@ Read this first in every session. The plan of work, one session per item, is in 
 
 ## Temporary: two themes side by side
 - **Kobalt** (default, `.theme-kobalt`): Manrope + JetBrains Mono, white, cobalt accent `#2F5BFF`, rounded corners.
-- **Industrial** (`.theme-industrial`): Archivo (condensed headings) + IBM Plex Mono, off-white, black 1.5px borders, orange accent `#FF4F00`, square corners, hard offset shadows.
+- **Industrial** (`.theme-industrial`): Manrope for text and small titles, condensed Archivo (`--font-condensed`: wdth ~74%, weight 800/900) for the uppercase display headings and the wordmark, IBM Plex Mono, off-white, black 1.5px borders, orange accent `#FF4F00`, square corners, hard offset shadows.
 - **Switching:**
   - `?theme=industrial` switches the theme via the inline script in the `<head>` of all four HTML files. The URL alone decides; there is no storage.
   - The script also adds the parameter to internal links, so the theme survives navigation.
-- **Industrial font variants** (roadmap session 6, until Mihailo picks): `?theme=industrial&font=a|b|c`. The inline script in the `<head>` adds `.font-a|b|c` to `<html>` and the parameter travels with the internal links; `QA_FONT=a|b|c` runs `qa:themes` on a variant. No parameter means a.
-  - **a:** Archivo everywhere (the original look).
-  - **b:** condensed Archivo for the uppercase display headings and the wordmark (`--font-condensed`), Manrope for everything else.
-  - **c:** the same with condensed Bricolage Grotesque (`wdth` 75, weight 800) as `--font-condensed`; the hero title is set 1.18x larger so it breaks like the others.
-  - CSS: the "Industrial font variants" block in `themes.css`. The winner becomes the permanent Industrial font; the parameter, the script lines and the extra font families are deleted.
 - **Both stay until the site is complete.** Mihailo picks one in roadmap session 7.
 - **Every change must work in both themes**, unless a session says it is for one theme only. Then:
   - scope the CSS with `.theme-kobalt …` / `.theme-industrial …`

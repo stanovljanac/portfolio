@@ -80,7 +80,7 @@ log("\n--- theme determinism + link propagation");
 {
   const ctx = await newContext(b);
   const cls = (p) => p.evaluate(() => document.documentElement.className);
-  const t1 = await ctx.newPage(); await t1.goto(BASE + "/" + THEMES.industrial);
+  const t1 = await ctx.newPage(); await t1.goto(BASE + "/?theme=industrial");
   const t2 = await ctx.newPage(); await t2.goto(BASE + "/");
   log("tab1 industrial:", await cls(t1), "| tab2 '/':", await cls(t2));
   await t1.click(".nav .lang-switch__opt:not(.is-active)"); await t1.waitForLoadState();

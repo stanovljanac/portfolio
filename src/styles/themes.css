@@ -75,8 +75,10 @@
 
 /* --- Industrial: concrete, ink, signal orange ------------- */
 .theme-industrial {
-  --font-sans: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Text and small titles in Manrope (as on Kobalt); condensed Archivo only for the
+     uppercase display headings and the wordmark (--font-condensed). */
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-condensed: "Archivo", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
@@ -156,9 +158,8 @@
 .theme-industrial .nav__actions .mb-btn--primary { background: var(--accent); color: var(--ink); }
 .theme-industrial .nav__actions .mb-btn--primary:hover { background: var(--accent-hover); }
 /* Button arrows: centred on the lowercase letters, not on the line box
-   (Manrope's x-height sits ~0.08em below the box centre, Archivo's ~0.04em). */
-.theme-kobalt .mb-btn__icon { transform: translateY(0.08em); }
-.theme-industrial .mb-btn__icon { transform: translateY(0.04em); }
+   (Manrope's x-height sits ~0.08em below the box centre). */
+.mb-btn__icon { transform: translateY(0.08em); }
 
 /* --- Typography ------------------------------------------- */
 .theme-kobalt :is(.hero__title, .section__title, .legal__title, .offer__title, .work-card__name, .svc-card__price, .footer__cta-title) {
@@ -301,33 +302,6 @@
   .theme-kobalt :is(.offer-bar__long, .offer-bar__see) { display: none; }
   .theme-kobalt .offer-bar__short { display: inline; }
 }
-
-/* --- Industrial font variants (TEMP, roadmap session 6) --------- */
-/* "&font=a|b|c" on the Industrial URL adds .font-a|b|c to <html> (inline script in the
-   <head>). Mihailo picks one; the winner becomes the permanent Industrial font and
-   this block, the parameter and the extra font families are deleted.
-   a (no class): Archivo everywhere. The current look.
-   b: condensed Archivo for the uppercase display headings and the wordmark, Manrope for
-      everything else (body, buttons, card titles).
-   c: the same, but the display headings are condensed Bricolage Grotesque (wdth 75).
-   The display headings are the ones that take --font-condensed (list above);
-   every other heading follows --font-display, which is Manrope in b and c. */
-.theme-industrial:is(.font-b, .font-c) {
-  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
-}
-/* Button arrows sit on Manrope's x-height (see the Kobalt rule above). */
-.theme-industrial:is(.font-b, .font-c) .mb-btn__icon { transform: translateY(0.08em); }
-
-.theme-industrial.font-c { --font-condensed: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, sans-serif; }
-/* Bricolage tops out at 800 and its narrowest width is 75%. */
-.theme-industrial.font-c :is(.hero__title, .section__title, .legal__title, .offer__title, .own__title, .work-card__name, .footer__cta-title, .svc-card__price, .logo__word) {
-  font-weight: 800; font-stretch: 75%;
-}
-/* Bricolage is narrower than Archivo at the same size, so the hero title is set larger
-   (the same clamp, x1.18). Without it the Serbian title breaks in two lines with "OD"
-   alone in front of the marker, instead of Industrial's three. */
-.theme-industrial.font-c .hero__title { font-size: calc(clamp(2.4rem, 1.3rem + 4vw, 4.5rem) * 1.18); }
 
 /* --- Tablets (Industrial only) -------------------------------- */
 /* TEMP: Mihailo compares this with Kobalt's stacked tablet layout.

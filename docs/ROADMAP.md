@@ -29,7 +29,7 @@ https://github.com/stanovljanac/portfolio/blob/claude/loving-noether-cqi5ff/docs
 | 3 | Snimci ekrana i nove kartice radova | kod | gotovo |
 | 4 | Istraživanje cena i održavanja | istraživanje | todo |
 | 5 | Ime, logo i pravni rizik | istraživanje | todo |
-| 6 | Font za Industrial (3 varijante) | kod | u toku: varijante gotove, čeka izbor |
+| 6 | Font za Industrial (3 varijante) | kod | PR otvoren (izabrana varijanta b) |
 | 7 | Izbor teme i čišćenje (fontovi, CLS, OG) | kod | čeka izbor teme |
 | 8 | Finalni sadržaj i lansiranje | kod | čeka 4, 7 i podatke |
 | 9 | Šablon ponude i plan obraćanja klijentima | dokument | kasnije |
@@ -42,7 +42,6 @@ Statuse ažurira sesija koja završi posao: `todo` → `u toku` → `PR otvoren`
 - **Isticanje posebne ponude** (sesija 2): na previewu je Kobalt sa trakom iznad navigacije (varijanta 1), a Industrial sa dugmetom u navigaciji i oznakom iznad naslova (varijanta 3). Mihailo bira jednu; varijanta 2 (plutajuća kartica) je odbijena.
 - **Hero i „O meni" na tabletu** (641–900 px): Kobalt ima isti raspored kao telefon (sve jedno ispod drugog). Industrial ima raspored kao desktop: tekst levo, telefon (odnosno fotografija) desno, pa ceo hero staje u ekran. Mihailo bira; izabrani raspored važi za obe teme (može uz sesiju 2 ili 7).
 - **Snimak za Invoice karticu** (sesija 3): Kobalt prikazuje stari snimak Dashboard-a (bez navigacije, 1x), a Industrial novi (sa navigacijom aplikacije, oštriji). Bira se uz temu u sesiji 7.
-- **Font za Industrial** (sesija 6).
 - **Cene:** redovne, posebne i održavanje (posle sesije 4).
 - **Fotografija** za „O meni".
 - **Domen:** potvrda da je `mihailobuilds.com` konačan.
@@ -207,6 +206,8 @@ Repo stanovljanac/portfolio. Pre svega: git fetch origin claude/loving-noether-c
 ---
 
 ## Sesija 6: Font za Industrial
+
+**Odluka: varijanta b** (Archivo condensed za velike naslove i naziv u navigaciji, Manrope za sve ostalo). Primenjena u PR-u ove sesije; parametar `&font=` i Bricolage Grotesque su obrisani.
 
 **Cilj:** Industrial „odskače" zbog uskog Archivo fonta u naslovima, ali deluje novinski. Probati varijante, pa da Mihailo izabere.
 
