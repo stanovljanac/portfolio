@@ -14,6 +14,8 @@ Read this first in every session. The plan of work, one session per item, is in 
 ## Locked decisions (do not reopen without Mihailo)
 - **Routes:** English at `/`, Serbian at `/sr/`; privacy at `/privacy/` and `/sr/privatnost/`. hreflang `x-default` → `/`.
 - **No location** anywhere on the site. He works remotely.
+- **Domain:** `mihailobuilds.com` (confirmed in roadmap session 8; `SITE_URL` in `scripts/prerender.mjs`).
+- **Timelines** (FAQ): landing page 1–2 weeks, business website 2–4 weeks.
 - **Prices:**
   - Shown as starting prices ("from €X"): landing page from €200, business website from €400 (`src/data/pricing.ts`, roadmap session 8).
   - **Maintenance has no fixed price.** It is agreed with each client, based on their needs; the site says "By agreement". Work that takes longer is billed at €15 per hour (`PRICING.hourly`).
@@ -44,6 +46,7 @@ Read this first in every session. The plan of work, one session per item, is in 
 - This deters scrapers; it is not security.
 - **Check:** after every build run `npm run qa:leak`, plus the contact block of `npm run qa:main`.
 - **Form:** Web3Forms (`VITE_WEB3FORMS_ACCESS_KEY`), hidden honeypot `botcheck`, and a guard against double submits.
+- **Privacy policy** (`privacy` in `en.ts` / `sr.ts`): every statement about Web3Forms, Vercel and Google comes from their own terms (sources in the session 8 PR). Email is Gmail. When the services, the form or the analytics change, re-check the text against their current terms and update the "Last updated" date.
 
 ## Architecture
 - **Stack:** Vite 5 multi-page app (`appType: "mpa"`), React 18 + TypeScript, plain CSS. There is no router.

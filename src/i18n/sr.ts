@@ -170,7 +170,7 @@ export const sr = {
       },
       {
         q: "Koliko traje izrada?",
-        a: "[[Okvirni rokovi: landing stranica … dana, sajt za biznis … nedelja.]] Najviše zavisi od toga kada su spremni tekstovi i fotografije. Tačan rok piše u ponudi.",
+        a: "Obično 1–2 nedelje za landing stranicu i 2–4 nedelje za sajt za biznis. Najviše zavisi od toga kada su spremni tekstovi i fotografije. Tačan rok piše u ponudi.",
       },
       {
         q: "Šta je potrebno od mene?",
@@ -243,7 +243,7 @@ export const sr = {
 
   privacy: {
     title: "Politika privatnosti",
-    updated: "Poslednja izmena: [[datum objave]]",
+    updated: "Poslednja izmena: 5. oktobra 2026.",
     back: "Nazad na početnu",
     sections: [
       {
@@ -265,35 +265,35 @@ export const sr = {
         h: "Svrha i pravni osnov",
         p: [
           "Podatke iz poruka koristim isključivo da vam odgovorim i, ako to zatražite, pripremim ponudu. Obrada je neophodna za radnje koje preduzimam na vaš zahtev pre eventualne saradnje.",
-          "Podatke o posetama koristim da razumem posećenost sajta. [[proveriti: pravni osnov za analitiku]]",
+          "Podatke o posetama koristim da razumem posećenost sajta. Pravni osnov je moj legitimni interes da znam kako se sajt koristi; statistika je zbirna i ne pokazuje ko ste.",
           "Podatke ne prodajem, ne koristim za oglašavanje i ne šaljem newsletter.",
         ],
       },
       {
         h: "Koliko dugo čuvam podatke",
         p: [
-          "Poruke čuvam onoliko koliko je potrebno da odgovorim na upit, a ako dođe do saradnje — tokom njenog trajanja. [[proveriti: najduži rok čuvanja]]",
-          "Rokovi čuvanja kod servisa navedenih ispod određeni su njihovim uslovima. [[proveriti]]",
+          "Poruke čuvam onoliko koliko je potrebno da odgovorim na upit, a ako dođe do saradnje — tokom njenog trajanja. Ako do saradnje ne dođe, brišem ih najkasnije 12 meseci posle poslednjeg kontakta.",
+          "Web3Forms čuva poruke iz forme najduže tri godine od slanja, ako se ranije ne obrišu. Vercel Web Analytics briše sesije poseta posle 24 sata. Ostale podatke Vercel i Google čuvaju prema svojim politikama privatnosti.",
         ],
       },
       {
         h: "Ko još ima pristup podacima",
         p: [
-          "Web3Forms — servis koji poruke iz kontakt forme prosleđuje na moj email. [[proveriti: lokacija servera i rok čuvanja]]",
-          "Vercel — hosting sajta i Vercel Web Analytics za merenje posećenosti. [[proveriti: koji podaci se prikupljaju i gde se čuvaju]]",
-          "Moj email provajder — kod koga se čuvaju primljene poruke. [[proveriti: naziv provajdera]]",
+          "Web3Forms (Web3Creative, Indija) — servis koji poruke iz kontakt forme prosleđuje na moj email. Poruke prolaze kroz njegovu infrastrukturu kod Amazon Web Services-a, Cloudflare-a i Hetznera, a IP adresu i email adresu pošiljaoca mogu da provere filteri za spam CleanTalk i Akismet.",
+          "Vercel Inc. (SAD) — hosting sajta i Vercel Web Analytics za merenje posećenosti. Pri svakoj poseti Vercel obrađuje vašu IP adresu, grad i državu određene na osnovu nje i tehničke podatke o browseru i uređaju. Analitika čuva samo anonimne podatke: stranicu, sajt sa kog ste došli, državu, region i grad, operativni sistem, browser i vrstu uređaja.",
+          "Google (Gmail) — moj email servis, u kome se čuvaju primljene poruke.",
         ],
       },
       {
         h: "Prenos podataka van Srbije",
         p: [
-          "Navedeni servisi mogu obrađivati podatke van Srbije. [[proveriti: zemlje i osnov prenosa za svaki servis]]",
+          "Navedeni servisi obrađuju podatke van Srbije. Vercel podatke obrađuje uglavnom u SAD; za prenos iz EU koristi standardne ugovorne klauzule EU i EU-U.S. Data Privacy Framework. Web3Forms radi iz Indije, na infrastrukturi koja može obrađivati podatke u više regiona, a za prenos iz EU koristi standardne ugovorne klauzule EU. Google podatke čuva na serverima širom sveta.",
         ],
       },
       {
         h: "Kolačići i analitika",
         p: [
-          "Sajt ne koristi kolačiće za oglašavanje ni praćenje sa drugih sajtova. Za osnovnu statistiku posećenosti koristi se Vercel Web Analytics. [[proveriti: da li Vercel Web Analytics koristi kolačiće]]",
+          "Sajt ne koristi kolačiće za oglašavanje ni praćenje sa drugih sajtova. Za osnovnu statistiku posećenosti koristi se Vercel Web Analytics, koji ne koristi kolačiće trećih strana: posetioca prepoznaje po hešu napravljenom iz zahteva i ne čuva sesije poseta trajno, već ih briše posle 24 sata.",
         ],
       },
       {
