@@ -17,6 +17,8 @@ export type Project = {
   url?: string;
   /** Optional cover image; falls back to the gradient/mark if the file is missing. */
   image?: string;
+  /** Responsive variants of `image` (WebP widths), when available. */
+  srcSet?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -33,7 +35,8 @@ export const PROJECTS: Project[] = [
     wmColor: "#000000",
     live: true,
     url: "https://keeper.mihailobuilds.com/",
-    image: "/projects/keeper.png",
+    image: "/projects/keeper-960.webp",
+    srcSet: "/projects/keeper-640.webp 640w, /projects/keeper-960.webp 960w, /projects/keeper-1280.webp 1280w, /projects/keeper-1600.webp 1600w",
   },
   {
     name: "Invoice Generator",
@@ -48,7 +51,8 @@ export const PROJECTS: Project[] = [
     wmColor: "#FDC67E",
     live: true,
     url: "https://invoice.mihailobuilds.com/",
-    image: "/projects/invoice.png",
+    image: "/projects/invoice-960.webp",
+    srcSet: "/projects/invoice-640.webp 640w, /projects/invoice-960.webp 960w, /projects/invoice-1280.webp 1280w, /projects/invoice-1600.webp 1600w",
   },
   {
     name: "The Automation Desk",
@@ -63,7 +67,8 @@ export const PROJECTS: Project[] = [
     wmColor: "#FDC67E",
     live: true,
     url: "https://automationdesk.mihailobuilds.com/",
-    image: "/projects/automation-desk.png",
+    image: "/projects/automation-desk-960.webp",
+    srcSet: "/projects/automation-desk-640.webp 640w, /projects/automation-desk-960.webp 960w, /projects/automation-desk-1280.webp 1280w, /projects/automation-desk-1600.webp 1600w",
   },
   {
     name: "Animated Tales",

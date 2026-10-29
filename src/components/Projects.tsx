@@ -26,6 +26,10 @@ function ProjectCard({ p }: { p: Project }) {
           <img
             className="proj-card__img"
             src={p.image}
+            srcSet={p.srcSet}
+            sizes="(max-width: 640px) 100vw, (max-width: 980px) 50vw, 400px"
+            width={1440}
+            height={900}
             alt={p.name}
             loading="lazy"
             onError={(e) => {
