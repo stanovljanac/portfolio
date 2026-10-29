@@ -1,36 +1,52 @@
-import { scrollToId } from "../lib/scroll";
-
-const PRODUCT_LINKS: { label: string; href: string }[] = [
-  { label: "Keeper", href: "https://keeper.mihailobuilds.com/" },
-  { label: "Invoice Generator", href: "https://invoice.mihailobuilds.com/" },
-  { label: "The Automation Desk", href: "https://automationdesk.mihailobuilds.com/" },
-];
+import { LIVE, QA_PROJECT } from "../data/projects";
+import { PROFILE } from "../data/profile";
+import { isPlaceholder } from "./Ph";
+import { Logo } from "./Logo";
 
 export function Footer() {
+  const { github, linkedin, cv } = PROFILE;
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer__top">
+        <div className="footer__inner">
           <div className="footer__brand">
-            <img src="/logo-lockup.svg" alt="MihailoBuilds" />
-            <p>Websites, web apps and SaaS products, built end to end by Mihailo Sebek.</p>
+            <Logo size={32} />
+            <p>QA engineer by day. Builder after hours.</p>
           </div>
-          <nav className="footer__links" aria-label="Footer">
-            {PRODUCT_LINKS.map((l) => (
-              <a key={l.label} className="footer__link" href={l.href} target="_blank" rel="noopener noreferrer">
-                {l.label}
+          <nav className="footer__col" aria-labelledby="footer-projects">
+            <p id="footer-projects" className="footer__heading">
+              Projects
+            </p>
+            {LIVE.map((p) => (
+              <a key={p.slug} href={p.url} target="_blank" rel="noopener noreferrer">
+                {p.name}
               </a>
             ))}
-            <button className="footer__link" onClick={() => scrollToId("contact")}>
-              Contact
-            </button>
+            <a href={QA_PROJECT.repo} target="_blank" rel="noopener noreferrer">
+              {QA_PROJECT.name}
+            </a>
+          </nav>
+          <nav className="footer__col" aria-labelledby="footer-elsewhere">
+            <p id="footer-elsewhere" className="footer__heading">
+              Elsewhere
+            </p>
+            <a href={github} target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+            {linkedin && !isPlaceholder(linkedin) ? (
+              <a href={linkedin} target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            ) : null}
+            <a href={cv.href} download={cv.fileName}>
+              Download CV
+            </a>
+            <a href="#contact">Contact</a>
           </nav>
         </div>
-
         <div className="footer__bottom">
-          <div className="footer__copy">
-            <span>© 2026 MihailoBuilds. All rights reserved.</span>
-          </div>
+          <span>© 2026 MihailoBuilds</span>
+          <a href="#top">Back to top</a>
         </div>
       </div>
     </footer>

@@ -1,16 +1,18 @@
-Drop product cover images here.
+Project screenshots used on the site (src/data/projects.ts).
 
-The Products section looks for:
-  - keeper-{640,960,1280,1600}.webp          -> Keeper card cover
-  - invoice-{640,960,1280,1600}.webp         -> Invoice Generator card cover
-  - automation-desk-{640,960,1280,1600}.webp -> The Automation Desk card cover
-  - animated-tales.png                       -> Animated Tales card cover
-  - hair-salon.png                           -> MB Hair Salon card cover
+  mb-hair-salon-{640,960,1280,1600}.webp     MB Hair Salon (the booking section)
+  keeper-{640,960,1280,1600}.webp            Keeper
+  invoice-{640,960,1280,1600}.webp           Invoice Generator: my own dashboard,
+                                             the live app needs a login
+  automation-desk-{640,960,1280,1600}.webp   The Automation Desk
+  animated-tales.png                         Animated Tales (1280x800; to be
+                                             recaptured as WebP)
 
-Recommended: 16:10 ratio (e.g. 1440×900). Preferred format is WebP
-at 640/960/1280/1600 px wide, set as `image:` (the 960 file) plus
-`srcSet:` in src/data/projects.ts, so the browser picks the right
-width. A single PNG or JPG in `image:` still works.
+Format
+  Desktop 1440x900 @2x, cut to 16:10, WebP at 640/960/1280/1600 px.
+  The webp() helper in src/data/projects.ts builds src (the 960 file) and
+  srcset from the slug. Cards show the top of the image (object-position: top)
+  in a 16:10 browser frame drawn in CSS.
 
-If a file is missing, the card automatically falls back to its
-gradient + aperture mark, so nothing breaks in the meantime.
+The WebP files come from scripts/capture-projects.mjs on the business-site
+branch (claude/loving-noether-cqi5ff).

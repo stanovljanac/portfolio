@@ -1,27 +1,37 @@
 import { Button } from "../ds";
-import { ArrowIcon } from "./icons";
 import { useScrolled } from "../hooks/useScrolled";
-import { scrollToId } from "../lib/scroll";
+import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
+
+const LINKS = [
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#qa", label: "QA" },
+  { href: "#contact", label: "Contact" },
+];
 
 export function Nav() {
   const scrolled = useScrolled();
   return (
-    <nav className={"nav" + (scrolled ? " is-scrolled" : "")}>
+    <header className={"nav" + (scrolled ? " is-scrolled" : "")}>
       <div className="nav__inner">
-        <button className="nav__logo" onClick={() => scrollToId("top")} aria-label="MihailoBuilds — back to top">
-          <img src="/logo-lockup.svg" alt="MihailoBuilds" />
-        </button>
-        <div className="nav__links">
-          <button className="nav__link" onClick={() => scrollToId("about")}>About</button>
-          <button className="nav__link" onClick={() => scrollToId("projects")}>Work</button>
-          <button className="nav__link" onClick={() => scrollToId("contact")}>Contact</button>
-        </div>
-        <div className="nav__cta">
-          <Button variant="primary" size="sm" trailingIcon={<ArrowIcon />} onClick={() => scrollToId("contact")}>
-            Contact
+        <a className="nav__logo" href="#top" aria-label="Mihailo Builds, back to top">
+          <Logo size={36} />
+        </a>
+        <nav className="nav__links" aria-label="Sections">
+          {LINKS.map((l) => (
+            <a key={l.href} className="nav__link" href={l.href}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
+        <div className="nav__actions">
+          <ThemeToggle />
+          <Button as="a" href="#contact" variant="primary" size="sm">
+            Say hi
           </Button>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

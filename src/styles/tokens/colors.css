@@ -1,137 +1,135 @@
 /* ============================================================
-   MihailoBuilds — Color System
-   Canvas: near-black. Signal: warm gold. Warm-neutral ramp.
-   All semantic aliases reference the base ramp below.
+   MihailoBuilds — colours, light and dark.
+   Navy ink #0B1B3F and cobalt #2F5BFF, the colours of the MB logo.
+   Light is the default (also without JavaScript); the inline script in
+   index.html sets data-theme="dark" before the first paint when the
+   visitor chose it, or when their system prefers it.
+   Components read these semantic names only.
    ============================================================ */
 
-:root {
-  /* --- Brand primaries --------------------------------------- */
-  --mb-black: #000000;            /* absolute black — logo, pure contrast */
-  --mb-gold: #FDC67E;             /* primary signal — CTAs, marks, accents */
-
-  /* --- Gold ramp (tints/shades of the signal) ---------------- */
-  --gold-50:  #FFF6E9;
-  --gold-100: #FDE9CC;
-  --gold-200: #FDDAA8;
-  --gold-300: #FDC67E;            /* = --mb-gold */
-  --gold-400: #F4B062;
-  --gold-500: #E8974A;            /* hover/active for gold surfaces */
-  --gold-600: #CC7C36;
-  --gold-700: #9E5E27;
-
-  /* --- Supporting 1: Ember (warm secondary) ------------------ */
-  --ember-300: #F3A57A;
-  --ember-400: #EB8A57;
-  --ember-500: #DD6E3C;           /* gradient ends, warm depth */
-  --ember-600: #B85529;
-
-  /* --- Supporting 2: Azure (cool, technical — used sparingly) - */
-  --azure-300: #9DB8F2;
-  --azure-400: #6E94EC;
-  --azure-500: #4F77DE;           /* links/info/data only */
-  --azure-600: #3A5BB8;
-
-  /* --- Warm-neutral ramp (the workhorse) --------------------- */
-  --bone:      #F5EFE3;           /* neutral 1 — warm ivory (light surfaces) */
-  --graphite:  #18181B;           /* neutral 2 — warm graphite */
-
-  --warm-0:   #050506;            /* deepest canvas */
-  --warm-25:  #0A0A0C;
-  --warm-50:  #0F0F12;
-  --warm-100: #161619;
-  --warm-150: #1C1C20;
-  --warm-200: #232328;
-  --warm-300: #2D2D33;
-  --warm-400: #3A3A42;
-  --warm-500: #55555F;
-  --warm-600: #7A7A84;
-  --warm-700: #9C9CA4;
-  --warm-800: #C2C2C7;
-  --warm-900: #E6E5E2;
-  --warm-950: #F7F5F1;            /* warm white */
-
-  /* --- Semantic status --------------------------------------- */
-  --success: #5FBF8E;
-  --success-bg: rgba(95, 191, 142, 0.12);
-  --warning: #F0A45A;
-  --warning-bg: rgba(240, 164, 90, 0.12);
-  --danger: #E5645B;
-  --danger-bg: rgba(229, 100, 91, 0.12);
-  --info: #6E94EC;
-  --info-bg: rgba(110, 148, 236, 0.12);
-
-  /* ===========================================================
-     SEMANTIC ALIASES — author against these, not the ramp.
-     Default theme = dark (the cinematic canvas).
-     =========================================================== */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
 
   /* Backgrounds */
-  --bg-base: var(--warm-0);       /* page canvas */
-  --bg-sunken: #020203;           /* wells, code blocks */
-  --bg-raised: var(--warm-50);    /* sections lifted off canvas */
+  --bg-base: #FFFFFF;
+  --bg-alt: #F5F7FB;              /* alternating sections */
+  --nav-glass: rgba(255, 255, 255, 0.86);
+  --grid-line: rgba(11, 27, 63, 0.06);
+  --glow: rgba(47, 91, 255, 0.10);
 
-  /* Surfaces (cards, sheets, popovers) */
-  --surface-1: var(--warm-100);
-  --surface-2: var(--warm-150);
-  --surface-3: var(--warm-200);
-  --surface-hover: var(--warm-200);
-  --surface-active: var(--warm-300);
-  --surface-glass: rgba(20, 20, 24, 0.62);   /* + backdrop-blur */
+  /* Surfaces (cards, fields) */
+  --surface-1: #FFFFFF;
+  --surface-2: #F5F7FB;
+  --surface-3: #EBF0F8;
 
   /* Text */
-  --text-primary: var(--warm-950);
-  --text-secondary: var(--warm-700);
-  --text-muted: var(--warm-600);
-  --text-faint: var(--warm-500);
-  --text-on-gold: #1A1206;        /* near-black on gold fills */
-  --text-link: var(--gold-300);
+  --text-primary: #0B1B3F;
+  --text-secondary: #4B5568;
+  --text-muted: #59627A;
+  --text-faint: #5F6880;          /* the quietest small text, ≥ 4.5 on every surface */
 
-  /* Borders / hairlines */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: rgba(255, 255, 255, 0.10);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --border-gold: rgba(253, 198, 126, 0.40);
+  /* Borders */
+  --border-subtle: #E6EAF2;
+  --border-default: #DCE2EE;
+  --border-strong: #C3CCDD;
 
-  /* Accents */
-  --accent: var(--mb-gold);
-  --accent-hover: var(--gold-400);
-  --accent-active: var(--gold-500);
-  --accent-soft: rgba(253, 198, 126, 0.12);
-  --accent-ring: rgba(253, 198, 126, 0.35);
+  /* Accent */
+  --accent: #2F5BFF;              /* fills: buttons, the logo bar */
+  --accent-hover: #1F45E0;
+  --accent-text: #1F45E0;         /* accent as small text */
+  --on-accent: #FFFFFF;
+  --accent-soft: #EEF2FF;
+  --accent-line: #C7D4FF;         /* border of accent-soft boxes */
+  --accent-ring: rgba(47, 91, 255, 0.25);
+  --focus-ring: #2F5BFF;
 
-  /* Focus ring */
-  --focus-ring: rgba(253, 198, 126, 0.55);
+  /* Ink panels (the QA project card) */
+  --ink: #0B1B3F;
+  --on-ink: #FFFFFF;
+  --on-ink-muted: #C9D3EA;
+  --on-ink-line: rgba(255, 255, 255, 0.16);
+  --accent-on-ink: #A9BEFF;
+
+  /* Logo (MB monogram) */
+  --logo-tile: #0B1B3F;
+  --logo-letters: #FFFFFF;
+  --logo-bar: #2F5BFF;
+
+  /* Status */
+  --danger: #C2271D;
+  --danger-bg: rgba(194, 39, 29, 0.08);
+  --success: #157A4A;
+  --success-bg: rgba(21, 122, 74, 0.10);
+
+  /* [[placeholder]] marks, visible only until the real content is in */
+  --ph-bg: #FFF1B8;
+  --ph-text: #5C4300;
+
+  /* Diagonal stripes of image placeholders */
+  --stripe: rgba(11, 27, 63, 0.05);
+
+  /* Shadows: soft, navy-tinted */
+  --shadow-sm: 0 2px 8px rgba(11, 27, 63, 0.05);
+  --shadow-md: 0 6px 18px rgba(11, 27, 63, 0.08);
+  --shadow-lg: 0 14px 36px rgba(11, 27, 63, 0.10);
+  --shadow-xl: 0 28px 64px rgba(11, 27, 63, 0.16);
 }
 
-/* ===========================================================
-   LIGHT THEME — warm bone canvas. Opt-in via .theme-light.
-   Used on login/marketing light sections, docs.
-   =========================================================== */
-.theme-light {
-  --bg-base: var(--bone);
-  --bg-sunken: #EDE6D7;
-  --bg-raised: #FBF7EE;
+:root[data-theme="dark"] {
+  color-scheme: dark;
 
-  --surface-1: #FFFFFF;
-  --surface-2: #FBF7EE;
-  --surface-3: #F4EEE0;
-  --surface-hover: #F4EEE0;
-  --surface-active: #ECE4D2;
-  --surface-glass: rgba(255, 255, 255, 0.66);
+  --bg-base: #070B16;
+  --bg-alt: #0B1122;
+  --nav-glass: rgba(7, 11, 22, 0.82);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --glow: rgba(47, 91, 255, 0.20);
 
-  --text-primary: #1A1813;
-  --text-secondary: #57534A;
-  --text-muted: #837D70;
-  --text-faint: #A8A192;
-  --text-link: var(--gold-700);
+  --surface-1: #0E1527;
+  --surface-2: #121B31;
+  --surface-3: #18223C;
 
-  --border-subtle: rgba(26, 24, 19, 0.07);
-  --border-default: rgba(26, 24, 19, 0.12);
-  --border-strong: rgba(26, 24, 19, 0.18);
-  --border-gold: rgba(204, 124, 54, 0.45);
+  --text-primary: #EAEFF9;
+  --text-secondary: #AEB8CE;
+  --text-muted: #9AA5BD;
+  --text-faint: #929DB6;
 
-  --accent: var(--gold-600);
-  --accent-hover: var(--gold-500);
-  --accent-active: var(--gold-700);
-  --accent-soft: rgba(232, 151, 74, 0.14);
+  --border-subtle: #151E34;
+  --border-default: #1F2A45;
+  --border-strong: #2E3B5C;
+
+  --accent: #2F5BFF;
+  --accent-hover: #1F45E0;
+  --accent-text: #93AAFF;
+  --on-accent: #FFFFFF;
+  --accent-soft: rgba(61, 102, 255, 0.14);
+  --accent-line: rgba(122, 150, 255, 0.32);
+  --accent-ring: rgba(122, 150, 255, 0.35);
+  --focus-ring: #7A96FF;
+
+  --ink: #111C3D;
+  --on-ink: #FFFFFF;
+  --on-ink-muted: #C9D3EA;
+  --on-ink-line: rgba(255, 255, 255, 0.14);
+  --accent-on-ink: #A9BEFF;
+
+  /* Inverted tile, so the mark stays a solid square on the dark canvas */
+  --logo-tile: #EAEFF9;
+  --logo-letters: #0B1B3F;
+  --logo-bar: #2F5BFF;
+
+  --danger: #FF8A80;
+  --danger-bg: rgba(255, 138, 128, 0.12);
+  --success: #5CD69A;
+  --success-bg: rgba(92, 214, 154, 0.12);
+
+  --ph-bg: #4A3A00;
+  --ph-text: #FFE08A;
+
+  --stripe: rgba(255, 255, 255, 0.04);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.30);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.36);
+  --shadow-lg: 0 14px 36px rgba(0, 0, 0, 0.44);
+  --shadow-xl: 0 28px 64px rgba(0, 0, 0, 0.55);
 }

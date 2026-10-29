@@ -2,29 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MihailoBuilds — Websites, Web Apps & SaaS Products</title>
-    <meta
-      name="description"
-      content="Mihailo Sebek — an independent developer building modern websites, web applications and SaaS products end to end, from business sites to AI-powered tools."
-    />
-    <meta property="og:title" content="MihailoBuilds — Websites, Web Apps & SaaS Products" />
-    <meta
-      property="og:description"
-      content="Independent developer building websites, web applications and SaaS products end to end — from idea to launch."
-    />
+    <title>Mihailo Sebek — QA engineer, builder after hours · MihailoBuilds</title>
+    <meta name="description" content="Mihailo Sebek, manual QA engineer and AI enthusiast. I test software for a living; after hours I build web projects with AI tools, test them like a QA would and ship them." />
+    <link rel="canonical" href="__SITE_URL__/" />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#050506" />
+    <meta property="og:site_name" content="MihailoBuilds" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:title" content="Mihailo Sebek — QA engineer, builder after hours" />
+    <meta property="og:description" content="I test software for a living. After hours, I build it: web projects made with AI tools, tested like a QA would, and shipped." />
+    <meta property="og:image" content="__SITE_URL__/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mihailo Builds — I test software for a living. After hours, I build it." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <!-- Theme before the first paint: the visitor's choice, else the system
+         setting. Keep the colours in step with THEME_COLOR in ThemeToggle.tsx. -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", t);
+        document.querySelector('meta[name="theme-color"]').setAttribute("content", t === "dark" ? "#070B16" : "#FFFFFF");
+      })();
+    </script>
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
     />
+    <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+    <!--json-ld-->
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,98 +1,55 @@
-import { Badge, Button } from "../ds";
-import { ApertureColor, ApertureSolid } from "./Aperture";
-import { ArrowIcon, PlusIcon } from "./icons";
-import { Reveal } from "./Reveal";
-import { scrollToId } from "../lib/scroll";
+import { Button } from "../ds";
+import { FEATURED } from "../data/projects";
+import { PROFILE } from "../data/profile";
+import { ArrowIcon } from "./icons";
+import { BrowserFrame } from "./BrowserFrame";
+import { Ph } from "./Ph";
 
-const TILES: { name: string; cat: string; gold: boolean }[] = [
-  { name: "Keeper", cat: "Photography", gold: false },
-  { name: "Invoice Generator", cat: "Automation", gold: true },
-  { name: "The Automation Desk", cat: "Automation", gold: true },
-];
+/* The three featured projects, fanned out: back right, back left, front.
+   They repeat the cards below, so the group is decorative (aria-hidden). */
+const [FRONT, BACK_LEFT, BACK_RIGHT] = FEATURED;
+/* Frame widths in .hero__shots (site.css): 74% of the column, which is
+   ~46% of the container on desktop and up to 560px below 900px. */
+const SHOT_SIZES = "(max-width: 900px) min(78vw, 440px), 440px";
 
-function Tile({ name, cat, gold, delay }: { name: string; cat: string; gold: boolean; delay: number }) {
-  return (
-    <div className="hero-tile" style={{ animationDelay: `${delay}s` }}>
-      <span className="hero-tile__mark">{gold ? <ApertureColor /> : <ApertureSolid fill="var(--accent)" />}</span>
-      <span className="hero-tile__text">
-        <b>{name}</b>
-        <small>{cat}</small>
-      </span>
-    </div>
-  );
-}
-
-function GhostTile({ delay }: { delay: number }) {
-  return (
-    <div className="hero-tile hero-tile--ghost" style={{ animationDelay: `${delay}s` }}>
-      <span className="hero-tile__plus">
-        <PlusIcon />
-      </span>
-      <span className="hero-tile__text">
-        <b>More coming</b>
-        <small>The portfolio keeps growing</small>
-      </span>
-    </div>
-  );
-}
-
+/* The hero deliberately does not use <Reveal>: it must be visible in the
+   prerendered HTML immediately, before any JavaScript runs. */
 export function Hero() {
   return (
-    <header id="top" className="hero">
-      <div className="hero__glows" aria-hidden="true">
-        <span className="hero__glow glow-a" />
-        <span className="hero__glow glow-b" />
-        <span className="hero__glow glow-c" />
-      </div>
-      <div className="hero__grid" aria-hidden="true" />
-
-      <div className="hero__inner">
-        <Reveal style={{ display: "inline-flex" }}>
-          <Badge variant="gold" dot>
-            Independent developer
-          </Badge>
-        </Reveal>
-
-        <Reveal as="h1" delay={60} className="hero__title">
-          Websites, Web Apps &amp; SaaS Products,
-          <br />
-          built <span className="accent">end to end</span>.
-        </Reveal>
-
-        <Reveal as="p" delay={120} className="hero__lede">
-          I'm Mihailo, a solo developer building modern websites, custom web applications and SaaS products. From
-          business websites to AI-powered tools, I turn ideas into software people actually use.
-        </Reveal>
-
-        <Reveal delay={180} className="hero__cta">
-          <Button variant="primary" size="lg" trailingIcon={<ArrowIcon />} onClick={() => scrollToId("projects")}>
-            View my work
-          </Button>
-          <Button variant="secondary" size="lg" onClick={() => scrollToId("contact")}>
-            Start a project
-          </Button>
-        </Reveal>
-
-        <Reveal delay={260} className="hero__stat-single">
-          <b>3</b>
-          <span>products shipped</span>
-        </Reveal>
-      </div>
-
-      <div className="hero__floaters" aria-hidden="true">
-        <div className="hero__floater hero__floater--l1">
-          <Tile {...TILES[0]} delay={0} />
+    <section id="top" className="hero" aria-labelledby="hero-title">
+      <div className="hero__bg" aria-hidden="true" />
+      <div className="container hero__grid">
+        <div className="hero__copy">
+          <p className="eyebrow">{PROFILE.name} · QA engineer &amp; AI enthusiast</p>
+          <h1 id="hero-title" className="hero__title">
+            I test software for a living. <span className="accent">After hours, I build it.</span>
+          </h1>
+          <p className="hero__lede">
+            I'm Mihailo, a manual QA engineer and AI enthusiast. When an idea won't leave me alone, I build it with AI
+            tools, test it like a QA would, and ship it.
+          </p>
+          <p className="hero__now">
+            <span className="hero__now-dot" aria-hidden="true" />
+            <span>
+              Currently building: <b><Ph text={PROFILE.currentlyBuilding} /></b>
+            </span>
+          </p>
+          <div className="hero__cta">
+            <Button as="a" href="#projects" variant="primary" size="lg" trailingIcon={<ArrowIcon />}>
+              See my projects
+            </Button>
+            <Button as="a" href="#qa" variant="secondary" size="lg">
+              My QA experience
+            </Button>
+          </div>
         </div>
-        <div className="hero__floater hero__floater--l2">
-          <Tile {...TILES[2]} delay={-0.8} />
-        </div>
-        <div className="hero__floater hero__floater--r1">
-          <Tile {...TILES[1]} delay={-1.7} />
-        </div>
-        <div className="hero__floater hero__floater--r2">
-          <GhostTile delay={-1.2} />
+
+        <div className="hero__shots" aria-hidden="true">
+          <BrowserFrame className="hero__shot hero__shot--right" url={BACK_RIGHT.url} shot={BACK_RIGHT.shot} sizes={SHOT_SIZES} eager />
+          <BrowserFrame className="hero__shot hero__shot--left" url={BACK_LEFT.url} shot={BACK_LEFT.shot} sizes={SHOT_SIZES} eager />
+          <BrowserFrame className="hero__shot hero__shot--front" url={FRONT.url} shot={FRONT.shot} sizes={SHOT_SIZES} eager />
         </div>
       </div>
-    </header>
+    </section>
   );
 }
