@@ -14,6 +14,8 @@ One page: hero, projects (three featured, the bachelor-thesis QA project, more p
 
 ## Commands
 
+Node 22.18 or newer: the tests and `qa:site` import TypeScript files directly.
+
 ```bash
 npm install
 npm run dev         # dev server
