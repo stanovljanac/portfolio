@@ -20,8 +20,5 @@ export const PROFILE = {
   education: { school: "Faculty of Natural Sciences and Mathematics, University of Kragujevac", years: "2020 – 2026" },
   /** The CV photo, 500×474. */
   photo: { src: "/mihailo.jpg", width: 500, height: 474 },
-  /** For now About shows both portraits, to choose one: this one is the photo
-      by the sea, the background blurred into the site's blues. */
-  photoSea: { src: "/mihailo-sea.jpg", width: 640, height: 640 },
   cv: { href: "/cv/Mihailo-Sebek-CV.pdf", fileName: "Mihailo-Sebek-CV.pdf" },
 };

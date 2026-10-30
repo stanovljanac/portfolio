@@ -1,21 +1,9 @@
 import { PROFILE } from "../data/profile";
 import { GithubIcon, InstagramIcon, LinkedinIcon, PinIcon } from "./icons";
 
-type Photo = { src: string; width: number; height: number };
-
-function Portrait({ photo, alt, className }: { photo: Photo; alt: string; className: string }) {
-  return (
-    <div className={`about__photo ${className}`}>
-      <img src={photo.src} alt={alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" />
-    </div>
-  );
-}
-
-/* Who is behind the projects: the portrait, where I am, my profiles.
-   For now both portraits show, the CV photo left and the one by the sea
-   right, to compare them; keep one and drop .about--compare. */
+/* Who is behind the projects: the portrait, where I am, my profiles. */
 export function About() {
-  const { name, photo, photoSea, location, qaSinceLabel, linkedin, github, instagram } = PROFILE;
+  const { name, photo, location, qaSinceLabel, linkedin, github, instagram } = PROFILE;
   const links = [
     { href: linkedin, label: "LinkedIn", icon: <LinkedinIcon /> },
     { href: github, label: "GitHub", icon: <GithubIcon /> },
@@ -23,8 +11,17 @@ export function About() {
   ];
   return (
     <section id="about" className="section" aria-labelledby="about-title">
-      <div className="container about about--compare">
-        <Portrait photo={photo} alt={`Portrait of ${name}`} className="about__photo--cv" />
+      <div className="container about">
+        <div className="about__photo">
+          <img
+            src={photo.src}
+            alt={`Portrait of ${name}`}
+            width={photo.width}
+            height={photo.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
         <div className="about__copy">
           <h2 id="about-title" className="section__title">
             About
@@ -50,7 +47,6 @@ export function About() {
             ))}
           </ul>
         </div>
-        <Portrait photo={photoSea} alt={`${name} by the sea`} className="about__photo--sea" />
       </div>
     </section>
   );

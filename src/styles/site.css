@@ -248,13 +248,6 @@ mark.ph {
   margin: 8px; outline: 2px solid var(--focus-ring); outline-offset: 8px; background: var(--surface-2);
 }
 .about__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-/* For now: the CV photo left, the one by the sea right, the text between. */
-.about--compare { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "cv copy sea"; gap: var(--space-8); }
-.about__photo--cv { grid-area: cv; }
-.about__photo--sea { grid-area: sea; }
-.about--compare .about__copy { grid-area: copy; text-align: center; }
-.about--compare .about__text { margin-inline: auto; }
-.about--compare .about__place, .about--compare .about__links { justify-content: center; }
 .about__intro {
   margin-top: var(--space-5);
   font: var(--fw-medium) clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem)/1.3 var(--font-sans);
@@ -391,13 +384,6 @@ mark.ph {
   .contact__aside { align-self: auto; margin-bottom: 0; }
   .contact .mb-input { height: 42px; }
   .contact .mb-textarea { height: 128px; min-height: 96px; }
-  /* Both portraits on one row, meeting in the middle, the text under them. */
-  .about--compare { grid-template-columns: 1fr 1fr; grid-template-areas: "cv sea" "copy copy"; row-gap: var(--space-7); }
-  .about--compare .about__photo--cv { justify-self: end; }
-  .about--compare .about__photo--sea { justify-self: start; }
-  .about--compare .about__copy { text-align: start; }
-  .about--compare .about__text { margin-inline: 0; }
-  .about--compare .about__place, .about--compare .about__links { justify-content: flex-start; }
 }
 @media (max-width: 760px) {
   .section { padding: var(--space-10) 0; }
@@ -406,7 +392,6 @@ mark.ph {
   .hero { padding: 112px 0 var(--space-10); }
   .about { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
   .about__photo { width: 112px; margin: 5px; outline-offset: 5px; justify-self: center; }
-  .about--compare { grid-template-columns: 1fr 1fr; }
   .proj-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
