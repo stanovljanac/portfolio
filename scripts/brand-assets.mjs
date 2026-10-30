@@ -4,12 +4,14 @@
 
    - public/favicon.ico (16, 32, 48 px) and public/apple-touch-icon.png
      (180 px), from public/favicon.svg
-   - public/og.png (1200×630), the social preview: the logo, the first
-     screen's eyebrow (name and role) and headline from the built page, and
-     the portrait, in the site's fonts and colours.
+   - public/og.png (1200×630), the social preview: the About section as on
+     desktop (the round portrait, the title, the intro line and the place),
+     drawn larger than on the page, because LinkedIn and the rest show the
+     image about 360 px wide and smaller text turns to mush. The longer
+     sentence and the profile links are left out for the same reason.
      The copy is read from dist/, so it always matches the site; run the
-     build first, and run this again when the first screen's copy, the logo,
-     the photo or the colours change.
+     build first, and run this again when the About copy, the photo or the
+     colours change.
    Needs Playwright (see scripts/qa/_lib.mjs) and network access for the
    Google Fonts the site uses. */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -53,48 +55,41 @@ const text = (re) => {
   if (!m) throw new Error(`${re} not found in dist/index.html. Run \`npm run build\` first.`);
   return m[1].replace(/<!-- -->/g, "").trim();
 };
-const eyebrow = text(/class="hero__eyebrow">(.*?)<\/p>/);
-const title = text(/class="hero__title">(.*?)<\/h1>/);
-const host = new URL(text(/<link rel="canonical" href="(.*?)"/)).host;
-const photo = dataUrl("public/mihailo.jpg", "image/jpeg");
-const mark = svg.toString().replace(/<svg /, '<svg class="mark" ');
+const title = text(/id="about-title"[^>]*>(.*?)<\/h2>/);
+const intro = text(/class="about__intro">(.*?)<\/p>/);
+const placeHtml = text(/class="about__place">(.*?)<\/p>/);
+const pin = placeHtml.match(/<svg.*?<\/svg>/)[0];
+const place = placeHtml.replace(/<svg.*?<\/svg>/, "").replace(/<span class="sr-only">.*?<\/span>/, "").trim();
+const photo = dataUrl("public/mihailo-sea.jpg", "image/jpeg");
 
-/* Colours and type follow src/styles/tokens/ and the first screen in site.css. */
+/* Colours and type follow src/styles/tokens/ and the About section in site.css. */
 const page = `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&family=Geist+Mono:wght@500&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@500;600&display=block">
 <style>
   * { box-sizing: border-box; margin: 0; }
-  body { width: 1200px; height: 630px; overflow: hidden; position: relative; background: #070B16; color: #EAEFF9; font-family: Geist; -webkit-font-smoothing: antialiased; }
-  .bg { position: absolute; inset: 0; background:
-      radial-gradient(40% 60% at 82% 48%, rgba(47,91,255,.24), transparent 70%),
-      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 56px 56px,
-      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 56px 56px; }
-  .copy { position: absolute; left: 80px; top: 72px; bottom: 72px; width: 700px; display: flex; flex-direction: column; }
-  .mark { width: 56px; height: 56px; }
-  .eyebrow { margin-top: auto; font: 500 28px/1.3 Geist; color: #93AAFF; }
-  h1 { margin-top: 18px; font: 600 66px/1.02 Geist; letter-spacing: -0.04em; text-wrap: balance; }
-  .host { margin-top: 40px; font: 500 22px/1 "Geist Mono"; color: #9AA5BD; }
-  .photo { position: absolute; right: 110px; top: 165px; width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
-    outline: 3px solid #7A96FF; outline-offset: 10px; }
+  body { width: 1200px; height: 630px; overflow: hidden; background: #070B16; color: #EAEFF9; font-family: Geist; -webkit-font-smoothing: antialiased;
+    display: flex; align-items: center; gap: 72px; padding: 0 80px; }
+  .photo { flex: none; width: 380px; height: 380px; border-radius: 50%; overflow: hidden; background: #121B31;
+    outline: 4px solid #7A96FF; outline-offset: 12px; margin: 16px; }
   .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-  .rule { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #2F5BFF; }
+  h2 { font: 600 84px/1.05 Geist; letter-spacing: -0.035em; }
+  .intro { margin-top: 28px; font: 500 42px/1.25 Geist; letter-spacing: -0.015em; text-wrap: balance; }
+  .place { display: flex; align-items: center; gap: 12px; margin-top: 32px; font: 500 30px/1.3 Geist; color: #9AA5BD; }
+  .place svg { flex: none; width: 32px; height: 32px; color: #93AAFF; }
 </style></head><body>
-  <div class="bg"></div>
   <div class="photo"><img src="${photo}" alt=""></div>
   <div class="copy">
-    ${mark}
-    <p class="eyebrow">${eyebrow}</p>
-    <h1>${title}</h1>
-    <p class="host">${host}</p>
+    <h2>${title}</h2>
+    <p class="intro">${intro}</p>
+    <p class="place">${pin}${place}</p>
   </div>
-  <div class="rule"></div>
 </body></html>`;
 
 const browser = await launchChromium();
 const tab = await (await browser.newContext({ viewport: { width: 1200, height: 630 } })).newPage();
 await tab.setContent(page, { waitUntil: "networkidle" });
 await tab.evaluate(() => document.fonts.ready);
-const missing = await tab.evaluate(() => ["600 66px Geist", "500 22px 'Geist Mono'"].filter((f) => !document.fonts.check(f)));
+const missing = await tab.evaluate(() => ["600 84px Geist", "500 42px Geist"].filter((f) => !document.fonts.check(f)));
 if (missing.length) throw new Error(`Fonts not loaded (offline?): ${missing.join(", ")}`);
 const shotPng = await tab.screenshot({ type: "png" });
 await sharp(shotPng).png({ compressionLevel: 9, palette: true, quality: 95 }).toFile(join(PUBLIC, "og.png"));

@@ -19,8 +19,8 @@ export const PROFILE = {
   /** Named as on the CV. */
   education: { school: "Faculty of Natural Sciences and Mathematics, University of Kragujevac", years: "2020 – 2026" },
   /** The photo by the sea, 640×640: the background blurred into the site's
-      blues, the face moved to the middle for the round crop. og.png keeps
-      the CV photo (public/mihailo.jpg). */
+      blues, the face moved to the middle for the round crop. og.png uses
+      it too (scripts/brand-assets.mjs). */
   photo: { src: "/mihailo-sea.jpg", width: 640, height: 640 },
   cv: { href: "/cv/Mihailo-Sebek-CV.pdf", fileName: "Mihailo-Sebek-CV.pdf" },
 };
