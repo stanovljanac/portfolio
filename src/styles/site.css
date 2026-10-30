@@ -396,7 +396,7 @@ mark.ph {
   .nav__cta { margin-left: auto; }
   .hero { padding: 112px 0 var(--space-10); }
   .about { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
-  .about__photo { width: 112px; margin: 5px; outline-offset: 5px; justify-self: center; }
+  .about__photo { width: 140px; margin: 5px; outline-offset: 5px; justify-self: center; }
   .proj-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
