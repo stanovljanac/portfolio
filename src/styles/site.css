@@ -215,10 +215,15 @@ mark.ph {
 .proj .browser__view { overflow: hidden; }
 .proj .browser__view img { transform-origin: 50% 0; transition: transform 700ms var(--ease-out); }
 .proj:hover .browser__view img { transform: scale(1.06) translate(calc(var(--mx) * -3%), calc(var(--my) * -2%)); }
-/* The first project: the screenshot on the left, the text on the right. */
+/* The first two projects: the screenshot on the left, the text on the
+   right; the second one mirrored (--flip). */
 .proj--wide { --tilt: 2.5deg; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; }
+.proj--wide + .proj--wide { margin-top: var(--space-5); }
 .proj--wide .proj__frame { margin: var(--space-6); }
 .proj--wide .proj__body { padding: var(--space-7) var(--space-7) var(--space-7) var(--space-2); }
+.proj--flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); }
+.proj--flip .proj__frame { order: 1; }
+.proj--flip .proj__body { padding: var(--space-7) var(--space-2) var(--space-7) var(--space-7); }
 .proj--wide .proj__name { font-size: clamp(1.625rem, 1.3rem + 1vw, 2.125rem); }
 .proj--wide .proj__desc { font-size: 1.0625rem; }
 .proj:has(.proj__link:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
@@ -365,7 +370,7 @@ mark.ph {
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-9); }
   .hero__shots { width: 100%; max-width: 560px; margin: 0 auto; }
   .proj--wide { display: flex; }
-  .proj--wide .proj__frame { margin: var(--space-6) var(--space-6) 0; }
+  .proj--wide .proj__frame { margin: var(--space-6) var(--space-6) 0; order: 0; }
   .proj--wide .proj__body { padding: var(--space-6); }
   .thesis { grid-template-columns: 1fr; }
   /* Under the text: the pipeline and the flows side by side, the two labels

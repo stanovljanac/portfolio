@@ -11,6 +11,7 @@ One page with Projects, About, Experience and Contact. To get in touch, use the 
 
 ## Projects
 
+- [Web Studio Demo](https://demostudio.mihailobuilds.com/): the website of Northlane Studio, a made-up web studio for small businesses (Vite, React, TypeScript)
 - [MB Hair Salon](https://demohairsalon.mihailobuilds.com/): a complete business website for a hair salon
 - [Keeper](https://keeper.mihailobuilds.com/): a 23-module guide to photographing your partner (Next.js, Supabase)
 - [Invoice Generator](https://invoice.mihailobuilds.com/): invoices with tax handling and PDF export, for freelancers (Next.js, Supabase, Resend)

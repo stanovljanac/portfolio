@@ -44,7 +44,7 @@ npm run qa:shots -- widths=320,375,1440 slice=1400   # screenshots → .qa/ (git
 - `src/data/projects.ts` — the project cards, in the order they are shown, and the thesis
 - `src/data/contact.ts` — email and phone as character codes. They are never written in plain text in the repo, never shown on the page, and only set on a link when it is clicked (`<ContactLink>`)
 - `src/lib/` — the QA-experience label and the contact-form messages (both unit-tested)
-- `public/projects/` — screenshots (see the README there); `public/cv/` — the CV PDF; `public/mihailo.jpg` — the portrait (500 px), also used in `og.png`
+- `public/projects/` — screenshots (see the README there); `public/cv/` — the CV PDF; `public/mihailo-sea.jpg` — the portrait in About (640 px); `public/mihailo.jpg` — the CV photo, used in `og.png`
 - `public/llms.txt` — a short Markdown summary of the site for AI tools
 - `scripts/brand-assets.mjs` — `favicon.ico`, `apple-touch-icon.png` and `og.png`; run after `npm run build` when the logo, the first screen's copy, the photo or the colours change
 

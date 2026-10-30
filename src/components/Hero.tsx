@@ -6,9 +6,10 @@ import { usePointerVars } from "../lib/motion";
 import { BrowserFrame } from "./BrowserFrame";
 import { DownloadIcon } from "./icons";
 
-/* The three web projects, fanned out: back right, back left, front.
-   They repeat the cards below, so the group is decorative (aria-hidden). */
-const [FRONT, BACK_LEFT, BACK_RIGHT] = PROJECTS;
+/* Three web projects, fanned out: back right, back left, front (the ones
+   after the studio demo). They repeat the cards below, so the group is
+   decorative (aria-hidden). */
+const [FRONT, BACK_LEFT, BACK_RIGHT] = PROJECTS.slice(1);
 /* Frame widths in .hero__shots (site.css): 74% of the column, which is
    ~46% of the container on desktop and up to 560px below 900px. */
 const SHOT_SIZES = "(max-width: 900px) min(78vw, 440px), 440px";

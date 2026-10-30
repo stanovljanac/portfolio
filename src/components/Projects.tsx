@@ -24,12 +24,14 @@ function Stack({ items }: { items: string[] }) {
 }
 
 /* The whole card is one link: the "Visit site" link's ::after covers it.
-   On hover it tilts toward the pointer (--mx/--my, see .proj in site.css). */
-function ProjectCard({ p, wide = false }: { p: Project; wide?: boolean }) {
+   On hover it tilts toward the pointer (--mx/--my, see .proj in site.css).
+   A wide card shows the screenshot left; `flip` puts it on the right. */
+function ProjectCard({ p, wide = false, flip = false }: { p: Project; wide?: boolean; flip?: boolean }) {
   const card = useRef<HTMLElement>(null);
   usePointerVars(card);
+  const className = ["proj", wide && "proj--wide", flip && "proj--flip"].filter(Boolean).join(" ");
   return (
-    <article ref={card} className={wide ? "proj proj--wide" : "proj"} aria-labelledby={`p-${p.slug}`}>
+    <article ref={card} className={className} aria-labelledby={`p-${p.slug}`}>
       <BrowserFrame url={p.url} shot={p.shot} sizes={wide ? WIDE_SIZES : SHOT_SIZES} className="proj__frame" />
       <div className="proj__body">
         <p className="proj__kind">{p.kind}</p>
@@ -103,7 +105,7 @@ function ThesisCard() {
 }
 
 export function Projects() {
-  const [featured, ...rest] = PROJECTS;
+  const [first, second, ...rest] = PROJECTS;
   return (
     <section id="projects" className="section section--alt" aria-labelledby="projects-title">
       <div className="container">
@@ -111,11 +113,9 @@ export function Projects() {
           <h2 id="projects-title" className="section__title">
             Projects
           </h2>
-          <p className="section__lede">
-            Every web project is live, so you can try it.
-          </p>
         </div>
-        <ProjectCard p={featured} wide />
+        <ProjectCard p={first} wide />
+        <ProjectCard p={second} wide flip />
         <div className="proj-grid">
           {rest.map((p) => (
             <ProjectCard key={p.slug} p={p} />

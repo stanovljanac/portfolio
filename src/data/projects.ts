@@ -24,9 +24,19 @@ const webp = (slug: string): Shot => ({
   height: 900,
 });
 
-/* In the order they are shown: the first gets the full-width card, the
-   others share a row. The hero fans out the same three screenshots. */
+/* In the order they are shown: the first two get full-width cards (the
+   second mirrored), the others share a row. The hero fans out the three
+   after the studio demo. */
 export const PROJECTS: Project[] = [
+  {
+    slug: "web-studio-demo",
+    name: "Web Studio Demo",
+    kind: "Demo business website",
+    desc: "The website of Northlane Studio, a made-up web studio for small businesses: work, services and starting prices, process, FAQ and a contact form.",
+    stack: ["Vite", "React", "TypeScript"],
+    url: "https://demostudio.mihailobuilds.com/",
+    shot: webp("web-studio-demo"),
+  },
   {
     slug: "mb-hair-salon",
     name: "MB Hair Salon",
