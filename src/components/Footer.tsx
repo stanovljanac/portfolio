@@ -1,53 +1,31 @@
-import { LIVE, QA_PROJECT } from "../data/projects";
 import { PROFILE } from "../data/profile";
-import { isPlaceholder } from "./Ph";
-import { Logo } from "./Logo";
 
 export function Footer() {
-  const { github, linkedin, cv } = PROFILE;
+  const { linkedin, github, instagram } = PROFILE;
   return (
     <footer className="footer">
-      <div className="container">
-        <div className="footer__inner">
-          <div className="footer__brand">
-            <Logo size={32} />
-            <p>QA engineer by day. Builder after hours.</p>
-          </div>
-          <nav className="footer__col" aria-labelledby="footer-projects">
-            <p id="footer-projects" className="footer__heading">
-              Projects
-            </p>
-            {LIVE.map((p) => (
-              <a key={p.slug} href={p.url} target="_blank" rel="noopener noreferrer">
-                {p.name}
-              </a>
-            ))}
-            <a href={QA_PROJECT.repo} target="_blank" rel="noopener noreferrer">
-              {QA_PROJECT.name}
+      <div className="container footer__inner">
+        <p>© 2026 Mihailo Builds</p>
+        <ul className="footer__links">
+          <li>
+            <a href={linkedin} target="_blank" rel="noopener noreferrer">
+              LinkedIn<span className="sr-only"> (opens in a new tab)</span>
             </a>
-          </nav>
-          <nav className="footer__col" aria-labelledby="footer-elsewhere">
-            <p id="footer-elsewhere" className="footer__heading">
-              Elsewhere
-            </p>
+          </li>
+          <li>
             <a href={github} target="_blank" rel="noopener noreferrer">
-              GitHub
+              GitHub<span className="sr-only"> (opens in a new tab)</span>
             </a>
-            {linkedin && !isPlaceholder(linkedin) ? (
-              <a href={linkedin} target="_blank" rel="noopener noreferrer">
-                LinkedIn
-              </a>
-            ) : null}
-            <a href={cv.href} download={cv.fileName}>
-              Download CV
+          </li>
+          <li>
+            <a href={instagram} target="_blank" rel="noopener noreferrer">
+              Instagram<span className="sr-only"> (opens in a new tab)</span>
             </a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-        <div className="footer__bottom">
-          <span>© 2026 MihailoBuilds</span>
-          <a href="#top">Back to top</a>
-        </div>
+          </li>
+          <li>
+            <a href="#top">Back to top</a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

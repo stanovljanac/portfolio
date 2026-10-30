@@ -4,9 +4,6 @@ Project screenshots used on the site (src/data/projects.ts).
   keeper-{640,960,1280,1600}.webp            Keeper
   invoice-{640,960,1280,1600}.webp           Invoice Generator: my own dashboard,
                                              the live app needs a login
-  automation-desk-{640,960,1280,1600}.webp   The Automation Desk
-  animated-tales.png                         Animated Tales (1280x800; to be
-                                             recaptured as WebP)
 
 Format
   Desktop 1440x900 @2x, cut to 16:10, WebP at 640/960/1280/1600 px.

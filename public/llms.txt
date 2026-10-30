@@ -1,0 +1,23 @@
+# MihailoBuilds
+
+> The portfolio of Mihailo Šebek, manual QA engineer (since March 2025) and AI enthusiast from Kragujevac, Serbia. In his free time he develops his own ideas into web apps with AI tools, under the name MihailoBuilds. At work he tests websites for functionality, usability and accessibility (WCAG).
+
+One page with Projects, About, Experience and Contact. To get in touch, use the contact form on the page or LinkedIn.
+
+## Pages
+
+- [Portfolio](https://mihailobuilds.com/): projects, about, experience, contact
+- [CV (PDF)](https://mihailobuilds.com/cv/Mihailo-Sebek-CV.pdf): work, projects, skills and education
+
+## Projects
+
+- [MB Hair Salon](https://demohairsalon.mihailobuilds.com/): a complete business website for a hair salon
+- [Keeper](https://keeper.mihailobuilds.com/): a 23-module guide to photographing your partner (Next.js, Supabase)
+- [Invoice Generator](https://invoice.mihailobuilds.com/): invoices with tax handling and PDF export, for freelancers (Next.js, Supabase, Resend)
+- [Accessibility CI Testing](https://github.com/stanovljanac/diplomski): bachelor thesis; Playwright and axe-core check a web shop against WCAG in GitHub Actions on every push and pull request
+
+## Profiles
+
+- [LinkedIn](https://www.linkedin.com/in/mihailo-%C5%A1ebek-912b6a26a/)
+- [GitHub](https://github.com/stanovljanac)
+- [Instagram](https://www.instagram.com/sebekmihailo/)

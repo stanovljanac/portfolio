@@ -1,13 +1,13 @@
 /* Site behaviour:
-   - without JavaScript every section is visible (prerendered, no hidden reveals)
-   - with reduced motion, reveals show without scrolling
+   - without JavaScript every section is there (prerendered)
    - keyboard: the skip link comes first and moves focus to the content
    - every in-page anchor has a target; opening /#section directly (and
      reloading) lands on that section below the fixed nav
-   - every external link answers 2xx (HEAD, GET as a fallback): the
-     regression check from the case study on the site
+   - every external link answers 2xx (HEAD, GET as a fallback); LinkedIn
+     answers 999 to every script, so it is only reported
    - "Download CV" serves a PDF with the right file name, or reports the placeholder
    - the QA experience label matches the build date
+   - files that do not exist are a 404, not the page (llms.txt does exist)
    Prints FAIL lines and exits 1 when a check fails. */
 import { BASE, log, launch, newContext, ROOT } from "./_lib.mjs";
 import { join } from "node:path";
@@ -27,23 +27,11 @@ log("--- no JavaScript");
   const p = await ctx.newPage();
   await p.goto(BASE + "/");
   const r = await p.evaluate(() => ({
-    sections: [...document.querySelectorAll("main section[id]")].map((s) => s.id),
-    hidden: [...document.querySelectorAll(".reveal")].filter((e) => getComputedStyle(e).opacity !== "1").length,
+    sections: [...document.querySelectorAll("main section[id]")].map((s) => s.id).join(", "),
     h1: document.querySelector("h1")?.textContent,
   }));
-  log(`sections: ${r.sections.join(", ")} | hidden reveals: ${r.hidden} | h1: ${r.h1}`);
-  if (r.sections.length < 6 || r.hidden || !r.h1) fail("no-JS page incomplete");
-  await ctx.close();
-}
-
-log("\n--- reduced motion");
-{
-  const ctx = await newContext(b, { reducedMotion: "reduce" });
-  const p = await ctx.newPage();
-  await p.goto(BASE + "/", { waitUntil: "networkidle" });
-  const hidden = await p.evaluate(() => [...document.querySelectorAll(".reveal")].filter((e) => getComputedStyle(e).opacity !== "1").length);
-  log("reveals not visible without scrolling:", hidden);
-  if (hidden) fail("reduced motion");
+  log(`sections: ${r.sections} | h1: ${r.h1}`);
+  if (r.sections !== "top, projects, about, experience, contact" || !r.h1) fail("no-JS page incomplete");
   await ctx.close();
 }
 
@@ -74,20 +62,27 @@ log("\n--- anchors");
   if (missing.length) fail("anchors without target");
   await ctx.close();
   /* A fresh tab per anchor: opening the URL directly, not a jump within the page. */
-  for (const id of ["about", "projects", "qa", "contact"]) {
+  for (const id of ["top", "projects", "about", "experience", "contact"]) {
     const c = await newContext(b, { viewport: { width: 1440, height: 900 } });
     const t = await c.newPage();
     const top = async () => {
       await t.evaluate(() => document.fonts.ready);
       await t.waitForTimeout(800);
-      return t.evaluate((id) => Math.round(document.getElementById(id).getBoundingClientRect().top), id);
+      return t.evaluate((id) => ({
+        v: Math.round(document.getElementById(id).getBoundingClientRect().top),
+        atEnd: scrollY + innerHeight >= document.documentElement.scrollHeight - 1,
+      }), id);
     };
     await t.goto(`${BASE}/#${id}`, { waitUntil: "networkidle" });
     const top1 = await top();
     await t.reload({ waitUntil: "networkidle" });
     const top2 = await top();
-    const ok = [top1, top2].every((v) => v >= 60 && v <= 90);
-    log(`/#${id}: section top ${top1}px, after reload ${top2}px`, ok ? "ok" : "WRONG");
+    /* The hero is the first screen: the page stays at the top. The others sit
+       just below the 68px nav, unless the page is scrolled to its end and
+       cannot bring the section any higher (the contact section). */
+    const ok = [top1, top2].every(({ v, atEnd }) => (id === "top" ? v === 0 : (v >= 60 && v <= 90) || (atEnd && v > 60)));
+    const show = ({ v, atEnd }) => `${v}px${atEnd ? " (page end)" : ""}`;
+    log(`/#${id}: section top ${show(top1)}, after reload ${show(top2)}`, ok ? "ok" : "WRONG");
     if (!ok) fail(`anchor #${id}`);
     await c.close();
   }
@@ -112,8 +107,9 @@ log("\n--- external links answer 2xx");
       if (typeof status === "number" && status < 300) break;
     }
     const ok = typeof status === "number" && status >= 200 && status < 300;
-    log(String(status).padEnd(4), url);
-    if (!ok) fail(`link ${url} → ${status}`);
+    const bot = status === 999 && new URL(url).hostname.endsWith("linkedin.com");
+    log(String(status).padEnd(4), url, bot ? "(LinkedIn blocks scripts; check it in a browser)" : "");
+    if (!ok && !bot) fail(`link ${url} → ${status}`);
   }
   const blank = await p.evaluate(() =>
     [...document.querySelectorAll("a[target='_blank']")].filter((a) => !/noopener/.test(a.rel)).map((a) => a.href),
@@ -148,12 +144,21 @@ log("\n--- QA experience label");
   const ctx = await newContext(b);
   const p = await ctx.newPage();
   await p.goto(BASE + "/", { waitUntil: "networkidle" });
-  const shown = await p.evaluate(() => document.querySelector(".qa-role__since").textContent.trim());
+  const shown = await p.evaluate(() => document.querySelector(".timeline__length").textContent.trim());
   const expected = experienceLabel("2025-03", new Date());
-  const ok = shown.endsWith(expected);
+  const ok = shown === `(${expected})`;
   log(`shown "${shown}" | expected today: "${expected}"`, ok ? "ok" : "WRONG (rebuild?)");
   if (!ok) fail("experience label");
   await ctx.close();
+}
+
+log("\n--- missing files are a 404");
+for (const [path, want] of [["/llms.txt", 200], ["/.well-known/ai-catalog.json", 404], ["/no-such-page", 404]]) {
+  const res = await fetch(BASE + path);
+  const type = res.headers.get("content-type") ?? "";
+  const ok = res.status === want && !(want === 200 && type.includes("html"));
+  log(`${path}: HTTP ${res.status} ${type}`, ok ? "ok" : `WRONG (want ${want})`);
+  if (!ok) fail(path);
 }
 
 await b.close();

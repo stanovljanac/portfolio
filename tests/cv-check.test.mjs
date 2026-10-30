@@ -53,6 +53,29 @@ test("a local phone format fails too", async () => {
   assert.match(r.out, /phone number.*064\/000-0000/is);
 });
 
+/* My own number, from the same character codes the site uses (never written out). */
+const ownPhone = (() => {
+  const src = readFileSync(join(import.meta.dirname, "../src/data/contact.ts"), "utf8");
+  return String.fromCharCode(...src.match(/PHONE_CODES\s*=\s*\[([\d,\s]+)\]/)[1].split(",").map(Number));
+})();
+
+test("my own number is allowed, in international and local form", async () => {
+  const intl = `+${ownPhone.slice(0, 3)} ${ownPhone.slice(3)}`;
+  const local = `0${ownPhone.slice(3, 5)}/${ownPhone.slice(5)}`;
+  const f = await makePdf("own.pdf", ["Mihailo Sebek", intl, local]);
+  const r = run(f);
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /my phone number/i);
+  assert.match(r.out, /no other phone number/i);
+});
+
+test("another number next to mine still fails", async () => {
+  const f = await makePdf("own-and-other.pdf", [`+${ownPhone}`, "Ref: +381 64 000 0000"]);
+  const r = run(f);
+  assert.equal(r.code, 1, r.out);
+  assert.match(r.out, /phone number found: \+381 64 000 0000/);
+});
+
 test("a year range is not taken for a phone number", async () => {
   const f = await makePdf("years.pdf", ["2020-2026", "2025 - 2026", "Since 03/2025"]);
   assert.equal(run(f).code, 0);

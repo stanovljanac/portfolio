@@ -16,12 +16,6 @@ const stroke = {
   focusable: false,
 };
 
-export const ArrowIcon = (p: P) => (
-  <svg viewBox="0 0 24 24" strokeWidth={2} {...stroke} {...p}>
-    <path d="M5 12h14M13 6l6 6-6 6" />
-  </svg>
-);
-
 export const ExternalIcon = (p: P) => (
   <svg viewBox="0 0 24 24" strokeWidth={2} {...stroke} {...p}>
     <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
@@ -34,17 +28,44 @@ export const DownloadIcon = (p: P) => (
   </svg>
 );
 
-export const UserIcon = (p: P) => (
-  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
-    <circle cx="12" cy="8" r="4" />
-    <path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" />
-  </svg>
-);
-
 export const MailIcon = (p: P) => (
   <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
     <rect x="3" y="5" width="18" height="14" rx="2" />
     <path d="m3 7 9 6 9-6" />
+  </svg>
+);
+
+/* Viber and WhatsApp redrawn in this line style rather than as brand logos:
+   each app's bubble shape with a handset inside. */
+const HANDSET = "M9.3 8.2h1.4l.8 2-1 .9a5 5 0 0 0 2.4 2.4l.9-1 2 .8v1.4a1 1 0 0 1-1 1 6.5 6.5 0 0 1-6.5-6.5 1 1 0 0 1 1-1z";
+
+export const ViberIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <path d="M12 3c4.8 0 8 1.6 8 7.3 0 5.6-3.2 7.2-8 7.2h-.8L8 20.5v-3.3C5.2 16.3 4 14.3 4 10.3 4 4.6 7.2 3 12 3z" />
+    <path d={HANDSET} transform="translate(1.3 1.2) scale(.8)" strokeWidth={1.6} />
+    <path d="M13.4 5.9a4 4 0 0 1 3.7 3.7M13.4 8.1a1.8 1.8 0 0 1 1.5 1.5" strokeWidth={1.5} />
+  </svg>
+);
+
+export const WhatsappIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <path d="M3.5 20.5l1.54-4.12A8.5 8.5 0 1 1 8.41 19.2z" />
+    <path d={HANDSET} transform="translate(1.2 1.2) scale(.9)" strokeWidth={1.6} />
+  </svg>
+);
+
+/* Markers on the Experience timeline. */
+export const BriefcaseIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M8.5 7V5.5a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2V7M3 12.5h18M10.5 12.5v1.5h3v-1.5" />
+  </svg>
+);
+
+export const CapIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+    <path d="M2.5 9.5 12 5l9.5 4.5L12 14z" />
+    <path d="M6.5 11.7v4.3c0 1.4 2.5 3 5.5 3s5.5-1.6 5.5-3v-4.3M21.5 9.5v5" />
   </svg>
 );
 
@@ -54,23 +75,19 @@ export const CheckIcon = (p: P) => (
   </svg>
 );
 
-export const InfoIcon = (p: P) => (
+export const PinIcon = (p: P) => (
   <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 11v5M12 8h.01" />
+    <path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21Z" />
+    <circle cx="12" cy="9.5" r="2.5" />
   </svg>
 );
 
-export const SunIcon = (p: P) => (
-  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
+/* Instagram's own glyph is an outline, so it is drawn with strokes. */
+export const InstagramIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" strokeWidth={2} {...stroke} {...p}>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
     <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
-  </svg>
-);
-
-export const MoonIcon = (p: P) => (
-  <svg viewBox="0 0 24 24" strokeWidth={1.8} {...stroke} {...p}>
-    <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+    <path d="M17.5 6.5h.01" />
   </svg>
 );
 

@@ -13,7 +13,6 @@ export const BASE = process.env.QA_BASE || "http://localhost:4173";
 export const OUT = resolve(process.env.QA_OUT || join(ROOT, ".qa"));
 mkdirSync(OUT, { recursive: true });
 
-export const THEMES = ["light", "dark"];
 export const log = (...a) => console.log(...a);
 
 export async function launch() {
@@ -40,15 +39,14 @@ export async function launchChromium() {
   throw new Error("Playwright not found. Set PLAYWRIGHT_MODULE=/path/to/node_modules/playwright/index.js");
 }
 
-/* A context in the given theme. The theme comes from the system setting
-   (prefers-color-scheme), which is what the inline script in index.html
-   reads when the visitor has not picked one. */
-export async function newContext(browser, { theme = "light", ...opts } = {}) {
-  return browser.newContext({ colorScheme: theme, ...opts });
+/* A browser context. The site has one (dark) theme; the context asks for a
+   dark system setting too, as most visitors of a dark page would. */
+export async function newContext(browser, opts = {}) {
+  return browser.newContext({ colorScheme: "dark", ...opts });
 }
 
-/* Scroll through the page so every <Reveal> section becomes visible.
-   Instant scrolling: smooth scroll skips the IntersectionObserver triggers. */
+/* Scroll through the page, so lazy images load before a screenshot.
+   Instant scrolling, so it does not depend on smooth scroll. */
 export async function scrollThrough(page, step = 300) {
   await page.evaluate(async (step) => {
     for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
@@ -60,13 +58,23 @@ export async function scrollThrough(page, step = 300) {
   await page.waitForTimeout(800);
 }
 
-/* Strings that must never appear in the built files or on the page. They are
-   derived from the character codes in src/data/contact.ts, so the real
-   address is never written in plain text in the repo. */
+/* Strings that must never appear in the built files or on the page: the
+   email address, its local part, and the phone number (whole, and without
+   the country code). They are derived from the character codes in
+   src/data/contact.ts, so neither is ever written in plain text in the repo. */
 export function contactNeedles() {
   const src = readFileSync(join(ROOT, "src/data/contact.ts"), "utf8");
-  const m = src.match(/EMAIL_CODES\s*=\s*\[([\d,\s]+)\]/);
-  if (!m) throw new Error("EMAIL_CODES not found in src/data/contact.ts");
-  const email = String.fromCharCode(...m[1].split(",").map(Number));
-  return [email, email.split("@")[0]];
+  const codes = (name) => {
+    const m = src.match(new RegExp(`${name}\\s*=\\s*\\[([\\d,\\s]+)\\]`));
+    if (!m) throw new Error(`${name} not found in src/data/contact.ts`);
+    return String.fromCharCode(...m[1].split(",").map(Number));
+  };
+  const email = codes("EMAIL_CODES");
+  const phone = codes("PHONE_CODES");
+  return [email, email.split("@")[0], phone, phone.slice(3)];
 }
+
+/* My Instagram handle is the same as the email's local part. The handle is
+   public on Instagram anyway, so the profile link is allowed: remove it
+   before looking for the needles. Anywhere else, the local part still counts. */
+export const withoutProfileLinks = (text) => text.replace(/instagram\.com\/[\w.]+/g, "");

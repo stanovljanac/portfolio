@@ -8,12 +8,13 @@
      (comments, links) and embedded files, so nothing private ships by accident.
    - --write keeps only Title "Mihailo Šebek — CV" and Author; every other
      Info entry and the XMP packet are removed.
-   - Fails (exit 1) when the text holds something that looks like a phone
-     number. The PDF is plain text to a scraper, so whatever is in it bypasses
-     the email obfuscation on the site; the public CV has no phone number.
+   - Fails (exit 1) when the text holds a phone number other than my own.
+     Mine is published on purpose (the site's Viber and WhatsApp links, read
+     from the character codes in src/data/contact.ts); any other number in a
+     public PDF is a mistake.
    - Points out known typos in the CV text (warnings only).
 
-   Exit codes: 0 ok, 1 phone number found, 2 usage error. */
+   Exit codes: 0 ok, 1 unexpected phone number, 2 usage error. */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { PDFDocument, PDFName } from "pdf-lib";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
@@ -27,6 +28,19 @@ const INFO_KEYS = ["Title", "Author", "Subject", "Keywords", "Creator", "Produce
 /* 9 or more digits, optionally with + / 00 and short separators between them.
    A year range ("2020-2026") has only 8 digits, so it does not match. */
 const PHONE = /(?:\+|\b00)?\d(?:[\s\-/.()]{0,2}\d){8,14}/g;
+
+/* My number, international format, digits only: the same codes the site uses. */
+const OWN_PHONE = (() => {
+  const src = readFileSync(new URL("../src/data/contact.ts", import.meta.url), "utf8");
+  const m = src.match(/PHONE_CODES\s*=\s*\[([\d,\s]+)\]/);
+  if (!m) throw new Error("PHONE_CODES not found in src/data/contact.ts");
+  return String.fromCharCode(...m[1].split(",").map(Number));
+})();
+/** Whether a number found in the text is mine, written internationally (+381…, 00381…) or locally (06…). */
+const isOwn = (found) => {
+  const d = found.replace(/\D/g, "").replace(/^00/, "");
+  return d === OWN_PHONE || (d.startsWith("0") && "381" + d.slice(1) === OWN_PHONE);
+};
 
 const TYPOS = [
   [/\bfor freelancer\b(?!s)/i, "“for freelancer” → “for freelancers”"],
@@ -107,11 +121,14 @@ console.log("\nEmbedded files");
 console.log(r.attachments.length ? r.attachments.map((a) => `  ⚠ ${a.filename}${a.content ? ` (${a.content.length} bytes)` : ""}`).join("\n") : "  none");
 
 console.log("\nText");
-const phones = r.lines.flatMap((l) => l.match(PHONE) ?? []);
+const phones = r.lines.flatMap((l) => l.match(PHONE) ?? []).map((p) => p.trim());
+const own = phones.filter(isOwn);
+const other = phones.filter((p) => !isOwn(p));
 for (const [re, msg] of TYPOS) if (r.lines.some((l) => re.test(l))) console.log(`  ⚠ ${msg}`);
-if (phones.length) {
-  console.log(`  ✖ phone number found: ${phones.map((p) => p.trim()).join(", ")}`);
-  console.log("    Export a public version of the CV without it.");
+if (own.length) console.log(`  ℹ my phone number: ${own.join(", ")} (published on purpose, like the site's Viber and WhatsApp links)`);
+if (other.length) {
+  console.log(`  ✖ phone number found: ${other.join(", ")}`);
+  console.log("    Only my own number belongs in the public CV. Export a version without this one.");
   process.exit(1);
 }
-console.log("  ✓ no phone number found");
+console.log(own.length ? "  ✓ no other phone number found" : "  ✓ no phone number found");

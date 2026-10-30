@@ -1,10 +1,8 @@
-import { Analytics } from "@vercel/analytics/react";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { Projects } from "./components/Projects";
-import { HowIBuild } from "./components/HowIBuild";
-import { Qa } from "./components/Qa";
 import { About } from "./components/About";
+import { Experience } from "./components/Experience";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -18,13 +16,11 @@ export default function App() {
       <main id="main">
         <Hero />
         <Projects />
-        <HowIBuild />
-        <Qa />
         <About />
+        <Experience />
         <Contact />
       </main>
       <Footer />
-      <Analytics />
     </div>
   );
 }

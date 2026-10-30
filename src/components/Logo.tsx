@@ -17,7 +17,7 @@ export function LogoMark({ size = 40 }: { size?: number }) {
   );
 }
 
-/* Mark + wordmark. The wordmark is real text in the site font. */
+/* Mark + wordmark, as real text in the site font. */
 export function Logo({ size = 40 }: { size?: number }) {
   return (
     <span className="logo">

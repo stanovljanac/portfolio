@@ -4,7 +4,7 @@
    Run after `npm run build`. No browser needed. */
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { ROOT, contactNeedles } from "./_lib.mjs";
+import { ROOT, contactNeedles, withoutProfileLinks } from "./_lib.mjs";
 
 const DIST = join(ROOT, "dist");
 const needles = contactNeedles();
@@ -20,7 +20,7 @@ walk(DIST);
 const hits = [];
 for (const f of files) {
   if (relative(DIST, f).replaceAll("\\", "/").startsWith("cv/")) continue;
-  const text = readFileSync(f, "latin1");
+  const text = withoutProfileLinks(readFileSync(f, "latin1"));
   needles.forEach((n, i) => {
     if (text.includes(n)) hits.push(`${relative(ROOT, f)} (needle #${i + 1})`);
   });

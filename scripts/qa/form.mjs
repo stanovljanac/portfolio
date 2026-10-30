@@ -31,7 +31,6 @@ async function open(reply) {
 }
 
 async function fill(p) {
-  await p.check('input[name="reason"][value="job"]');
   await p.fill('input[name="name"]', "Ada Lovelace");
   await p.fill('input[name="email"]', "ada@example.com");
   await p.fill('textarea[name="message"]', "Hello from the QA script.");
@@ -44,7 +43,7 @@ const errorText = (p) => p.locator(".contact__error").textContent({ timeout: 300
   await p.click('.contact__form button[type="submit"]');
   const errs = await p.locator(".mb-field__hint--error").allTextContents();
   const focused = await p.evaluate(() => document.activeElement.getAttribute("name"));
-  check(errs.length === 4 && focused === "reason", `empty submit: ${errs.length} field errors, focus on "${focused}"`);
+  check(errs.length === 3 && focused === "name", `empty submit: ${errs.length} field errors, focus on "${focused}"`);
   await fill(p);
   await p.fill('input[name="email"]', "ada@");
   await p.click('.contact__form button[type="submit"]');
@@ -76,7 +75,8 @@ if (!keyed) {
     await p.waitForSelector(".contact__success", { timeout: 5000 }).catch(() => {});
     const ok = await p.locator(".contact__success").isVisible();
     check(ok && calls.length === 1, `success after a double click, requests made: ${calls.length}`);
-    check(/name="reason"\r\n\r\nA job opportunity/.test(calls[0] ?? ""), "the reason is sent as its label");
+    check(/name="subject"\r\n\r\nNew message from mihailobuilds\.com/.test(calls[0] ?? ""), "the subject is sent");
+    check(/name="botcheck"/.test(calls[0] ?? "") === false, "the empty honeypot is not sent");
     await ctx.close();
   }
   for (const [reply, re, label] of [

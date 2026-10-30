@@ -1,13 +1,11 @@
 import { Button } from "../ds";
 import { useScrolled } from "../hooks/useScrolled";
 import { Logo } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
 
 const LINKS = [
-  { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
-  { href: "#qa", label: "QA" },
-  { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Experience" },
 ];
 
 export function Nav() {
@@ -16,7 +14,7 @@ export function Nav() {
     <header className={"nav" + (scrolled ? " is-scrolled" : "")}>
       <div className="nav__inner">
         <a className="nav__logo" href="#top" aria-label="Mihailo Builds, back to top">
-          <Logo size={36} />
+          <Logo size={34} />
         </a>
         <nav className="nav__links" aria-label="Sections">
           {LINKS.map((l) => (
@@ -25,12 +23,9 @@ export function Nav() {
             </a>
           ))}
         </nav>
-        <div className="nav__actions">
-          <ThemeToggle />
-          <Button as="a" href="#contact" variant="primary" size="sm">
-            Say hi
-          </Button>
-        </div>
+        <Button as="a" href="#contact" variant="primary" size="sm" className="nav__cta">
+          Contact
+        </Button>
       </div>
     </header>
   );

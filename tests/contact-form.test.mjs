@@ -2,26 +2,21 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { validate, submitError } from "../src/lib/contact-form.ts";
 
-const ok = { reason: "idea", name: "Ada", email: "ada@example.com", message: "Hello" };
+const ok = { name: "Ada", email: "ada@example.com", message: "Hello" };
 
 test("a complete message has no errors", () => {
   assert.deepEqual(validate(ok), {});
 });
 
 test("every empty field gets its own message", () => {
-  const e = validate({ reason: "", name: " ", email: "", message: "\n" });
-  assert.equal(e.reason, "Choose what your message is about.");
-  assert.equal(e.name, "Please enter your name.");
-  assert.equal(e.email, "Please enter your email, so I can reply.");
-  assert.equal(e.message, "Please write a message.");
+  const e = validate({ name: " ", email: "", message: "\n" });
+  assert.equal(e.name, "Enter your name.");
+  assert.equal(e.email, "Enter your email, so I can reply.");
+  assert.equal(e.message, "Write a message.");
 });
 
 test("an email without a domain is called out as invalid", () => {
   assert.equal(validate({ ...ok, email: "ada@" }).email, "That email address doesn't look right. Check for typos.");
-});
-
-test("an unknown reason is rejected", () => {
-  assert.equal(validate({ ...ok, reason: "spam" }).reason, "Choose what your message is about.");
 });
 
 test("a missing access key says the form is not connected", () => {
