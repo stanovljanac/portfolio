@@ -30,9 +30,9 @@ const webp = (slug: string): Shot => ({
 export const PROJECTS: Project[] = [
   {
     slug: "web-studio-demo",
-    name: "Web Studio Demo",
-    kind: "Demo business website",
-    desc: "The website of Northlane Studio, a made-up web studio for small businesses: work, services and starting prices, process, FAQ and a contact form.",
+    name: "Northlane Studio",
+    kind: "Web agency website",
+    desc: "Demo website for a made-up web agency that serves small businesses: work, services and starting prices, process, FAQ and a contact form.",
     stack: ["Vite", "React", "TypeScript"],
     url: "https://demostudio.mihailobuilds.com/",
     shot: webp("web-studio-demo"),
